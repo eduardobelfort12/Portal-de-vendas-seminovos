@@ -34,13 +34,16 @@ export default function NavHeader() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Link className={classes.root} to="/">
-              <Nav.Link href="#Seminovos">Home</Nav.Link>
+              <Nav.Link href="#home">Home</Nav.Link>
             </Link>
-            <Link className={classes.root} to="Tora-Seminovos">
+            <Link className={classes.root} to="/Tora-Seminovos">
               <Nav.Link href="#Tora-seminovos">Tora-Seminovos</Nav.Link>
             </Link>
-            <Link className={classes.root} to="Estoque">
+            <Link className={classes.root} to="/Estoque">
               <Nav.Link href="#Estoque">Estoque</Nav.Link>
+            </Link>
+            <Link className={classes.root} to="/Contatos">
+              <Nav.Link href="#Contato">Contato</Nav.Link>
             </Link>
           </Nav>
         </Navbar.Collapse>
