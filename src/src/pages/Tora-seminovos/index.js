@@ -42,18 +42,6 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     background: "#006640",
     padding: theme.spacing(5),
-<<<<<<< HEAD
-=======
-  },
-  font: {
-    fontSize: "14px",
-    paddin: "20px",
-  },
-  img: {
-    padding: "5px",
-    maxWidth: '100%',
-   
->>>>>>> 00fd495c50b558960ce6f5ba3fa76711c02d0c87
   },
   font: {
     fontSize: "14px",
@@ -64,9 +52,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
    
   },
-  overflow: {
-    overflowX: 'hidden',
-  }
 }));
 
 export default function Seminovos() {
@@ -76,11 +61,7 @@ export default function Seminovos() {
     <React.Fragment>
       <CssBaseline />
       <NavHeader />
-<<<<<<< HEAD
-      <main className={classes.overflow}>
-=======
       <main>
->>>>>>> 00fd495c50b558960ce6f5ba3fa76711c02d0c87
         <div className={classes.heroContent}>
           <div>
             {" "}

@@ -4,37 +4,15 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Login from "../loginComponent";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     textDecoration: "none",
   },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  paper: {
-    boxShadow: theme.shadows[0],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
+});
 
 export default function NavHeader() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <Navbar
       fixed="top"
@@ -65,34 +43,11 @@ export default function NavHeader() {
               <Nav.Link href="#Estoque">Estoque</Nav.Link>
             </Link>
             <Link className={classes.root} to="/Contatos">
-<<<<<<< HEAD
-              <Nav.Link href="#Contato">Contatos</Nav.Link>
-            </Link>
-            <Link className={classes.root} to="/Login">
-              <Nav.Link onClick={handleOpen}>Login</Nav.Link>
-=======
               <Nav.Link href="#Contato">Contato</Nav.Link>
->>>>>>> 00fd495c50b558960ce6f5ba3fa76711c02d0c87
             </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <Modal
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 1000,
-        }}
-      >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            <Login />
-          </div>
-        </Fade>
-      </Modal>
     </Navbar>
   );
 }
