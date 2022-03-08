@@ -1,40 +1,18 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import NavHeader from "../../components/header";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 import Carousell from "../../components/carousel";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import FullWidthGrid from "../../components/infoHome";
+import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    width: 400,
-    bgcolor: "background.paper",
-    border: "",
-    boxShadow: 24,
-    p: 10,
+  filter: {
+    padding: "30px",
   },
-
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -62,12 +40,22 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
+    background: "#006640",
+    padding: theme.spacing(5),
   },
+  font: {
+    fontSize: "14px",
+    paddin: "20px",
+  },
+  img: {
+    padding: "5px",
+    maxWidth: '100%',
+   
+  },
+  overflow: {
+    overflowX: 'hidden',
+  }
 }));
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Seminovos() {
   const classes = useStyles();
@@ -76,12 +64,12 @@ export default function Seminovos() {
     <React.Fragment>
       <CssBaseline />
       <NavHeader />
-      <div>
-        <Carousell />
-      </div>
-      <main>
-        {/* Hero unit */}
+      <main className={classes.overflow}>
         <div className={classes.heroContent}>
+          <div>
+            {" "}
+            <Carousell />
+          </div>
           <Container>
             <Typography variant="h4" align="center"></Typography>
           </Container>
@@ -89,46 +77,71 @@ export default function Seminovos() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={3}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://toraseminovos.com.br/wp-content/uploads/2022/01/20220221_084701.jpg"
-                    title="Image title"
+            <Grid md={6}>
+              <Paper>
+                <div>
+                  <img
+                    className={classes.img}
+                    src="https://toraseminovos.com.br/wp-content/themes/toraseminovos/img/quemsomos.jpg"
+                    alt=""
                   />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h6" component="h2">
-                      CONJUNTO 8X2 VOLVO FH 460 19/20 BASCULANTE 8X2 FACHINI
-                      2019 40 M3
-                    </Typography>
-                    <Typography>Caminhão / Volvo / FH</Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      Visualizar
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+                </div>
+              </Paper>
+            </Grid>
+            <Grid item xs="auto" md="6">
+              <Typography variant="h6" align="left">
+                Bem Vindo a Tora Seminovos
+              </Typography>
+              <Typography
+                align="left"
+                paragraph={true}
+                className={classes.font}
+              >
+                Criada em 1972, a TORA é um dos maiores operadores logísticos do
+                país. Temos como objetivo garantir qualidade, segurança e
+                agilidade em nossas operações, alinhando tecnologia e processos
+                inovadores.
+              </Typography>
+              <Typography variant="h6">
+                Atuamos com os seguintes negócios:
+              </Typography>
+              <Typography className={classes.font} paragraph={true}>
+                Transporte Rodoviário Nacional e Internacional (Mercosul)
+                Logística de terminais com integração rodoferroviária Centro
+                Logístico Aduaneiro (CLIA)
+              </Typography>
+              <Typography className={classes.font} paragraph={true}>
+                <ul>
+                  <li>
+                    Transporte Rodoviário Nacional e Internacional (Mercosul)
+                  </li>
+                  <li>Logística de terminais com integração rodoferroviária</li>
+                  <li>Centro Logístico Aduaneiro (CLIA)</li>
+                </ul>
+              </Typography>
+              <Typography className={classes.font}>
+                A TORA SEMINOVOS é uma empresa criada para comercializar os
+                ativos do grupo Tora utilizados nas suas atividades.
+              </Typography>
+            </Grid>
           </Grid>
         </Container>
+        <section>
+          <div className={classes.heroContent}>
+            <FullWidthGrid />
+          </div>
+        </section>
       </main>
+
       {/* Footer */}
       <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
+        <div align="center">
+          <img
+            src="https://toraseminovos.com.br/wp-content/themes/toraseminovos/img/logos/black-logo-tora.png"
+            alt=""
+            width="150px"
+          ></img>
+        </div>
       </footer>
       {/* End footer */}
     </React.Fragment>

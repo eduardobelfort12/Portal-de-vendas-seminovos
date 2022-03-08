@@ -21,11 +21,14 @@ const useStyles = makeStyles((theme) => ({
   icons: {
     width: "50%",
     height: "80px",
+    color: theme.palette.warning.light,
+    
   },
   typography: {
     fontSize: "12px",
   },
 }));
+
 
 export default function FullWidthGrid() {
   const classes = useStyles();
@@ -33,20 +36,20 @@ export default function FullWidthGrid() {
   return (
     <div className={classes.root}>
       <Typography variant="h5" align="center">
-        As melhores condições para adquirir seu seminovo
+       
       </Typography>
       <Grid container spacing={0}>
         <Grid item xs={12} sm={4}>
           <Paper className={classes.paper} elevation={20}>
-            <MonetizationOnIcon className={classes.icons} color="primary" />
-            <Typography classes={classes.typography}>
+            <MonetizationOnIcon className={classes.icons} color="inherit" />
+            <Typography classes={classes.typography} primary="warning">
               Financiamento próprio
             </Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
           <Paper className={classes.paper} elevation={20}>
-            <ThumbUpIcon className={classes.icons} color="primary" />
+            <ThumbUpIcon className={classes.icons} />
             <Typography classes={classes.typography}>
               Plano de Manutenção
             </Typography>
@@ -54,7 +57,7 @@ export default function FullWidthGrid() {
         </Grid>
         <Grid item xs={12} sm={4}>
           <Paper className={classes.paper} elevation={20}>
-            <VerifiedUserIcon className={classes.icons} color="primary" />
+            <VerifiedUserIcon className={classes.icons}  />
             <Typography classes={classes.typography}>
               Garantia Tora Seminovos
             </Typography>

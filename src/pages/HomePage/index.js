@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     background: "#006640",
     padding: theme.spacing(5),
   },
+  overflow: {
+    overflowX: 'hidden',
+  }
 }));
 
 const cards = [1, 2, 3, 4, 5, 6];
@@ -59,19 +62,16 @@ export default function Home() {
     <React.Fragment>
       <CssBaseline />
       <NavHeader />
-      <main>
+      <main className={classes.overflow}>
         <div className={classes.heroContent}>
           <div>
             {" "}
             <Carousell />
           </div>
           <Container className={classes.filter}>
-            <div>
+          <div>
               <CustomizedSelects />
             </div>
-          </Container>
-          <Container>
-            <Typography variant="h4" align="center"></Typography>
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">

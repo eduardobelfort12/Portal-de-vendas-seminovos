@@ -9,6 +9,7 @@ import CustomizedButtons from "../buttonFilter";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Box from "@material-ui/core/Box";
+import Paper from "@material-ui/core/Paper"
 
 const useStyles = makeStyles({
   formControl: {
@@ -23,9 +24,9 @@ const useStyles = makeStyles({
     padding: "10px",
   },
   card: {
-    border: "1px ",
+    border: "none",
     backgroud: "#cac4c4",
-    boxShadow: "2px 4px 4px 2.5px grey",
+   
   },
 });
 
@@ -39,6 +40,7 @@ export default function BasicSelect() {
   };
 
   return (
+    <Paper elevation={10}>
     <Box align="center">
       <Card className={classes.card}>
         <CardContent>
@@ -145,5 +147,6 @@ export default function BasicSelect() {
         </CardContent>
       </Card>
     </Box>
+    </Paper>
   );
 }
