@@ -65,14 +65,10 @@ export default function NavHeader() {
               <Nav.Link href="#Estoque">Estoque</Nav.Link>
             </Link>
             <Link className={classes.root} to="/Contatos">
-<<<<<<< HEAD
               <Nav.Link href="#Contato">Contatos</Nav.Link>
             </Link>
             <Link className={classes.root} to="/Login">
               <Nav.Link onClick={handleOpen}>Login</Nav.Link>
-=======
-              <Nav.Link href="#Contato">Contato</Nav.Link>
->>>>>>> 00fd495c50b558960ce6f5ba3fa76711c02d0c87
             </Link>
           </Nav>
         </Navbar.Collapse>
