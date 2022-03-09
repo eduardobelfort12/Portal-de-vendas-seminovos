@@ -10,6 +10,7 @@ import { Box } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { PhotoCamera } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
+import api from "../../../axios/api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     width: "50vw",
     height: "50px",
   },
-  inputs: { 
+  inputs: {
     padding: "5px",
     margin: "5px",
   },
@@ -52,6 +53,48 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CadastrarVeiculos() {
   const classes = useStyles();
+  // const [
+  //   telefone,
+  //   preco,
+  //   potencia,
+  //   torque,
+  //   km,
+  //   cor,
+  //   cabine,
+  //   tiposuspensao,
+  //   relacaodiferencial,
+  //   entreeixo,
+  //   capacidadeCombustivel,
+  //   opcionais,
+  //   informacoesAdicionais,
+  //  setPost
+  // ] = useState('')
+  //Requisição com axios para cadastrar
+
+  const handleRegister = (values) => {
+    api
+      .post("/registrar", {
+        telefone: values.telefone,
+        preco: values.preco,
+        potencia: values.potencia,
+        torque: values.torque,
+        km: values.km,
+        cor: values.cor,
+        cabine: values.cabine,
+        tiposuspensao: values.tiposuspensao,
+        relacaodiferencial: values.relacaodiferencial,
+        entreeixo: values.entreeixo,
+        capacidadecombustivel: values.capacidadecombustivel,
+        opcionais: values.opcionais,
+        informacoesadicionais: values.informacoesadicionais,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -70,17 +113,15 @@ export default function CadastrarVeiculos() {
             <LocalShippingIcon className={classes.icon} />
           </div>
           <Typography component="h6" variant="h5"></Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleRegister}>
             <Box
-              
               component="form"
               sx={{
                 justifyContent: "center",
                 display: "flex",
                 flexWrap: "wrap",
-                maxWidth: '100%',
-                m:2.5,
-                
+                maxWidth: "100%",
+                m: 2.5,
               }}
               noValidate
               autoComplete="off"
@@ -90,12 +131,9 @@ export default function CadastrarVeiculos() {
                 variant="outlined"
                 margin="normal"
                 required
-                fullWidth
                 size="small"
-                id="telefone"
                 label="Telefone de Contato"
                 name="telefone"
-                autoComplete="current-email"
                 autoFocus
               />
               <TextField
@@ -103,12 +141,8 @@ export default function CadastrarVeiculos() {
                 variant="outlined"
                 margin="normal"
                 required
-                fullWidth
-                size="small"
-                id="preco"
                 label="Valor do veiculo"
                 name="preco"
-                autoComplete="current-email"
                 autoFocus
               />
               <TextField
@@ -116,12 +150,10 @@ export default function CadastrarVeiculos() {
                 variant="outlined"
                 margin="normal"
                 required
-                fullWidth
                 size="small"
-                id="Potencia"
+                id="potencia"
                 label="Potência"
-                name="Potência"
-                autoComplete=""
+                name="potencia"
                 autoFocus
               />
 
@@ -143,10 +175,8 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                id="km"
                 label="Quilometragem"
                 name="km"
-                autoComplete=""
                 autoFocus
               />
               <TextField
@@ -155,10 +185,8 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                id="cor"
                 label="Cor do veículo"
                 name="cor"
-                autoComplete=""
                 autoFocus
               />
               <TextField
@@ -167,10 +195,8 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                id="cabine"
                 label="Cabine"
                 name="cabine"
-                autoComplete=""
                 autoFocus
               />
               <TextField
@@ -179,10 +205,8 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                id="realcaodiferencial"
                 label="Relação Diferencial"
                 name="relacaodiferencial"
-                autoComplete=""
                 autoFocus
               />
               <TextField
@@ -191,10 +215,8 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                id="tiposuspensao"
                 label="Tipo de suspensão"
                 name="tiposuspensao"
-                autoComplete=""
                 autoFocus
               />
               <TextField
@@ -203,10 +225,8 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                id="entreeixo"
                 label="Entre Eixo"
                 name="entreeixo"
-                autoComplete=""
                 autoFocus
               />
               <TextField
@@ -215,10 +235,8 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                id="capacidadeCombustivel"
                 label="Capacidade de Combustivel"
-                name="capacidadeCombustivel"
-                autoComplete=""
+                name="capacidadecombustivel"
                 autoFocus
               />
               <TextField
@@ -227,10 +245,8 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                id="opcionais"
                 label="Opcionais"
                 name="opcionais"
-                autoComplete=""
                 autoFocus
               />
               <TextField
@@ -238,11 +254,9 @@ export default function CadastrarVeiculos() {
                 variant="outlined"
                 margin="normal"
                 required
-                fullWidth
                 size="small"
-                id="informacoesAdicionais"
                 label="Informações Adicionais"
-                name="informacoesAdiconais"
+                name="informacoesadiconais"
                 autoComplete=""
                 autoFocus
               />
@@ -251,7 +265,8 @@ export default function CadastrarVeiculos() {
               <input
                 accept="image/*"
                 className={classes.inputNone}
-                id="contained-button-file"
+                id="image"
+                name="image"
                 multiple
                 type="file"
               />
@@ -263,7 +278,8 @@ export default function CadastrarVeiculos() {
               <input
                 accept="image/*"
                 className={classes.inputNone}
-                id="icon-button-file"
+                id="image"
+                name="image"
                 type="file"
               />
               <label htmlFor="icon-button-file">
@@ -277,12 +293,12 @@ export default function CadastrarVeiculos() {
               </label>
               <Button
                 type="submit"
-                fullWidth
                 variant="contained"
                 className={classes.submit}
               >
                 Cadstrar Veiculo
               </Button>
+              
             </Box>
           </form>
         </div>
