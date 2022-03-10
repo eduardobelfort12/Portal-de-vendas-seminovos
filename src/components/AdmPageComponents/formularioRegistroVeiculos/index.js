@@ -8,10 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import { PhotoCamera } from "@material-ui/icons";
-import { IconButton } from "@material-ui/core";
 import api from "../../../axios/api";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100vw",
@@ -53,48 +50,65 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CadastrarVeiculos() {
   const classes = useStyles();
-  // const [
-  //   telefone,
-  //   preco,
-  //   potencia,
-  //   torque,
-  //   km,
-  //   cor,
-  //   cabine,
-  //   tiposuspensao,
-  //   relacaodiferencial,
-  //   entreeixo,
-  //   capacidadeCombustivel,
-  //   opcionais,
-  //   informacoesAdicionais,
-  //  setPost
-  // ] = useState('')
-  //Requisição com axios para cadastrar
 
-  const handleRegister = (values) => {
+  function handleRegister() {
+
     api
       .post("/registrar", {
-        telefone: values.telefone,
-        preco: values.preco,
-        potencia: values.potencia,
-        torque: values.torque,
-        km: values.km,
-        cor: values.cor,
-        cabine: values.cabine,
-        tiposuspensao: values.tiposuspensao,
-        relacaodiferencial: values.relacaodiferencial,
-        entreeixo: values.entreeixo,
-        capacidadecombustivel: values.capacidadecombustivel,
-        opcionais: values.opcionais,
-        informacoesadicionais: values.informacoesadicionais,
+        telefone: document.getElementById('telefone').value,
+        preco: document.getElementById('preco').value,
+        potencia: document.getElementById('potencia').value,
+        torque: document.getElementById('torque').value,
+        km: document.getElementById('km').value,
+        cor: document.getElementById('cor').value,
+        cabine: document.getElementById('cabine').value,
+        tiposuspensao: document.getElementById('tiposuspensao').value,
+        relacaodiferencial: document.getElementById('relacaodiferencial').value,
+        entreeixo: document.getElementById('entreeixo').value,
+        capacidadecombustivel: document.getElementById('capacidadecombustivel')
+          .value,
+        opcionais: document.getElementById('opcionais').value,
+        informacoesadicionais: document.getElementById('informacoesadicionais')
+          .value,
+          image: document.getElementById('image').value,
       })
-      .then((response) => {
-        console.log(response);
+      .then((data) => {
+        alert('Cadastro inserido com sucesso!')
+        console.log(data);
       })
       .catch((err) => {
+        alert('Erro ao inserir registro!')
         console.log(err);
       });
-  };
+  }
+
+  // const handleRegister = (values) => {
+
+  //   api
+  //     .post("/registrar", {
+  // telefone: values.telefone,
+  // preco: values.preco
+  // potencia: values.potencia,
+  // torque: values.torque,
+  // km: values.km,
+  // cor: values.cor,
+  // cabine: values.cabine,
+  // tiposuspensao: values.tiposuspensao,
+  // relacaodiferencial: values.relacaodiferencial,
+  // entreeixo: values.entreeixo,
+  // capacidadecombustivel: values.capacidadecombustivel,
+  // opcionais: values.opcionais,
+  // informacoesadicionais: values.informacoesadicionais,
+  //     })
+  //     .then((response) => {
+  //       alert("Cadastro inserido com sucesso!");
+  //       console.log(response);
+  //     })
+  //     .catch((err) => {
+  //       alert("Erro ao inseir dados no sistema!");
+  //       console.log(err);
+  //     });
+  // };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -113,7 +127,11 @@ export default function CadastrarVeiculos() {
             <LocalShippingIcon className={classes.icon} />
           </div>
           <Typography component="h6" variant="h5"></Typography>
-          <form className={classes.form} noValidate onSubmit={handleRegister}>
+          <form
+            className={classes.form}
+            onSubmit={ handleRegister }
+            encType="multipart/form-data"
+          >
             <Box
               component="form"
               sx={{
@@ -132,6 +150,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                id="telefone"
                 label="Telefone de Contato"
                 name="telefone"
                 autoFocus
@@ -140,7 +159,9 @@ export default function CadastrarVeiculos() {
                 className={classes.inputs}
                 variant="outlined"
                 margin="normal"
+                size="small"
                 required
+                id="preco"
                 label="Valor do veiculo"
                 name="preco"
                 autoFocus
@@ -166,7 +187,6 @@ export default function CadastrarVeiculos() {
                 id="torque"
                 label="Torque"
                 name="torque"
-                autoComplete=""
                 autoFocus
               />
               <TextField
@@ -175,6 +195,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                id="km"
                 label="Quilometragem"
                 name="km"
                 autoFocus
@@ -185,6 +206,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                id="cor"
                 label="Cor do veículo"
                 name="cor"
                 autoFocus
@@ -195,6 +217,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                id="cabine"
                 label="Cabine"
                 name="cabine"
                 autoFocus
@@ -205,6 +228,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                id="relacaodiferencial"
                 label="Relação Diferencial"
                 name="relacaodiferencial"
                 autoFocus
@@ -215,6 +239,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                id="tiposuspensao"
                 label="Tipo de suspensão"
                 name="tiposuspensao"
                 autoFocus
@@ -225,6 +250,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                id="entreeixo"
                 label="Entre Eixo"
                 name="entreeixo"
                 autoFocus
@@ -235,6 +261,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                id="capacidadedecombustivel"
                 label="Capacidade de Combustivel"
                 name="capacidadecombustivel"
                 autoFocus
@@ -245,6 +272,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                id="opcionais"
                 label="Opcionais"
                 name="opcionais"
                 autoFocus
@@ -255,6 +283,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                id="informacoesadicionais"
                 label="Informações Adicionais"
                 name="informacoesadiconais"
                 autoComplete=""
@@ -262,43 +291,14 @@ export default function CadastrarVeiculos() {
               />
             </Box>
             <Box align="center">
-              <input
-                accept="image/*"
-                className={classes.inputNone}
-                id="image"
-                name="image"
-                multiple
-                type="file"
-              />
-              <label htmlFor="contained-button-file">
-                <Button variant="contained" color="primary" component="span">
-                  Upload
-                </Button>
-              </label>
-              <input
-                accept="image/*"
-                className={classes.inputNone}
-                id="image"
-                name="image"
-                type="file"
-              />
-              <label htmlFor="icon-button-file">
-                <IconButton
-                  color="primary"
-                  aria-label="upload picture"
-                  component="span"
-                >
-                  <PhotoCamera />
-                </IconButton>
-              </label>
+              <input type={'file'} name="image" id="image" />
               <Button
                 type="submit"
                 variant="contained"
                 className={classes.submit}
               >
-                Cadstrar Veiculo
+                Cadastrar Veiculo
               </Button>
-              
             </Box>
           </form>
         </div>
