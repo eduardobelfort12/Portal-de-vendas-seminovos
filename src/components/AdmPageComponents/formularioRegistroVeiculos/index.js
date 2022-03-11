@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,37 +51,59 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CadastrarVeiculos() {
   const classes = useStyles();
+  const [image, setImage] = useState('')
+  // const [endImg, setEndImg] = useState('')
+  const handleRegister = async e => {
+    e.preventDefault();
+    const formData = new FormData()
+    formData.append('image', image)
 
-  function handleRegister() {
-
-    api
-      .post("/registrar", {
-        telefone: document.getElementById('telefone').value,
-        preco: document.getElementById('preco').value,
-        potencia: document.getElementById('potencia').value,
-        torque: document.getElementById('torque').value,
-        km: document.getElementById('km').value,
-        cor: document.getElementById('cor').value,
-        cabine: document.getElementById('cabine').value,
-        tiposuspensao: document.getElementById('tiposuspensao').value,
-        relacaodiferencial: document.getElementById('relacaodiferencial').value,
-        entreeixo: document.getElementById('entreeixo').value,
-        capacidadecombustivel: document.getElementById('capacidadecombustivel')
-          .value,
-        opcionais: document.getElementById('opcionais').value,
-        informacoesadicionais: document.getElementById('informacoesadicionais')
-          .value,
-          image: document.getElementById('image').value,
-      })
-      .then((data) => {
-        alert('Cadastro inserido com sucesso!')
-        console.log(data);
-      })
-      .catch((err) => {
-        alert('Erro ao inserir registro!')
-        console.log(err);
-      });
+    await api.post('/registrar' , formData , { 
+      image: document.getElementById('image').value
+    })
+    .then(response => {
+      console.log(response)
+    }).catch(err => {
+      if(err.response) {
+        console.log(err.response)
+      }else{
+        console.log('Erro: Tente novamente mais tarde')
+      }
+    })  
   }
+  
+      
+  
+  // function handleRegister() {
+
+  //   api
+  //     .post("/registrar", {
+  //       telefone: document.getElementById('telefone').value,
+  //       preco: document.getElementById('preco').value,
+  //       potencia: document.getElementById('potencia').value,
+  //       torque: document.getElementById('torque').value,
+  //       km: document.getElementById('km').value,
+  //       cor: document.getElementById('cor').value,
+  //       cabine: document.getElementById('cabine').value,
+  //       tiposuspensao: document.getElementById('tiposuspensao').value,
+  //       relacaodiferencial: document.getElementById('relacaodiferencial').value,
+  //       entreeixo: document.getElementById('entreeixo').value,
+  //       capacidadecombustivel: document.getElementById('capacidadecombustivel')
+  //         .value,
+  //       opcionais: document.getElementById('opcionais').value,
+  //       informacoesadicionais: document.getElementById('informacoesadicionais')
+  //         .value,
+  //         image: document.getElementById('image').value,
+  //     })
+  //     .then((data) => {
+  //       alert('Cadastro inserido com sucesso!')
+  //       console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       alert('Erro ao inserir registro!')
+  //       console.log(err);
+  //     });
+  // }
 
   // const handleRegister = (values) => {
 
@@ -291,7 +314,11 @@ export default function CadastrarVeiculos() {
               />
             </Box>
             <Box align="center">
-              <input type={'file'} name="image" id="image" />
+              <input type={'file'} name="image" id="image" onChange={e => setImage(e.target.files[0])}/><br></br>
+              <div>
+              {image ? <img src={URL.createObjectURL(image)} width="100" height="100" alt="imagem" /> : <div ><PhotoCamera style={{width : "85" , height: "85"}}/></div>}
+              </div>
+      
               <Button
                 type="submit"
                 variant="contained"
@@ -306,3 +333,4 @@ export default function CadastrarVeiculos() {
     </Grid>
   );
 }
+
