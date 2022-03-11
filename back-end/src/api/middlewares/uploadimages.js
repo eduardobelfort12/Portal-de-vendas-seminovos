@@ -17,6 +17,5 @@ module.exports = multer({
         return cb(null, true)
     }
         return(null, false)
-    
   },
 });
