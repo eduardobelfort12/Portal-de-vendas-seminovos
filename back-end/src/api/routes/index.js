@@ -1,5 +1,5 @@
 const routes = require('express').Router()
-const {cadastroVeiculosController} = require('../controllers/cadastroVeiculos')
+const {cadastroVeiculosController, buscarImageController} = require('../controllers/cadastroVeiculos')
 const uploadUser = require("../middlewares/uploadimages");
 
 routes.get('/teste', async(req, res) => {
@@ -9,6 +9,6 @@ routes.get('/teste', async(req, res) => {
 
 
 routes.post('/registrar' ,uploadUser.single('image') , cadastroVeiculosController)
-
+routes.get('/buscar', buscarImageController )
 
 module.exports = routes

@@ -316,7 +316,7 @@ export default function CadastrarVeiculos() {
             <Box align="center">
               <input type={'file'} name="image" id="image" onChange={e => setImage(e.target.files[0])}/><br></br>
               <div>
-              {image ? <img src={URL.createObjectURL(image)} width="100" height="100" alt="imagem" /> : <div ><PhotoCamera style={{width : "85" , height: "85"}}/></div>}
+              {image ? <img src={URL.createObjectURL(image)} width="130" height="130" alt="imagem" /> : <div ><PhotoCamera style={{width : "85" , height: "85"}}/></div>}
               </div>
       
               <Button
