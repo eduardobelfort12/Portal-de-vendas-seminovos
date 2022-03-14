@@ -68,12 +68,14 @@ export default function Home() {
             {" "}
             <Carousell />
           </div>
+
           <Container className={classes.filter}>
           <div>
               <CustomizedSelects />
             </div>
           </Container>
         </div>
+       
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={3}>

@@ -52,16 +52,46 @@ const useStyles = makeStyles((theme) => ({
 export default function CadastrarVeiculos() {
   const classes = useStyles();
   const [image, setImage] = useState('')
+  const [ marca, setMarca] = useState('')
+  const [modelo, setModelo] = useState('')
+  const [preco, setPreco] = useState('')
+  const [telefone, setTelefone] = useState('')
+  const [potencia, setPotencia] = useState('')
+  const [torque, setTorque] = useState('')
+  const [km, setKm] = useState('')  
+  const [cor, setCor] = useState('')
+  const [cabine, setCabine] = useState('')
+  const [tiposuspensao, setTiposuspensao] = useState('')
+  const [relacaodiferencial, setRelacaodiferencial] = useState('')
+  const [entreeixo, setEntreeixo] = useState('')
+  const [capacidadecombustivel, setCapacidadecombustivel] = useState('')
+  const [opcionais, setOpcionais] = useState('')
+  const [informacoesadicionais, setInformacoesadicionais] = useState('')
   // const [endImg, setEndImg] = useState('')
   const handleRegister = async e => {
     e.preventDefault();
     const formData = new FormData()
     formData.append('image', image)
+    formData.append('marca', marca)
+    formData.append('modelo', modelo)
+    formData.append('telefone' , telefone )
+    formData.append('potencia' , potencia )
+    formData.append('torque' , torque )
+    formData.append('km', km )    
+    formData.append('preco', preco ) 
+    formData.append('cor', cor )
+    formData.append('cabine', cabine )
+    formData.append('tiposuspensao', tiposuspensao )
+    formData.append('relacaodiferencial',relacaodiferencial )
+    formData.append('entreeixo', entreeixo )
+    formData.append('capacidadecombustivel', capacidadecombustivel )
+    formData.append('opcionais', opcionais )
+    formData.append('informacoesadicionais', informacoesadicionais )                                   
 
-    await api.post('/registrar' , formData , { 
-      image: document.getElementById('image').value
-    })
+
+    await api.post('/registrar' , formData )
     .then(response => {
+      alert('Veículo cadastrado com sucesso!')
       console.log(response)
     }).catch(err => {
       if(err.response) {
@@ -72,66 +102,6 @@ export default function CadastrarVeiculos() {
     })  
   }
   
-      
-  
-  // function handleRegister() {
-
-  //   api
-  //     .post("/registrar", {
-  //       telefone: document.getElementById('telefone').value,
-  //       preco: document.getElementById('preco').value,
-  //       potencia: document.getElementById('potencia').value,
-  //       torque: document.getElementById('torque').value,
-  //       km: document.getElementById('km').value,
-  //       cor: document.getElementById('cor').value,
-  //       cabine: document.getElementById('cabine').value,
-  //       tiposuspensao: document.getElementById('tiposuspensao').value,
-  //       relacaodiferencial: document.getElementById('relacaodiferencial').value,
-  //       entreeixo: document.getElementById('entreeixo').value,
-  //       capacidadecombustivel: document.getElementById('capacidadecombustivel')
-  //         .value,
-  //       opcionais: document.getElementById('opcionais').value,
-  //       informacoesadicionais: document.getElementById('informacoesadicionais')
-  //         .value,
-  //         image: document.getElementById('image').value,
-  //     })
-  //     .then((data) => {
-  //       alert('Cadastro inserido com sucesso!')
-  //       console.log(data);
-  //     })
-  //     .catch((err) => {
-  //       alert('Erro ao inserir registro!')
-  //       console.log(err);
-  //     });
-  // }
-
-  // const handleRegister = (values) => {
-
-  //   api
-  //     .post("/registrar", {
-  // telefone: values.telefone,
-  // preco: values.preco
-  // potencia: values.potencia,
-  // torque: values.torque,
-  // km: values.km,
-  // cor: values.cor,
-  // cabine: values.cabine,
-  // tiposuspensao: values.tiposuspensao,
-  // relacaodiferencial: values.relacaodiferencial,
-  // entreeixo: values.entreeixo,
-  // capacidadecombustivel: values.capacidadecombustivel,
-  // opcionais: values.opcionais,
-  // informacoesadicionais: values.informacoesadicionais,
-  //     })
-  //     .then((response) => {
-  //       alert("Cadastro inserido com sucesso!");
-  //       console.log(response);
-  //     })
-  //     .catch((err) => {
-  //       alert("Erro ao inseir dados no sistema!");
-  //       console.log(err);
-  //     });
-  // };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -167,6 +137,30 @@ export default function CadastrarVeiculos() {
               noValidate
               autoComplete="off"
             >
+                 <TextField
+                className={classes.inputs}
+                variant="outlined"
+                margin="normal"
+                required
+                size="small"
+                id="marca"
+                onChange={e => setMarca(e.target.value)}
+                label="Marca veiculo"
+                name="marca"
+                autoFocus
+              />
+                    <TextField
+                className={classes.inputs}
+                variant="outlined"
+                margin="normal"
+                required
+                size="small"
+                id="modelo"
+                onChange={e => setModelo(e.target.value)}
+                label="Modelo veículo"
+                name="modelo"
+                autoFocus
+              />
               <TextField
                 className={classes.inputs}
                 variant="outlined"
@@ -174,6 +168,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="telefone"
+                onChange={e => setTelefone(e.target.value)}
                 label="Telefone de Contato"
                 name="telefone"
                 autoFocus
@@ -185,6 +180,7 @@ export default function CadastrarVeiculos() {
                 size="small"
                 required
                 id="preco"
+                onChange={e => setPreco(e.target.value)}
                 label="Valor do veiculo"
                 name="preco"
                 autoFocus
@@ -196,6 +192,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="potencia"
+                onChange={e => setPotencia(e.target.value)}
                 label="Potência"
                 name="potencia"
                 autoFocus
@@ -208,6 +205,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="torque"
+                onChange={e => setTorque(e.target.value)}
                 label="Torque"
                 name="torque"
                 autoFocus
@@ -219,6 +217,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="km"
+                onChange={e => setKm(e.target.value)}
                 label="Quilometragem"
                 name="km"
                 autoFocus
@@ -230,6 +229,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="cor"
+                onChange={e => setCor(e.target.value)}
                 label="Cor do veículo"
                 name="cor"
                 autoFocus
@@ -241,6 +241,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="cabine"
+                onChange={e => setCabine(e.target.value)}
                 label="Cabine"
                 name="cabine"
                 autoFocus
@@ -252,6 +253,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="relacaodiferencial"
+                onChange={e => setRelacaodiferencial(e.target.value)}
                 label="Relação Diferencial"
                 name="relacaodiferencial"
                 autoFocus
@@ -263,6 +265,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="tiposuspensao"
+                onChange={e => setTiposuspensao(e.target.value)}
                 label="Tipo de suspensão"
                 name="tiposuspensao"
                 autoFocus
@@ -274,6 +277,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="entreeixo"
+                onChange={e => setEntreeixo(e.target.value)}
                 label="Entre Eixo"
                 name="entreeixo"
                 autoFocus
@@ -285,6 +289,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="capacidadedecombustivel"
+                onChange={e => setCapacidadecombustivel(e.target.value)}
                 label="Capacidade de Combustivel"
                 name="capacidadecombustivel"
                 autoFocus
@@ -296,6 +301,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="opcionais"
+                onChange={e => setOpcionais(e.target.value)}
                 label="Opcionais"
                 name="opcionais"
                 autoFocus
@@ -307,6 +313,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="informacoesadicionais"
+                onChange={e => setInformacoesadicionais(e.target.value)}
                 label="Informações Adicionais"
                 name="informacoesadiconais"
                 autoComplete=""

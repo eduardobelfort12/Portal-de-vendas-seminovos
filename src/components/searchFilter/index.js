@@ -11,6 +11,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper"
 
+
 const useStyles = makeStyles({
   formControl: {
     maxWidth: 530,
@@ -34,6 +35,7 @@ export default function BasicSelect() {
   const classes = useStyles();
 
   const [tipo, setAge] = React.useState("");
+  
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -45,7 +47,7 @@ export default function BasicSelect() {
       <Card className={classes.card}>
         <CardContent>
           <Typography align="center">Filtro de busca</Typography>
-          <FormControl className={classes.formControl}>
+          <FormControl className={classes.formControl} >
             <InputLabel
               className={classes.inputlabel}
               id="demo-simple-select-label"
@@ -55,6 +57,7 @@ export default function BasicSelect() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
+              name=""
               value={tipo}
               label="tipo"
               onChange={handleChange}

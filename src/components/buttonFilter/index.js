@@ -19,6 +19,7 @@ export default function CustomizedButtons() {
       <ThemeProvider>
         <Box align="center">
           <Button
+            type='submit'
             variant="success"
             className={classes.colorButton}
             startIcon={<SearchIcon />}
