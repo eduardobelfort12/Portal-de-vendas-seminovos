@@ -92,7 +92,7 @@ export default function PaginationComponent() {
         nextLabel={"Next →"}
         pageCount={pageCount}
         onPageChange={handlePageClick}
-        containerClassName={"pagination"}
+        containerClassName={"pagination"}asdasdasdsadsadsa
         previousLinkClassName={"pagination__link"}
         nextLinkClassName={"pagination__link"}
         disabledClassName={"pagination__link--disabled"}
