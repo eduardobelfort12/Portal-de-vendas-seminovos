@@ -37,7 +37,7 @@ const cadastroVeiculosController = async (req, res) => {
 
 const buscarImageController = async (req, res) => {
   if(req.body) {
-  await knex.select('image')
+  await knex.select('*')
   .from('cadastro_veiculos')
   .then(data => {
     console.log(data)
