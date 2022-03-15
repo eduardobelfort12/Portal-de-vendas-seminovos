@@ -42,7 +42,11 @@ export default function PaginationComponent() {
   }, []);
 
   function fetchData() {
-    fetch("https://jsonplaceholder.typicode.com/photos")
+    fetch("https://jsonplaceholder.typicode.com/photos" , {
+      mode: 'CORS',
+      method: 'GET',
+
+    })
       .then((res) => res.json())
       .then((data) => {
         setData(data);
@@ -56,15 +60,15 @@ export default function PaginationComponent() {
   const currentPageData = data
 
     .slice(offset, offset + PER_PAGE)
-    .map(({ url, title }) => (
+    .map(({ modelo }) => (
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={0}>
           <Grid xs={12} sm={6} md={4} >
             <Card className={classes.card}>
-              <CardMedia className={classes.cardMedia} image={url} />
+              <CardMedia className={classes.cardMedia}  />
               <CardContent className={classes.cardContent}>
-                <Typography>{title}</Typography>
+                <Typography>{modelo}</Typography>
               </CardContent>
               <CardActions>
                 <Button size="small" color="warning">
