@@ -4,7 +4,7 @@ const cadastroVeiculosController = async (req, res) => {
   if (req.file && req.body) {
     await knex("cadastro_veiculos")
       .insert({
-        image: req.file.filename.toString("base64"),
+        image: req.file.filename.toString('base64'),
         marca:req.body.marca,
         modelo:req.body.modelo,
         telefone: req.body.telefone,
@@ -23,7 +23,7 @@ const cadastroVeiculosController = async (req, res) => {
       })
       .then((data) => {
         console.log(data);
-        console.log("Imagem inserida com sucesso!");
+        console.log("Veículo registrado com sucesso!");
         return res.status(201).json(data);
       })
       .catch((err) => {
@@ -37,8 +37,8 @@ const cadastroVeiculosController = async (req, res) => {
 
 const buscarImageController = async (req, res) => {
   if(req.body) {
-  await knex.select('marca','cor')
-  .table('cadastro_veiculos').where({id: req.body.id})
+  await knex.select('image')
+  .from('cadastro_veiculos')
   .then(data => {
     console.log(data)
     return res.status(201).json(data)

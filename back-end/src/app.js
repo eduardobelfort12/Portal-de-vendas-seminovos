@@ -17,6 +17,7 @@ class App {
   }
   cors() {
     this.server.use(cors());
+
   }
   routes() {
       this.server.use(routes)

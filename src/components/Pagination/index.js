@@ -9,9 +9,10 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+// import api from "../../axios/api"
 
 const useStyles = makeStyles((theme) => ({
-cardGrid: {
+  cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
@@ -29,7 +30,6 @@ cardGrid: {
   },
 }));
 
-
 const PER_PAGE = 10;
 
 export default function PaginationComponent() {
@@ -42,10 +42,9 @@ export default function PaginationComponent() {
   }, []);
 
   function fetchData() {
-    fetch("https://jsonplaceholder.typicode.com/photos" , {
-      mode: 'CORS',
-      method: 'GET',
-
+    fetch("http://localhost:5500/buscar", {
+      method: "GET",
+      mode: "cors",
     })
       .then((res) => res.json())
       .then((data) => {
@@ -60,15 +59,20 @@ export default function PaginationComponent() {
   const currentPageData = data
 
     .slice(offset, offset + PER_PAGE)
-    .map(({ modelo }) => (
+    .map(({ modelo, marca, cor, image }) => (
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={0}>
-          <Grid xs={12} sm={6} md={4} >
+          <Grid xs={12} sm={6} md={4}>
             <Card className={classes.card}>
-              <CardMedia className={classes.cardMedia}  />
+              <CardMedia
+                className={classes.cardMedia}
+                image={image}
+              ></CardMedia>
               <CardContent className={classes.cardContent}>
                 <Typography>{modelo}</Typography>
+                <Typography>{marca}</Typography>
+                <Typography>{cor}</Typography>
               </CardContent>
               <CardActions>
                 <Button size="small" color="warning">
@@ -78,7 +82,6 @@ export default function PaginationComponent() {
             </Card>
           </Grid>
         </Grid>
-        
       </Container>
     ));
 
@@ -92,7 +95,7 @@ export default function PaginationComponent() {
         nextLabel={"Next →"}
         pageCount={pageCount}
         onPageChange={handlePageClick}
-        containerClassName={"pagination"}asdasdasdsadsadsa
+        containerClassName={"pagination"}
         previousLinkClassName={"pagination__link"}
         nextLinkClassName={"pagination__link"}
         disabledClassName={"pagination__link--disabled"}
