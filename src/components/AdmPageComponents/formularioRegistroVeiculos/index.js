@@ -88,6 +88,7 @@ export default function CadastrarVeiculos() {
     formData.append('opcionais', opcionais )
     formData.append('informacoesadicionais', informacoesadicionais )                                   
 
+  
 
     await api.post('/registrar' , formData )
     .then(response => {
