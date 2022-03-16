@@ -8,6 +8,8 @@ import Estoque from "./pages/Estoque";
 import Contato from "./pages/Contatos";
 import AdminPainel from "./pages/AdminPainel"
 
+
+
 export default function MainRoutes() {
   return (
     <Routes>
@@ -26,6 +28,8 @@ export default function MainRoutes() {
       <Route path="AdminPainel" element={<AdminPainel/>}>
         Estoque
       </Route>
+    
+   
 
     </Routes>
   );

@@ -35,7 +35,7 @@ const cadastroVeiculosController = async (req, res) => {
   }
 };
 
-const buscarImageController = async (req, res) => {
+const buscarDadosController = async (req, res) => {
   if(req.body) {
   await knex.select('*')
   .from('cadastro_veiculos')
@@ -48,4 +48,4 @@ const buscarImageController = async (req, res) => {
   })
 }
 };
-module.exports = { cadastroVeiculosController, buscarImageController };
+module.exports = { cadastroVeiculosController, buscarDadosController };

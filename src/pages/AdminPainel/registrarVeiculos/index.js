@@ -14,9 +14,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import CadastrarVeiculos from "../formularioRegistroVeiculos";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import { Link } from "react-router-dom";
-import Carousell from "../../carousel";
 
 const drawerWidth = 240;
 
@@ -88,10 +87,6 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-
-
- 
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -144,8 +139,8 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-        <ListItem button>
-            <LocalShippingIcon/><Link to="/Contatos">Cadastrar Veiculos</Link>
+          <ListItem button >
+            <LocalShippingIcon/>Cadastrar veículos
             <ListItemText/>
           </ListItem>
         </List>
@@ -165,8 +160,7 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        
-        <Carousell/>
+        <CadastrarVeiculos />
       </main>
     </div>
   );

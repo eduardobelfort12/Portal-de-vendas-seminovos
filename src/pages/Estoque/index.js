@@ -34,6 +34,7 @@ export default function Estoque() {
       <NavHeader />
       <main className={classes.overflow}>
         <div className={classes.heroContent}>
+    
           <div>
             <Carousell />
           </div>
