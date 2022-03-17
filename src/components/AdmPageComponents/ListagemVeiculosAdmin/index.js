@@ -9,7 +9,11 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-// import api from "../../axios/api"
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import EditFormAdmin from "../modalEditFormAdmin";
+// import api from "../../../axios/api";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -31,23 +35,47 @@ const useStyles = makeStyles((theme) => ({
   fixedPaginate: {
     width: "100%",
     height: "5vh",
-    position: 'fixed',
+    position: "fixed",
     top: "auto",
     fontSize: "12px",
     justifyContent: "center",
     display: "flex",
-    
+  },
+  test: {
+      display: 'none',
+  },
  
-  }
 }));
 
 const PER_PAGE = 10;
 
-export default function PaginationComponent() {
+export default function ListageVeiculos() {
   const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+//   function Editar(event) {
+//     event.preventDefault();
+
+//   }
+  function Atualizar(event) {
+    event.preventDefault();
+  }
+  function Excluir(event) {
+    event.preventDefault();
+    alert("deletar");
+  }
+
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
-  const [url] = useState('http://localhost:5500/upload/')
+  const [url] = useState("http://localhost:5500/upload/");
 
   useEffect(() => {
     fetchData();
@@ -71,7 +99,7 @@ export default function PaginationComponent() {
   const currentPageData = data
 
     .slice(offset, offset + PER_PAGE)
-    .map(({ modelo, marca, cor, image,preco }) => (
+    .map(({ modelo, marca, cor, image, preco }) => (
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={0}>
@@ -79,32 +107,39 @@ export default function PaginationComponent() {
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
-                image={ url + `${image}`}
+                image={url + `${image}`}
               ></CardMedia>
               <CardContent className={classes.cardContent}>
-                <Typography>Modelo: {modelo}</Typography>
+                <Typography >Modelo: {modelo}</Typography>
                 <Typography>Marca: {marca}</Typography>
                 <Typography>Cor:{cor}</Typography>
                 <Typography>Valor:{preco}R$</Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="warning">
-                  Visualizar
+                <Button size="small" color="warning" onClick={handleOpen}>
+                  Editar
+                </Button>
+                <Button size="small" color="warning" onClick={Atualizar}>
+                  Atualizar
+                </Button>
+                <Button size="small" color="warning" onClick={Excluir}>
+                  Excluir
                 </Button>
               </CardActions>
             </Card>
           </Grid>
         </Grid>
       </Container>
+      
     ));
+    
 
   const pageCount = Math.ceil(data.length / PER_PAGE);
 
   return (
     <div className="App">
-   
       <ReactPaginate
-      className={classes.fixedPaginate}
+        className={classes.fixedPaginate}
         previousLabel={"← Previous"}
         nextLabel={"Next →"}
         pageCount={pageCount}
@@ -116,6 +151,24 @@ export default function PaginationComponent() {
         activeClassName={"pagination__link--active"}
       />
       {currentPageData}
+      <div>   <Modal
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 1000,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <EditFormAdmin />
+          </div>
+        </Fade>
+      </Modal></div>
     </div>
+
   );
-}
+
+  }

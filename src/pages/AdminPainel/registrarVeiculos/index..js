@@ -14,9 +14,9 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import CadastrarVeiculos from "../formularioRegistroVeiculos";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-
+import { Link } from "react-router-dom";
+import CadastrarVeiculos from "../../../components/AdmPageComponents/formularioRegistroVeiculos";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+export default function RegistrarVeiculos() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -115,7 +115,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Painel-Admin
+            Cadastro de Veículos
           </Typography>
         </Toolbar>
       </AppBar>
@@ -139,17 +139,28 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          <ListItem button >
-            <LocalShippingIcon/>Cadastrar veículos
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/AdminPainel">Dashboard</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
         <Divider />
         <List>
-          <ListItem button >
-            <LocalShippingIcon/>Visualizar
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/registrarVeiculos">Cadastrar Veículos</Link>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
+        <Divider />
+        <List>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
@@ -160,6 +171,7 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
+
         <CadastrarVeiculos />
       </main>
     </div>

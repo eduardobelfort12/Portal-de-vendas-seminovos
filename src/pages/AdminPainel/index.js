@@ -1,5 +1,5 @@
 import React from 'react'
-import PersistentDrawerLeft from '../../components/AdmPageComponents/Painel';
+import Dashboard from '../../components/AdmPageComponents/Painel';
 
 
 
@@ -8,7 +8,7 @@ export default function AdminPainel(){
 return(
 
         <div>
-                <PersistentDrawerLeft/>
+                <Dashboard/>
         </div>
 
 );

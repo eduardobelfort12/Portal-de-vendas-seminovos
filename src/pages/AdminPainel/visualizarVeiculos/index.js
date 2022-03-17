@@ -16,8 +16,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
-import Carousell from "../../carousel";
-
+import ListagemVeiculosAdmin from "../../../components/AdmPageComponents/ListagemVeiculosAdmin";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -83,14 +82,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function VisualizarVeiculos() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
-
-
- 
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -120,7 +115,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-           Dashboard
+           Listagem de Veículos
           </Typography>
         </Toolbar>
       </AppBar>
@@ -144,25 +139,27 @@ export default function Dashboard() {
         </div>
         <Divider />
         <List>
-        <ListItem button >
-            <LocalShippingIcon/><Link to="/AdminPainel">Dashboard</Link>
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/AdminPainel">Dashboard</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
         <Divider />
         <List>
-        <ListItem button >
-            <LocalShippingIcon/><Link to="/registrarVeiculos">Cadastrar Veículos</Link>
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/registrarVeiculos">Cadastrar Veículos</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
         <Divider />
         <List>
-          <ListItem button >
-            <LocalShippingIcon/>Visualizar
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon /><Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
@@ -173,8 +170,9 @@ export default function Dashboard() {
         })}
       >
         <div className={classes.drawerHeader} />
-        
-        <Carousell/>
+
+            <ListagemVeiculosAdmin/>
+       
       </main>
     </div>
   );

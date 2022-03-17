@@ -1,5 +1,5 @@
 const routes = require('express').Router()
-const {cadastroVeiculosController, buscarDadosController} = require('../controllers/cadastroVeiculos')
+const {cadastroVeiculosController, buscarDadosController, DeletarDadosController, UpdateDadosController} = require('../controllers/cadastroVeiculos')
 const uploadUser = require("../middlewares/uploadimages");
 
 routes.get('/teste', async(req, res) => {
@@ -8,7 +8,9 @@ routes.get('/teste', async(req, res) => {
 })
 
 
-routes.post('/registrar' ,uploadUser.single('image') , cadastroVeiculosController)
+routes.post('/registrar' ,uploadUser.array('image[]' , 10) , cadastroVeiculosController)
 routes.get('/buscar', buscarDadosController )
+routes.delete('/deletar' , DeletarDadosController) 
+routes.patch('/atualizar' , UpdateDadosController)
 
 module.exports = routes

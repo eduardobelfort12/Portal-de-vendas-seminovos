@@ -10,6 +10,8 @@ import { Box } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100vw",
@@ -45,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "5px",
   },
   inputNone: {
-    display: "none",
+    
   },
 }));
 
@@ -93,6 +95,7 @@ export default function CadastrarVeiculos() {
     await api.post('/registrar' , formData )
     .then(response => {
       alert('Veículo cadastrado com sucesso!')
+      window.location.replace('/VisualizarVeiculos')
       console.log(response)
     }).catch(err => {
       if(err.response) {
@@ -322,7 +325,8 @@ export default function CadastrarVeiculos() {
               />
             </Box>
             <Box align="center">
-              <input type={'file'} name="image" id="image" onChange={e => setImage(e.target.files[0])}/><br></br>
+              
+             <input className={classes.inputNone} type={'file'} name="image" id="image" onChange={e => setImage(e.target.files[0])}/><br></br>
               <div>
               {image ? <img src={URL.createObjectURL(image)} width="130" height="130" alt="imagem" /> : <div ><PhotoCamera style={{width : "85" , height: "85"}}/></div>}
               </div>

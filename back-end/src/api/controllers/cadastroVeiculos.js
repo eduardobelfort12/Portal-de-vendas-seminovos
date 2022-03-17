@@ -48,4 +48,30 @@ const buscarDadosController = async (req, res) => {
   })
 }
 };
-module.exports = { cadastroVeiculosController, buscarDadosController };
+
+const DeletarDadosController = async( req, res ) => {
+   
+    await knex('cadastro_veiculos').where('id').del("*").then((data)=> {
+      console.log(data)
+      return res.status(201).json({message : "Veículo Deletado com sucesso da base de dados!"})
+    }).catch((err =>{ 
+      console.log(err)
+      return res.status(401).json({message: "Erro! Não foi possível deletar os dados do usuário!"})
+    }))
+
+}
+const UpdateDadosController = async ( req, res) => {
+
+  if(req.body) {
+    await knex('cadastro_veiculos').where().update('modelo').then((data)=> {
+      console.log(data)
+      return res.status(201).json(data)
+    }).catch((err) => {
+      console.log(err)
+      return res.status(401).json({message: "Erro! Falha ao realizar atualização de dados!"})
+
+    })
+  }
+
+}
+module.exports = { cadastroVeiculosController, buscarDadosController, DeletarDadosController, UpdateDadosController };
