@@ -1,5 +1,5 @@
 const routes = require('express').Router()
-const {cadastroVeiculosController, buscarDadosController, DeletarDadosController, UpdateDadosController} = require('../controllers/cadastroVeiculos')
+const {cadastroVeiculosController, buscarDadosController, DeletarDadosController, UpdateDadosController, queryOracleDb} = require('../controllers/cadastroVeiculos')
 const uploadUser = require("../middlewares/uploadimages");
 
 routes.get('/teste', async(req, res) => {
@@ -12,5 +12,6 @@ routes.post('/registrar' ,uploadUser.array('image[]' , 10) , cadastroVeiculosCon
 routes.get('/buscar', buscarDadosController )
 routes.delete('/deletar' , DeletarDadosController) 
 routes.patch('/atualizar' , UpdateDadosController)
+routes.get('/query',  queryOracleDb)
 
 module.exports = routes
