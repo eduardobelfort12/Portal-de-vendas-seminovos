@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -8,11 +8,18 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import NavHeader from "../../components/header";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Carousell from "../../components/carousel";
-import CustomizedSelects from "../../components/searchFilter";
 import FullWidthGrid from "../../components/infoHome";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles, ThemeProvider } from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Box from "@material-ui/core/Box";
+import Paper from "@material-ui/core/Paper";
+// import api from "../../axios/api";
+import SearchIcon from "@material-ui/icons/Search";
 
 const useStyles = makeStyles((theme) => ({
   filter: {
@@ -49,14 +56,66 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(5),
   },
   overflow: {
-    overflowX: 'hidden',
-  }
+    overflowX: "hidden",
+  },
+  formControl: {
+    maxWidth: 200,
+    minWidth: "200px",
+    padding: "10px",
+  },
+  inputlabel: {
+    fontSize: "15px",
+  },
+  Typography: {
+    padding: "10px",
+  },
+  card: {
+    border: "none",
+    backgroud: "#cac4c4",
+  },
+  colorButton: {
+    minWidth: "150px",
+    background: "#D4A114",
+    color: "white",
+  },
 }));
-
-const cards = [1, 2, 3, 4, 5, 6];
 
 export default function Home() {
   const classes = useStyles();
+
+  //Função para filtrar buscas
+  const [filter, setFilter] = useState([]);
+  const [push, setPush] = useState([]);
+  const [marca, setMarca] = useState("");
+
+  const [url] = useState("http://localhost:5500/upload/");
+  // const [modelo, setModelo] = useState('')
+
+  async function Filter(event) {
+    event.preventDefault();
+
+    await fetch("http://localhost:5500/filtrar", {
+      method: "GET",
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFilter(data);
+      });
+  }
+  //Buscar Informações para filtrar
+  async function PushInfos(event) {
+    event.preventDefault();
+
+    await fetch("http://localhost:5500/buscar", {
+      method: "GET",
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPush(data);
+      });
+  }
 
   return (
     <React.Fragment>
@@ -70,29 +129,75 @@ export default function Home() {
           </div>
 
           <Container className={classes.filter}>
-          <div>
-              <CustomizedSelects />
+            <div>
+              <Paper elevation={10}>
+                <Box align="center">
+                  <Card className={classes.card}>
+                    <CardContent>
+                      <Typography align="center">Filtro de busca</Typography>
+                      <form onSubmit={Filter} encType="multipart/form-data">
+                        <FormControl className={classes.formControl}>
+                          <InputLabel className={classes.inputlabel} id="marca">
+                            Marca
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="marca"
+                            name="marca"
+                            value={marca}
+                            label="Marca"
+                            onChange={ PushInfos()}
+                          >
+                           { push.map((pusher) => (
+                              <MenuItem key={pusher.marca}>{pusher.marca}</MenuItem>
+                           ))} 
+                          </Select>
+                        </FormControl>
+
+                        <div>
+                          <ThemeProvider>
+                            <Box align="center">
+                              <Button
+                                type="submit"
+                                variant="success"
+                                className={classes.colorButton}
+                                startIcon={<SearchIcon />}
+                              >
+                                Buscar
+                              </Button>
+                            </Box>
+                          </ThemeProvider>
+                        </div>
+                      </form>
+                    </CardContent>
+                  </Card>
+                </Box>
+              </Paper>
             </div>
           </Container>
         </div>
-       
+
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={3}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {filter.map((item) => (
+              <Grid item key={item} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://toraseminovos.com.br/wp-content/uploads/2022/01/20220221_084701.jpg"
+                    image={url + item.image}
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h6" component="h2">
-                      CONJUNTO 8X2 VOLVO FH 460 19/20 BASCULANTE 8X2 FACHINI
-                      2019 40 M3
+                      {item.marca}
                     </Typography>
-                    <Typography>Caminhão / Volvo / FH</Typography>
+                    <Typography gutterBottom variant="h6" component="h3">
+                      {item.modelo}
+                    </Typography>
+                    <Typography gutterBottom variant="h6" component="h5">
+                      {item.preco} R$
+                    </Typography>
                   </CardContent>
                   <CardActions>
                     <Button size="small" color="primary">

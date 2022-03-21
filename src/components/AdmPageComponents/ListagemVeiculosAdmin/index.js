@@ -12,7 +12,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import EditFormAdmin from "../modalEditFormAdmin";
-import TabelaComponent from "../../tabelaComponent";
+
 // import api from "../../../axios/api";
 
 const useStyles = makeStyles((theme) => ({
