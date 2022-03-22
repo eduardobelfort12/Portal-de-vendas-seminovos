@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles, ThemeProvider } from "@material-ui/core";
@@ -10,9 +10,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 // import api from "../../axios/api";
-import SearchIcon from "@material-ui/icons/Search"
-import Button from "@material-ui/core/Button"
-
+import SearchIcon from "@material-ui/icons/Search";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   formControl: {
@@ -31,33 +30,31 @@ const useStyles = makeStyles({
     backgroud: "#cac4c4",
   },
   colorButton: {
-    minWidth: '150px',  
+    minWidth: "150px",
     background: "#D4A114",
-    color: 'white',  
+    color: "white",
   },
 });
 
 export default function BasicSelect() {
   const classes = useStyles();
   const [filter, setFilter] = useState([]);
-  const [marca, setMarca] = useState('');
+  const [marca, setMarca] = useState([]);
 
-  const [url] = useState('http://localhost:5500/upload/')
+  const [url] = useState("http://localhost:5500/upload/");
   // const [modelo, setModelo] = useState('')
-
 
   async function Filter(event) {
     event.preventDefault();
 
-    await fetch("http://localhost:5500/filtrar/" + marca,{
+    await fetch("http://localhost:5500/filtrar/" + marca, {
       method: "GET",
-      mode: "cors"
-
+      mode: "cors",
     })
-    .then((res) => res.json())
-    .then((data) => {
-      setFilter(data)
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFilter(data);
+      });
   }
   return (
     <Paper elevation={10}>
@@ -67,10 +64,7 @@ export default function BasicSelect() {
             <Typography align="center">Filtro de busca</Typography>
             <form onSubmit={Filter} encType="multipart/form-data">
               <FormControl className={classes.formControl}>
-                <InputLabel
-                  className={classes.inputlabel}
-                  id="marca"
-                >
+                <InputLabel className={classes.inputlabel} id="marca">
                   Marca
                 </InputLabel>
                 <Select
@@ -81,26 +75,25 @@ export default function BasicSelect() {
                   label="Marca"
                   onChange={(event) => setMarca(event.target.value)}
                 >
-                  <MenuItem value={'Volvo'}>Volvo</MenuItem>
-                  <MenuItem value={'Mercedes'}>Mercedes</MenuItem>
+                  <MenuItem value={"Volvo"}>Volvo</MenuItem>
+                  <MenuItem value={"Mercedes"}>Mercedes</MenuItem>
                 </Select>
-                
               </FormControl>
-              
+
               <div>
-      <ThemeProvider>
-        <Box align="center">
-          <Button
-            type='submit'
-            variant="success"
-            className={classes.colorButton}
-            startIcon={<SearchIcon />}
-          >
-            Buscar
-          </Button>
-        </Box>
-      </ThemeProvider>
-    </div>
+                <ThemeProvider>
+                  <Box align="center">
+                    <Button
+                      type="submit"
+                      variant="success"
+                      className={classes.colorButton}
+                      startIcon={<SearchIcon />}
+                    >
+                      Buscar
+                    </Button>
+                  </Box>
+                </ThemeProvider>
+              </div>
             </form>
           </CardContent>
         </Card>
@@ -110,7 +103,7 @@ export default function BasicSelect() {
               <li>{item.marca}</li>
               <li>{item.modelo}</li>
               <li>{item.cor}</li>
-              <img src={url + item.image} width="50px"  alt="imagem" />
+              <img src={url + item.image} width="50px" alt="imagem" />
             </div>
           ))}
         </div>

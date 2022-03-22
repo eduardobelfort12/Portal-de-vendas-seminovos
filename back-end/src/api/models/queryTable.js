@@ -17,3 +17,12 @@
 // 	informacoesadicionais VARCHAR(200) NOT NULL,
 // 	image VARCHAR(1000) NOT NULL
 // );
+
+// CREATE TABLE marca(
+// 	id serial PRIMARY KEY,
+// 	volvo VARCHAR(30) NOT NULL,
+// 	scania VARCHAR(30) NOT NULL,
+// 	volkswagen VARCHAR(30) NOT NULL,
+// 	mercedesbenz VARCHAR(30) NOT NULL
+	
+// );

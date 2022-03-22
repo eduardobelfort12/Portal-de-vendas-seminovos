@@ -54,14 +54,30 @@ const buscarDadosController = async (req, res) => {
   }
 };
 
+const exibirDadosController = async (req, res) => {
+  
+    await knex
+      .select("marca", "modelo")
+      .from("cadastro_veiculos").distinctOn('marca')
+      .then((data) => {
+        console.log(data);
+        return res.status(201).json(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        return res
+          .status(401)
+          .json({ message: "Erro! Veiculo não encontrado!" });
+      });
+  
+};
+
 
 const filtrarDadosController = async (req, res) => {
-    
+    console.log(req.params.marca)
     await knex
-      .select('marca', 'cor' ,'modelo','image', 'preco')
-      .from("cadastro_veiculos").where({
-      marca: req.body.marca
-      })
+      .select('marca', 'cor' ,'modelo','image', 'preco', 'informacoesadicionais')
+      .from("cadastro_veiculos").where('marca', req.params.marca)
       .then((data) => {
         console.log(data);
         return res.status(201).json(data);
@@ -142,4 +158,5 @@ module.exports = {
   UpdateDadosController,
   queryOracleDb,
   filtrarDadosController,
+  exibirDadosController,
 };

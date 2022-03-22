@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -20,6 +20,8 @@ import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 // import api from "../../axios/api";
 import SearchIcon from "@material-ui/icons/Search";
+import Switch from "@material-ui/core/Switch"
+import { FormControlLabel } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   filter: {
@@ -69,10 +71,7 @@ const useStyles = makeStyles((theme) => ({
   Typography: {
     padding: "10px",
   },
-  card: {
-    border: "none",
-    backgroud: "#cac4c4",
-  },
+
   colorButton: {
     minWidth: "150px",
     background: "#D4A114",
@@ -86,15 +85,15 @@ export default function Home() {
   //Função para filtrar buscas
   const [filter, setFilter] = useState([]);
   const [push, setPush] = useState([]);
-  const [marca, setMarca] = useState("");
-
+  const [marca, setMarca] = useState([]);
+  const [modelo, setModelo] = useState([]);
   const [url] = useState("http://localhost:5500/upload/");
   // const [modelo, setModelo] = useState('')
-
+  //Esta função filtra as minhas informações setadas nos campos do meu formulario de filtro
   async function Filter(event) {
     event.preventDefault();
 
-    await fetch("http://localhost:5500/filtrar", {
+    await fetch(`http://localhost:5500/filtrar/${marca}/${modelo}`, {
       method: "GET",
       mode: "cors",
     })
@@ -103,11 +102,10 @@ export default function Home() {
         setFilter(data);
       });
   }
-  //Buscar Informações para filtrar
-  async function PushInfos(event) {
-    event.preventDefault();
+  //Buscar Informações para filtrar valores direto do banco de dados
 
-    await fetch("http://localhost:5500/buscar", {
+  useEffect(() => {
+    fetch("http://localhost:5500/exibir", {
       method: "GET",
       mode: "cors",
     })
@@ -115,7 +113,7 @@ export default function Home() {
       .then((data) => {
         setPush(data);
       });
-  }
+  }, []);
 
   return (
     <React.Fragment>
@@ -144,14 +142,43 @@ export default function Home() {
                             labelId="demo-simple-select-label"
                             id="marca"
                             name="marca"
-                            value={marca}
-                            label="Marca"
-                            onChange={ PushInfos()}
+                            label="marca"
+                            onChange={(event) => setMarca(event.target.value)}
                           >
-                           { push.map((pusher) => (
-                              <MenuItem key={pusher.marca}>{pusher.marca}</MenuItem>
-                           ))} 
+                            {push.map((pusher) => (
+                              <MenuItem value={pusher.marca}>
+                                {pusher.marca}
+                              </MenuItem>
+                            ))}
                           </Select>
+                        </FormControl>
+
+                        <FormControl className={classes.formControl}>
+                          <InputLabel
+                            className={classes.inputlabel}
+                            id="modelo"
+                          >
+                            Modelo
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="modelo"
+                            name="modelo"
+                            label="modelo"
+                            onChange={(event) => setModelo(event.target.value)}
+                          >
+                            {push.map((pusher) => (
+                              <MenuItem value={pusher.modelo}>
+                                {pusher.modelo}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                          
+                          <Typography>Opcionais</Typography>
+
+                        <FormControlLabel control={<Switch /> } label="Direção Hidraulica"  />
                         </FormControl>
 
                         <div>
@@ -197,6 +224,9 @@ export default function Home() {
                     </Typography>
                     <Typography gutterBottom variant="h6" component="h5">
                       {item.preco} R$
+                    </Typography>
+                    <Typography gutterBottom variant="h6" component="h5">
+                      {item.informacoesadicionais}
                     </Typography>
                   </CardContent>
                   <CardActions>
