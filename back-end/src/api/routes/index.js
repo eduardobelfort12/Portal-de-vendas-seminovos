@@ -6,7 +6,11 @@ const {
   UpdateDadosController,
   queryOracleDb,
   filtrarDadosController,
-  exibirDadosController
+  exibirDadosController,
+  opcionaisDadosController,
+  marcaDadosController,
+  buscarOpcionaisController,
+  buscarMarcasController
 } = require("../controllers/cadastroVeiculos");
 const uploadUser = require("../middlewares/uploadimages");
 
@@ -26,5 +30,10 @@ routes.patch("/atualizar", UpdateDadosController);
 routes.get("/query", queryOracleDb);
 routes.get("/filtrar/:marca/:modelo", filtrarDadosController);
 routes.get("/exibir", exibirDadosController);
+routes.post("/opcionais", opcionaisDadosController)
+routes.post("/marcas" , marcaDadosController)
+routes.get("/options", buscarOpcionaisController)
+routes.get("/options", buscarOpcionaisController)
+routes.get("/getmarcas", buscarMarcasController)
 
 module.exports = routes;

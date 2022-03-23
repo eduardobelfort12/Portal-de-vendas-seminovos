@@ -20,8 +20,7 @@ import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 // import api from "../../axios/api";
 import SearchIcon from "@material-ui/icons/Search";
-import Switch from "@material-ui/core/Switch"
-import { FormControlLabel } from "@material-ui/core";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
   filter: {
@@ -77,6 +76,9 @@ const useStyles = makeStyles((theme) => ({
     background: "#D4A114",
     color: "white",
   },
+  formSwitch: {
+    fontSize: "12px",
+  },
 }));
 
 export default function Home() {
@@ -85,8 +87,14 @@ export default function Home() {
   //Função para filtrar buscas
   const [filter, setFilter] = useState([]);
   const [push, setPush] = useState([]);
+  // const [set, setOpcoes] = useState([]);
   const [marca, setMarca] = useState([]);
   const [modelo, setModelo] = useState([]);
+  const [setOpcionais] = useState([]);
+  // const [setDirecao] = useState([]);
+  // const [setAr] = useState([])
+  // const [ setCheckcontrol] = useState([])
+
   const [url] = useState("http://localhost:5500/upload/");
   // const [modelo, setModelo] = useState('')
   //Esta função filtra as minhas informações setadas nos campos do meu formulario de filtro
@@ -115,6 +123,17 @@ export default function Home() {
       });
   }, []);
 
+  // useEffect(() => {
+  //   fetch(`http://localhost:5500/options`, {
+  //     method: "GET",
+  //     mode: "cors",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setOpcoes(data);
+  //     });
+  // }, []);
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -133,6 +152,7 @@ export default function Home() {
                   <Card className={classes.card}>
                     <CardContent>
                       <Typography align="center">Filtro de busca</Typography>
+
                       <form onSubmit={Filter} encType="multipart/form-data">
                         <FormControl className={classes.formControl}>
                           <InputLabel className={classes.inputlabel} id="marca">
@@ -145,11 +165,12 @@ export default function Home() {
                             label="marca"
                             onChange={(event) => setMarca(event.target.value)}
                           >
-                            {push.map((pusher) => (
-                              <MenuItem value={pusher.marca}>
-                                {pusher.marca}
-                              </MenuItem>
-                            ))}
+                            <MenuItem value={"Volvo"}>Volvo</MenuItem>
+                            <MenuItem value={"Scania"}>Scania</MenuItem>
+                            <MenuItem value={"Vokswagen"}>Volkswagen</MenuItem>
+                            <MenuItem value={"Mercedes-Benz"}>
+                              Mercedes-Benz
+                            </MenuItem>
                           </Select>
                         </FormControl>
 
@@ -175,10 +196,31 @@ export default function Home() {
                           </Select>
                         </FormControl>
                         <FormControl className={classes.formControl}>
-                          
-                          <Typography>Opcionais</Typography>
-
-                        <FormControlLabel control={<Switch /> } label="Direção Hidraulica"  />
+                          <InputLabel
+                            className={classes.inputlabel}
+                            id="modelo"
+                          >
+                            Opcionais
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="opicionais"
+                            name="opicionais"
+                            label="modelo"
+                            onChange={(event) =>
+                              setOpcionais(event.target.value)
+                            }
+                          >
+                            <Checkbox value={"Direção Hidraúlica"}>
+                              Direção Hidraúlica
+                            </Checkbox>
+                            <Checkbox value={"Ar condicionado"}>
+                              Ar condicionado
+                            </Checkbox>
+                            <Checkbox value={"Check Control"}>
+                              CheckControl
+                            </Checkbox>
+                          </Select>
                         </FormControl>
 
                         <div>
@@ -227,6 +269,9 @@ export default function Home() {
                     </Typography>
                     <Typography gutterBottom variant="h6" component="h5">
                       {item.informacoesadicionais}
+                    </Typography>
+                    <Typography gutterBottom variant="h6" component="h6">
+                      {item.opcionais}
                     </Typography>
                   </CardContent>
                   <CardActions>

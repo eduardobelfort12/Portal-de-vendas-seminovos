@@ -55,39 +55,42 @@ const buscarDadosController = async (req, res) => {
 };
 
 const exibirDadosController = async (req, res) => {
-  
-    await knex
-      .select("marca", "modelo")
-      .from("cadastro_veiculos").distinctOn('marca')
-      .then((data) => {
-        console.log(data);
-        return res.status(201).json(data);
-      })
-      .catch((err) => {
-        console.log(err);
-        return res
-          .status(401)
-          .json({ message: "Erro! Veiculo não encontrado!" });
-      });
-  
+  await knex
+    .select("marca", "modelo", "opcionais")
+    .from("cadastro_veiculos")
+    .distinctOn("marca")
+    .then((data) => {
+      console.log(data);
+      return res.status(201).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(401).json({ message: "Erro! Veiculo não encontrado!" });
+    });
 };
 
-
 const filtrarDadosController = async (req, res) => {
-    console.log(req.params.marca)
-    await knex
-      .select('marca', 'cor' ,'modelo','image', 'preco', 'informacoesadicionais')
-      .from("cadastro_veiculos").where('marca', req.params.marca)
-      .then((data) => {
-        console.log(data);
-        return res.status(201).json(data);
-      })
-      .catch((err) => {
-        console.log(err);
-        return res
-          .status(401)
-          .json({ message: "Erro! Veiculo não encontrado!" });
-      });
+  console.log(req.params.marca);
+  await knex
+    .select(
+      "marca",
+      "cor",
+      "modelo",
+      "image",
+      "preco",
+      "informacoesadicionais",
+      "opcionais"
+    )
+    .from("cadastro_veiculos")
+    .where("marca", req.params.marca)
+    .then((data) => {
+      console.log(data);
+      return res.status(201).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(401).json({ message: "Erro! Veiculo não encontrado!" });
+    });
 };
 
 const DeletarDadosController = async (req, res) => {
@@ -102,11 +105,9 @@ const DeletarDadosController = async (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      return res
-        .status(401)
-        .json({
-          message: "Erro! Não foi possível deletar os dados do usuário!",
-        });
+      return res.status(401).json({
+        message: "Erro! Não foi possível deletar os dados do usuário!",
+      });
     });
 };
 const UpdateDadosController = async (req, res) => {
@@ -126,8 +127,86 @@ const UpdateDadosController = async (req, res) => {
       });
   }
 };
-const queryOracleDb= async (req, res) => {
-  await oracle.with('ETL_VW_DADOS_VEIC_MOT', oracle.raw(`SELECT 
+const opcionaisDadosController = async (req, res) => {
+  if (req.body) {
+    await knex("opcionais")
+      .insert({
+        direcao_hidraulica: req.body.direcao_hidraulica,
+        ar_condicionado: req.body.ar_condicionado,
+        check_control: req.body.check_control,
+        computador_de_bordo: req.body.computador_de_bordo,
+      })
+      .then((data) => {
+        console.log(data);
+        return res
+          .status(201)
+          .json({ message: "Opcionais cadastrados com sucesso!" });
+      })
+      .catch((err) => {
+        console.log(err);
+        return res
+          .status(401)
+          .json({ message: "Erro! Não foi possível inserir opcionais " });
+      });
+  }
+};
+const marcaDadosController = async (req, res) => {
+  if (req.body) {
+    await knex("marcas")
+      .insert({
+        volvo: req.body.volvo,
+        scania: req.body.scania,
+        volkswagen: req.body.volkswagen,
+        mercedes_benz: req.body.mercedes_benz,
+      })
+      .then((data) => {
+        console.log(data);
+        return res
+          .status(201)
+          .json({ message: "Marcas cadastradas com sucesso!" });
+      })
+      .catch((err) => {
+        console.log(err);
+        return res
+          .status(401)
+          .json({ message: "Erro! Não foi possível inserir marcas!" });
+      });
+  }
+};
+const buscarOpcionaisController = async (req, res) => {
+  await knex
+    .select("direcao_hidraulica", "ar_condicionado", "check_control", "computador_de_bordo")
+    .from("opcionais")
+    .then((data) => {
+      console.log(data);
+      return res.status(201).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(401).json({ message: "Erro! Dados não encontrados!" });
+    });
+};
+const buscarMarcasController = async (req, res) => {
+  
+  await knex.select("*")
+  .from("marcas")
+  .then((data) => {
+    console.log(data)
+    return res.status(201).json(data)
+  })
+  .catch((err)=> { 
+
+    console.log(err)
+    return res.status(401).json({message: "Erro! dados não encontrados!"})
+
+  })
+
+}
+const queryOracleDb = async (req, res) => {
+  await oracle
+    .with(
+      "ETL_VW_DADOS_VEIC_MOT",
+      oracle.raw(`SELECT 
   CG.CG_NOME AS PROPRIETARIO,
   VEI.VEI_PLACA AS PLACA,
   VEI.VEI_ANO AS ANO,
@@ -140,16 +219,20 @@ const queryOracleDb= async (req, res) => {
   FROM VEICULO VEI 
   INNER JOIN CADASTRO_GERAL CG ON CG.CG_COD = VEI.CG_PROP AND CG.LOC_COD = VEI.LOC_PROP
   WHERE VEI.VEI_CATEGORIA = 'F' AND VEI.SV_COD = '160'
-  ORDER BY VEI_DT_ATU DESC`))
-  .select('*').from('ETL_VW_DADOS_VEIC_MOT').then((data) => {
-    console.log(data)
-    return res.status(201).json(data)
-  }).catch((err) => {
-    console.log(err)
-    return res.status(401).json({message: 'Erro! Não foi possível executar esta query!'})
-
-  })
-  
+  ORDER BY VEI_DT_ATU DESC`)
+    )
+    .select("*")
+    .from("ETL_VW_DADOS_VEIC_MOT")
+    .then((data) => {
+      console.log(data);
+      return res.status(201).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res
+        .status(401)
+        .json({ message: "Erro! Não foi possível executar esta query!" });
+    });
 };
 module.exports = {
   cadastroVeiculosController,
@@ -159,4 +242,8 @@ module.exports = {
   queryOracleDb,
   filtrarDadosController,
   exibirDadosController,
+  opcionaisDadosController,
+  marcaDadosController,
+  buscarOpcionaisController,
+  buscarMarcasController
 };
