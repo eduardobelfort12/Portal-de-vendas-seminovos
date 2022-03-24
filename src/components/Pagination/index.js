@@ -102,7 +102,7 @@ export default function PaginationComponent() {
 
   return (
     <div className="App">
-   
+      
       <ReactPaginate
       className={classes.fixedPaginate}
         previousLabel={"← Previous"}
