@@ -21,6 +21,7 @@ import Paper from "@material-ui/core/Paper";
 // import api from "../../axios/api";
 import SearchIcon from "@material-ui/icons/Search";
 import Checkbox from "@material-ui/core/Checkbox";
+import VeiculosDestaqueComponent from "../../components/veiculosDestaque";
 
 const useStyles = makeStyles((theme) => ({
   filter: {
@@ -144,7 +145,7 @@ export default function Home() {
             {" "}
             <Carousell />
           </div>
-
+        
           <Container className={classes.filter}>
             <div>
               <Paper elevation={10}>
@@ -246,6 +247,7 @@ export default function Home() {
           </Container>
         </div>
 
+
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={3}>
@@ -283,7 +285,9 @@ export default function Home() {
               </Grid>
             ))}
           </Grid>
+
         </Container>
+        <VeiculosDestaqueComponent/>
         <section>
           <div className={classes.heroContent}>
             <FullWidthGrid />

@@ -163,6 +163,16 @@ export default function RegistrarVeiculos() {
             <ListItemText />
           </ListItem>
         </List>
+        <Divider/>
+        <Divider />
+        <List>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/MensagensAnuncios">Mensagens recebidas</Link>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider/>
         <Divider />
       </Drawer>
       <main

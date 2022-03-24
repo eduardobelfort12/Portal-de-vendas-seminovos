@@ -9,6 +9,7 @@ import Contato from "./pages/Contatos";
 import AdminPainel from "./pages/AdminPainel"
 import RegistrarVeiculos from "./pages/AdminPainel/registrarVeiculos/index.";
 import VisualizarVeiculos from "./pages/AdminPainel/visualizarVeiculos";
+import MensagensAnuncios from "./pages/AdminPainel/mensagensAnuncios/index"
 
 export default function MainRoutes() {
   return (
@@ -23,16 +24,19 @@ export default function MainRoutes() {
         Estoque
       </Route>
       <Route path="Contatos" element={<Contato/>}>
-        Estoque
+        Contato
       </Route>
       <Route path="AdminPainel" element={<AdminPainel/>}>
-        Estoque
+        AdminPainel
       </Route>
       <Route path="/RegistrarVeiculos" element={<RegistrarVeiculos/>}>
-        Estoque
+       registrar
       </Route>
       <Route path="/VisualizarVeiculos" element={<VisualizarVeiculos/>}>
-        Estoque
+        Visualizar
+      </Route>
+      <Route path="/MensagensAnuncios" element={<MensagensAnuncios/>}>
+        Mensagens
       </Route>
     
 

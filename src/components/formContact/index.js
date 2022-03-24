@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ContactMail } from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -7,6 +7,8 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import api from "../../axios/api";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +49,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [assunto, setAssunto] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [mensagem, setMensagem] = useState("");
+
+
+  // const [endImg, setEndImg] = useState('')
+ async function handleSendForm() {
+  
+     await api.post("/send", {
+       nome,email,assunto,telefone,mensagem
+     })
+      .then((response) => {
+        console.log(response);
+        document.getElementById("formulario").reset()
+        alert("Mensagem enviada com sucesso!")
+        
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response);
+        } else {
+          console.log("Erro: Tente novamente mais tarde");
+          alert("Erro ! Não foi possível enviar mensagem!")
+        }
+      });
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -58,7 +88,11 @@ export default function SignInSide() {
             <ContactMail className={classes.icon} />
           </div>
           <Typography component="h6" variant="h5"></Typography>
-          <form className={classes.form} noValidate>
+          <form
+            id="formulario"
+            className={classes.form}
+            onSubmit={handleSendForm}     
+          >
             <TextField
               className={classes.inputs}
               variant="outlined"
@@ -68,9 +102,11 @@ export default function SignInSide() {
               size="small"
               id="nome"
               label="Nome"
-              name="nome"
+              name={'nome'}
               autoComplete="nome"
+              value={nome}
               autoFocus
+              onChange={(e) => setNome(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -78,11 +114,13 @@ export default function SignInSide() {
               required
               size="small"
               fullWidth
-              name="email"
+              name={'email'}
               label="email"
               type="email"
               id="email"
+              value={email}
               autoComplete="current-email"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -90,11 +128,13 @@ export default function SignInSide() {
               required
               fullWidth
               size="small"
-              name="Assunto"
-              label="Assunto"
+              name={'assunto'}
+              label="assunto"
               type="Assunto"
-              id="Assunto"
+              id="assunto"
+              value={assunto}
               autoComplete="current-assunto"
+              onChange={(e) => setAssunto(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -102,11 +142,13 @@ export default function SignInSide() {
               required
               size="small"
               fullWidth
-              name="telefone"
+              name={'telefone'}
               label="telefone"
               type="telefone"
               id="telefone"
+              value={telefone}
               autoComplete="current-telefone"
+              onChange={(e) => setTelefone(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -115,14 +157,16 @@ export default function SignInSide() {
               required
               size="small"
               fullWidth
-              name="mensagem"
+              name={'mensagem'}
               label="Escreva sua mensagem"
               type="mensagem"
               id="mensagem"
+              value={mensagem}
               autoComplete="current-mensagem"
+              onChange={(e) => setMensagem(e.target.value)}
             />
             <Button
-              type="submit"
+              type='submit'
               fullWidth
               variant="contained"
               className={classes.submit}

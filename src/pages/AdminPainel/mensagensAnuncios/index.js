@@ -16,8 +16,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
-import Carousell from "../../carousel";
-
+import MensagensContatos from "../../../components/AdmPageComponents/mensagensContatos";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -83,14 +82,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function MensagensAnuncios() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
-
-
- 
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -120,7 +115,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-           Dashboard
+            Mensagens
           </Typography>
         </Toolbar>
       </AppBar>
@@ -144,35 +139,40 @@ export default function Dashboard() {
         </div>
         <Divider />
         <List>
-        <ListItem button >
-            <LocalShippingIcon/><Link to="/AdminPainel">Dashboard</Link>
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/AdminPainel">Dashboard</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
         <Divider />
         <List>
-        <ListItem button >
-            <LocalShippingIcon/><Link to="/registrarVeiculos">Cadastrar Veículos</Link>
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/registrarVeiculos">Cadastrar Veículos</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
         <Divider />
         <List>
-          <ListItem button >
-            <LocalShippingIcon/><Link to="/" >Dashboard</Link>
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
         <Divider />
         <List>
-        <ListItem button >
-            <LocalShippingIcon/><Link to="/MensagensAnuncios">Mensagens recebidas</Link>
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/MensagensAnuncios">Mensagens recebidas</Link>
+            <ListItemText />
           </ListItem>
         </List>
+        <Divider />
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -180,8 +180,8 @@ export default function Dashboard() {
         })}
       >
         <div className={classes.drawerHeader} />
+        <MensagensContatos/>
         
-        <Carousell/>
       </main>
     </div>
   );

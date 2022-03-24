@@ -111,9 +111,10 @@ const DeletarDadosController = async (req, res) => {
     });
 };
 const UpdateDadosController = async (req, res) => {
-  if (req.body) {
+  if (req.params) {
     await knex("cadastro_veiculos")
-      .where()
+      .select("modelo")
+      .where("id", req.params.id)
       .update("modelo")
       .then((data) => {
         console.log(data);
@@ -175,7 +176,12 @@ const marcaDadosController = async (req, res) => {
 };
 const buscarOpcionaisController = async (req, res) => {
   await knex
-    .select("direcao_hidraulica", "ar_condicionado", "check_control", "computador_de_bordo")
+    .select(
+      "direcao_hidraulica",
+      "ar_condicionado",
+      "check_control",
+      "computador_de_bordo"
+    )
     .from("opcionais")
     .then((data) => {
       console.log(data);
@@ -187,21 +193,18 @@ const buscarOpcionaisController = async (req, res) => {
     });
 };
 const buscarMarcasController = async (req, res) => {
-  
-  await knex.select("*")
-  .from("marcas")
-  .then((data) => {
-    console.log(data)
-    return res.status(201).json(data)
-  })
-  .catch((err)=> { 
-
-    console.log(err)
-    return res.status(401).json({message: "Erro! dados não encontrados!"})
-
-  })
-
-}
+  await knex
+    .select("*")
+    .from("marcas")
+    .then((data) => {
+      console.log(data);
+      return res.status(201).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(401).json({ message: "Erro! dados não encontrados!" });
+    });
+};
 const queryOracleDb = async (req, res) => {
   await oracle
     .with(
@@ -234,6 +237,59 @@ const queryOracleDb = async (req, res) => {
         .json({ message: "Erro! Não foi possível executar esta query!" });
     });
 };
+//Query database formulário de contato
+
+const formularioContatoController = async (req, res) => {
+  console.log(req.body)
+  if (req.body) {
+
+    await knex("contato")
+      .insert({
+        nome: req.body.nome,
+        email: req.body.email,
+        telefone: req.body.telefone,
+        assunto: req.body.assunto,
+        mensagem: req.body.mensagem,
+     
+      })
+      .then((data) => {
+        console.log(data);
+        return res.status(201).json(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        return res
+          .status(401)
+          .json({ message: "Erro ao enviar mensagem!" });
+      });
+  }
+  
+};
+const buscarMensagensController = async(req, res) => {
+
+  await knex.select("*").from('contato')
+  .then((data) => {
+    console.log(data)
+    return res.status(201).json(data)
+  }).catch((err) =>{ 
+    console.log(err)
+    return res.status(401).json({message: "Erro! mensagens nao encontradas!"})
+  })
+
+}
+//Deleta mensagens Lidas
+const deletarMensagensController = async(req, res) => {
+  await knex('contato').where('id', req.params.id)
+  .then((data) => {
+    console.log(data)
+    return res.status(201).json(data)
+  })
+  .catch((err) => {
+    console.log(err)
+    return res.status(401).json({message: "Erro! Não foi possível realizar delete do usuário!"})
+  })
+}
+
 module.exports = {
   cadastroVeiculosController,
   buscarDadosController,
@@ -245,5 +301,8 @@ module.exports = {
   opcionaisDadosController,
   marcaDadosController,
   buscarOpcionaisController,
-  buscarMarcasController
+  buscarMarcasController,
+  buscarMensagensController,
+  formularioContatoController,
+  deletarMensagensController
 };
