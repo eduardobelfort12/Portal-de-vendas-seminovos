@@ -161,7 +161,7 @@ export default function Dashboard() {
         <Divider />
         <List>
           <ListItem button >
-            <LocalShippingIcon/><Link to="/" >Dashboard</Link>
+            <LocalShippingIcon/><Link to="/VisualizarVeiculos" >Visualizar Veículos</Link>
             <ListItemText/>
           </ListItem>
         </List>

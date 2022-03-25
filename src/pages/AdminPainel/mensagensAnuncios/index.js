@@ -17,6 +17,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
 import MensagensContatos from "../../../components/AdmPageComponents/mensagensContatos";
+import MailIcon from '@material-ui/icons/Mail';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +81,9 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  TextDecoration : {
+    TextDecoration: "none",
+  }
 }));
 
 export default function MensagensAnuncios() {
@@ -141,7 +145,7 @@ export default function MensagensAnuncios() {
         <List>
           <ListItem button>
             <LocalShippingIcon />
-            <Link to="/AdminPainel">Dashboard</Link>
+            <Link className={classes.TextDecoration} to="/AdminPainel">Dashboard</Link>
             <ListItemText />
           </ListItem>
         </List>
@@ -167,7 +171,7 @@ export default function MensagensAnuncios() {
         <Divider />
         <List>
           <ListItem button>
-            <LocalShippingIcon />
+            <MailIcon/>
             <Link to="/MensagensAnuncios">Mensagens recebidas</Link>
             <ListItemText />
           </ListItem>

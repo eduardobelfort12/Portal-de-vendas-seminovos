@@ -17,6 +17,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
 import ListagemVeiculosAdmin from "../../../components/AdmPageComponents/ListagemVeiculosAdmin";
+import MailIcon from '@material-ui/icons/Mail';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -159,6 +160,15 @@ export default function VisualizarVeiculos() {
         <List>
           <ListItem button>
             <LocalShippingIcon /><Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
+        <Divider />
+        <List>
+          <ListItem button>
+            <MailIcon/>
+            <Link to="/MensagensAnuncios">Mensagens recebidas</Link>
             <ListItemText />
           </ListItem>
         </List>

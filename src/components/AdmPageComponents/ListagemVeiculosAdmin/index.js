@@ -4,14 +4,24 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { Grid } from "@material-ui/core";
 import { Container } from "@material-ui/core";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
+// import CardActions from "@material-ui/core/CardActions";
+// import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
+
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import EditFormAdmin from "../modalEditFormAdmin";
+import Table from "@material-ui/core/Table";
+import { TableContainer } from "@material-ui/core";
+import { TableBody } from "@material-ui/core";
+import { TableCell } from "@material-ui/core";
+import { TableHead } from "@material-ui/core";
+import { TableRow } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
+import EditIcon from '@material-ui/icons/Edit';
+import Button from "@material-ui/core/Button"
+import DeleteIcon from '@material-ui/icons/Delete';
 
 // import api from "../../../axios/api";
 
@@ -44,6 +54,25 @@ const useStyles = makeStyles((theme) => ({
   test: {
     display: "none",
   },
+  container: {
+    borderRadius: "10px 10px",
+    width: "100%",
+    height: "100%",
+  },
+  colorButtonDelete:{
+
+    margin: '20px',
+    padding: "10px",
+    background: "red",
+    color: "white"
+  },
+  colorButtonEdit:{
+    margin: '40px',
+    padding: "10px",
+    background: "#D4A114",
+    color: "white",
+    
+  }
 }));
 
 const PER_PAGE = 10;
@@ -51,10 +80,6 @@ const PER_PAGE = 10;
 export default function ListageVeiculos() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
@@ -86,7 +111,7 @@ export default function ListageVeiculos() {
   const currentPageData = data
 
     .slice(offset, offset + PER_PAGE)
-    .map(({  image }) => (
+    .map(({ image, marca, modelo, preco,id }) => (
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={0}>
@@ -96,19 +121,50 @@ export default function ListageVeiculos() {
                 className={classes.cardMedia}
                 image={url + `${image}`}
               ></CardMedia>
-              <CardContent className={classes.cardContent}>
-              </CardContent>
-              <CardActions>
-                <Button size="small" color="warning" onClick={handleOpen}>
-                  Editar
-                </Button>
-              </CardActions>
             </Card>
           </Grid>
+          <Grid item xs={false} sm={4} md={7}>
+            <Container className={classes.container}>
+              <div>
+                <TableContainer component={Paper}>
+                  <Table
+                    className={classes.table}
+                    size="small"
+                    aria-label="a dense table"
+                  >
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="right">Marca</TableCell>
+                        <TableCell align="right">Modelo</TableCell>
+                        <TableCell align="right">Valor</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell align="right">{marca}</TableCell>
+                        <TableCell align="right">{modelo}</TableCell>
+                        <TableCell align="right">{preco}R$</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
+              <TableHead>
+                <TableBody>
+                  <TableCell>
+                    <Button align="center" variant="contained" size='small' color='success' value={id} startIcon={<DeleteIcon/>} className={classes.colorButtonDelete}>
+                       Excluir Anuncio    
+                    </Button>
+                    <Button align="center" variant="contained" size='small' color="success" startIcon={<EditIcon/>} className={classes.colorButtonEdit}>
+                       Editar Anuncio    
+                    </Button>
+                  </TableCell>
+                </TableBody>
+              </TableHead>
+            </Container>
+          </Grid>
         </Grid>
-       
       </Container>
-
     ));
 
   const pageCount = Math.ceil(data.length / PER_PAGE);

@@ -20,7 +20,6 @@ import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 // import api from "../../axios/api";
 import SearchIcon from "@material-ui/icons/Search";
-import Checkbox from "@material-ui/core/Checkbox";
 import VeiculosDestaqueComponent from "../../components/veiculosDestaque";
 
 const useStyles = makeStyles((theme) => ({
@@ -91,11 +90,9 @@ export default function Home() {
   // const [set, setOpcoes] = useState([]);
   const [marca, setMarca] = useState([]);
   const [modelo, setModelo] = useState([]);
-  const [setOpcionais] = useState([]);
   // const [setDirecao] = useState([]);
   // const [setAr] = useState([])
   // const [ setCheckcontrol] = useState([])
-
   const [url] = useState("http://localhost:5500/upload/");
   // const [modelo, setModelo] = useState('')
   //Esta função filtra as minhas informações setadas nos campos do meu formulario de filtro
@@ -112,7 +109,10 @@ export default function Home() {
       });
   }
   //Buscar Informações para filtrar valores direto do banco de dados
-
+  const handleAnuncio = (event) => {
+    event.preventDefault()
+    window.location.replace("/Contatos")
+  }
   useEffect(() => {
     fetch("http://localhost:5500/exibir", {
       method: "GET",
@@ -124,17 +124,6 @@ export default function Home() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   fetch(`http://localhost:5500/options`, {
-  //     method: "GET",
-  //     mode: "cors",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setOpcoes(data);
-  //     });
-  // }, []);
-
   return (
     <React.Fragment>
       <CssBaseline />
@@ -145,7 +134,7 @@ export default function Home() {
             {" "}
             <Carousell />
           </div>
-        
+
           <Container className={classes.filter}>
             <div>
               <Paper elevation={10}>
@@ -196,33 +185,6 @@ export default function Home() {
                             ))}
                           </Select>
                         </FormControl>
-                        <FormControl className={classes.formControl}>
-                          <InputLabel
-                            className={classes.inputlabel}
-                            id="modelo"
-                          >
-                            Opcionais
-                          </InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="opicionais"
-                            name="opicionais"
-                            label="modelo"
-                            onChange={(event) =>
-                              setOpcionais(event.target.value)
-                            }
-                          >
-                            <Checkbox value={"Direção Hidraúlica"}>
-                              Direção Hidraúlica
-                            </Checkbox>
-                            <Checkbox value={"Ar condicionado"}>
-                              Ar condicionado
-                            </Checkbox>
-                            <Checkbox value={"Check Control"}>
-                              CheckControl
-                            </Checkbox>
-                          </Select>
-                        </FormControl>
 
                         <div>
                           <ThemeProvider>
@@ -246,7 +208,6 @@ export default function Home() {
             </div>
           </Container>
         </div>
-
 
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
@@ -277,7 +238,10 @@ export default function Home() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" onClick={handleAnuncio}>
+                      entrar em contato
+                    </Button>
+                    <Button size="small" color="primary" onClick={handleAnuncio}>
                       Visualizar
                     </Button>
                   </CardActions>
@@ -285,9 +249,10 @@ export default function Home() {
               </Grid>
             ))}
           </Grid>
-
         </Container>
+        <Typography variant="h4" align="center">Anuncios em Destaque</Typography>
         <VeiculosDestaqueComponent/>
+       
         <section>
           <div className={classes.heroContent}>
             <FullWidthGrid />

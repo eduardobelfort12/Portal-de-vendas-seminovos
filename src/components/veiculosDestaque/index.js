@@ -9,7 +9,6 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import BasicSelect from "../../components/searchFilter"
 // import api from "../../axios/api"
 
 const useStyles = makeStyles((theme) => ({
@@ -78,7 +77,7 @@ export default function VeiculosDestaqueComponent() {
     .map(({ modelo, marca, cor, image, preco }) => (
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
-        <Grid container spacing={0}>
+        <Grid  container spacing={3}>
           <Grid xs={12} sm={6} md={4}>
             <Card className={classes.card}>
               <CardMedia
@@ -97,6 +96,7 @@ export default function VeiculosDestaqueComponent() {
                 </Button>
               </CardActions>
             </Card>
+            
           </Grid>
         </Grid>
       </Container>
@@ -119,29 +119,7 @@ export default function VeiculosDestaqueComponent() {
         activeClassName={"pagination__link--active"}
       />
       {currentPageData}
-      <div>
-      <Container className={classes.cardGrid2} maxWidth="md">
-        {/* End hero unit */}
-        <Grid container spacing={0}>
-          <Grid xs={12} sm={6} md={4}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cardMedia}
-               
-              ></CardMedia>
-              <CardContent className={classes.cardContent}>
-                  <BasicSelect/>
-              </CardContent>
-              <CardActions>
-                <Button size="small" color="warning">
-                  Visualizar
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        </Grid>
-      </Container>
-      </div>
+  
     </div>
   );
 }

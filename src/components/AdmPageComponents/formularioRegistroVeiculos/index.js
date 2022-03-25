@@ -10,11 +10,7 @@ import { Box } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
-import Select from "@material-ui/core/Select";
-import FormControl from "@material-ui/core/FormControl";
-import { InputLabel } from "@material-ui/core";
-import { MenuItem } from "@material-ui/core";
-import { Checkbox } from "@material-ui/core";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -151,23 +147,19 @@ export default function CadastrarVeiculos() {
               noValidate
               autoComplete="off"
             >
-              <FormControl className={classes.formControl}>
-                <InputLabel className={classes.inputlabel} id="marca">
-                  Marca
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="marca"
-                  name="marca"
-                  label="marca"
-                  onChange={(event) => setMarca(event.target.value)}
-                >
-                  <MenuItem value={"Volvo"}>Volvo</MenuItem>
-                  <MenuItem value={"Scania"}>Scania</MenuItem>
-                  <MenuItem value={"Volkswagen"}>Volkswagen</MenuItem>
-                  <MenuItem value={"Mercedes"}>mercedes-Benz</MenuItem>
-                </Select>
-              </FormControl>
+                <TextField
+                className={classes.inputs}
+                variant="outlined"
+                margin="normal"
+                required
+                size="small"
+                id="modelo"
+                onChange={(e) => setMarca(e.target.value)}
+                label="Modelo veículo"
+                name="modelo"
+                autoFocus
+              />  
+        
               <TextField
                 className={classes.inputs}
                 variant="outlined"
@@ -328,42 +320,20 @@ export default function CadastrarVeiculos() {
                 autoFocus
               />
 
-              {/* <TextField
+              <TextField
                 className={classes.inputs}
                 variant="outlined"
                 margin="normal"
                 required
                 size="small"
                 id="opcionais"
-                onChange={(e) => opcionais(e.target.value)}
+                onChange={(e) => setOpcionais(e.target.value)}
                 label="opcionais"
                 name="opcionais"
                 autoComplete=""
                 autoFocus
-              />   */}
-              <FormControl className={classes.formControl}>
-                <InputLabel
-                  className={classes.inputlabel}
-                  id="opcionais"
-                ></InputLabel>
-                <div
-                  labelId="demo-simple-select-label"
-                  id="opcionais"
-                  name="opcionais"
-                  label="opcionais"
-                  onChange={(event) => setOpcionais(event.target.value)}
-                >
-                  <Checkbox type="checkbox" value={"Direção Hidraúlica"}>
-                    Direção Hidraúlica
-                  </Checkbox>
-                  <Checkbox type="checkbox" value={"Ar condicionado"}>
-                    Ar condicionado
-                  </Checkbox>
-                  <Checkbox type="checkbox" value={"Check Control"}>
-                    CheckControl
-                  </Checkbox>
-                </div>
-              </FormControl>
+              />  
+       
             </Box>
             <Box align="center">
               <input
@@ -374,12 +344,12 @@ export default function CadastrarVeiculos() {
                 onChange={(e) => setImage(e.target.files[0])}
               />
               <br></br>
-              <div>
+              <div style={{margin: "80px"}}>
                 {image ? (
-                  <img
+                  <img 
                     src={URL.createObjectURL(image)}
-                    width="130"
-                    height="130"
+                    width="200"
+                    height="200"
                     alt="imagem"
                   />
                 ) : (
