@@ -9,6 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+
 // import api from "../../axios/api"
 
 const useStyles = makeStyles((theme) => ({
@@ -93,6 +94,8 @@ export default function PaginationComponent() {
                 </Button>
               </CardActions>
             </Card>
+          </Grid>
+          <Grid item={false} xs={12} sm={4} md={6}>
           </Grid>
         </Grid>
       </Container>

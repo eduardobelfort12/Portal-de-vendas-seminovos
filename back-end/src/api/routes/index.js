@@ -13,7 +13,8 @@ const {
   buscarMarcasController,
   formularioContatoController,
   buscarMensagensController,
-  deletarMensagensController
+  deletarMensagensController,
+  deletarAnuncioController,
 } = require("../controllers/cadastroVeiculos");
 const uploadUser = require("../middlewares/uploadimages");
 
@@ -41,5 +42,6 @@ routes.get("/getmarcas", buscarMarcasController)
 routes.post("/send" , formularioContatoController)
 routes.get("/mensagens" ,buscarMensagensController)
 routes.delete("/deletarmsg/:id" , deletarMensagensController)
+routes.delete("/deletaranuncio/:id" , deletarAnuncioController)
 
 module.exports = routes;

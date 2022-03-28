@@ -19,11 +19,12 @@ import { TableCell } from "@material-ui/core";
 import { TableHead } from "@material-ui/core";
 import { TableRow } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
-import EditIcon from '@material-ui/icons/Edit';
-import Button from "@material-ui/core/Button"
-import DeleteIcon from '@material-ui/icons/Delete';
-
+import EditIcon from "@material-ui/icons/Edit";
+import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { Checkbox } from "@material-ui/core";
 // import api from "../../../axios/api";
+import api from "../../../axios/api";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -59,28 +60,49 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "100%",
   },
-  colorButtonDelete:{
-
-    margin: '20px',
+  colorButtonDelete: {
+    margin: "20px",
     padding: "10px",
     background: "red",
-    color: "white"
+    color: "white",
   },
-  colorButtonEdit:{
-    margin: '40px',
+  colorButtonEdit: {
+    margin: "40px",
     padding: "10px",
     background: "#D4A114",
     color: "white",
-    
-  }
+  },
 }));
 
 const PER_PAGE = 10;
 
 export default function ListageVeiculos() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState("");
 
+  async function deleteAnuncio(event) {
+    event.preventDefault();
+    if (document.getElementById("id").checked === false) {
+      alert(
+        "Deseja realmente exluir este anúncio? Marque a caixa na tabela na linha excluir anúncios!"
+      );
+    } else {
+      await api
+        .delete(`/deletaranuncio/${id}`, {
+          id,
+        })
+        .then((response) => {
+          console.log(response.data);
+          alert("Anúncio deletado com sucesso!");
+          window.location.replace("/VisualizarVeiculos");
+          setId(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
   const handleClose = () => {
     setOpen(false);
   };
@@ -100,6 +122,7 @@ export default function ListageVeiculos() {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setData(data);
       });
   }
@@ -111,7 +134,7 @@ export default function ListageVeiculos() {
   const currentPageData = data
 
     .slice(offset, offset + PER_PAGE)
-    .map(({ image, marca, modelo, preco,id }) => (
+    .map(({ image, marca, modelo, preco, id }) => (
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={0}>
@@ -124,44 +147,74 @@ export default function ListageVeiculos() {
             </Card>
           </Grid>
           <Grid item xs={false} sm={4} md={7}>
-            <Container className={classes.container}>
-              <div>
-                <TableContainer component={Paper}>
-                  <Table
-                    className={classes.table}
-                    size="small"
-                    aria-label="a dense table"
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="right">Marca</TableCell>
-                        <TableCell align="right">Modelo</TableCell>
-                        <TableCell align="right">Valor</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      <TableRow>
-                        <TableCell align="right">{marca}</TableCell>
-                        <TableCell align="right">{modelo}</TableCell>
-                        <TableCell align="right">{preco}R$</TableCell>
-                      </TableRow>
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </div>
-              <TableHead>
-                <TableBody>
-                  <TableCell>
-                    <Button align="center" variant="contained" size='small' color='success' value={id} startIcon={<DeleteIcon/>} className={classes.colorButtonDelete}>
-                       Excluir Anuncio    
-                    </Button>
-                    <Button align="center" variant="contained" size='small' color="success" startIcon={<EditIcon/>} className={classes.colorButtonEdit}>
-                       Editar Anuncio    
-                    </Button>
-                  </TableCell>
-                </TableBody>
-              </TableHead>
-            </Container>
+            <form onSubmit={deleteAnuncio}>
+              <Container className={classes.container}>
+                <div>
+                  <TableContainer component={Paper}>
+                    <Table
+                      className={classes.table}
+                      size="small"
+                      aria-label="a dense table"
+                    >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell align="right">Marca</TableCell>
+                          <TableCell align="right">Modelo</TableCell>
+                          <TableCell align="right">Valor</TableCell>
+                          <TableCell align="right">Excluir Anúncio</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="right">{marca}</TableCell>
+                          <TableCell align="right">{modelo}</TableCell>
+                          <TableCell align="right">{preco}R$</TableCell>
+                          <TableCell align="right">
+                            <DeleteIcon />
+
+                            <Checkbox
+                              color="primary"
+                              type="checkbox"
+                              id="id"
+                              onChange={(e) => setId(e.target.value)}
+                              value={id}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </div>
+                <TableHead>
+                  <TableBody>
+                    <TableCell>
+                      <Button
+                        align="center"
+                        type="submit"
+                        variant="contained"
+                        size="small"
+                        color="success"
+                        startIcon={<DeleteIcon />}
+                        className={classes.colorButtonDelete}
+                      >
+                        Excluir Anuncio
+                      </Button>
+
+                      <Button
+                        align="center"
+                        variant="contained"
+                        size="small"
+                        color="success"
+                        startIcon={<EditIcon />}
+                        className={classes.colorButtonEdit}
+                      >
+                        Editar Anuncio
+                      </Button>
+                    </TableCell>
+                  </TableBody>
+                </TableHead>
+              </Container>
+            </form>
           </Grid>
         </Grid>
       </Container>

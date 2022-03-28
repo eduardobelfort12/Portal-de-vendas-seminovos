@@ -42,7 +42,7 @@ const buscarDadosController = async (req, res) => {
       .select("*")
       .from("cadastro_veiculos")
       .then((data) => {
-        console.log(data);
+       
         return res.status(201).json(data);
       })
       .catch((err) => {
@@ -60,7 +60,7 @@ const exibirDadosController = async (req, res) => {
     .from("cadastro_veiculos")
     .distinctOn("marca")
     .then((data) => {
-      console.log(data);
+    
       return res.status(201).json(data);
     })
     .catch((err) => {
@@ -84,7 +84,7 @@ const filtrarDadosController = async (req, res) => {
     .from("cadastro_veiculos")
     .where("marca", req.params.marca)
     .then((data) => {
-      console.log(data);
+      
       return res.status(201).json(data);
     })
     .catch((err) => {
@@ -197,7 +197,7 @@ const buscarMarcasController = async (req, res) => {
     .select("*")
     .from("marcas")
     .then((data) => {
-      console.log(data);
+     
       return res.status(201).json(data);
     })
     .catch((err) => {
@@ -269,7 +269,7 @@ const buscarMensagensController = async(req, res) => {
 
   await knex.select("*").from('contato')
   .then((data) => {
-    console.log(data)
+ 
     return res.status(201).json(data)
   }).catch((err) =>{ 
     console.log(err)
@@ -279,9 +279,23 @@ const buscarMensagensController = async(req, res) => {
 }
 //Deleta mensagens Lidas
 const deletarMensagensController = async(req, res) => {
-  await knex('contato').where('id', req.params.id)
+  await knex('contato').where('id', req.params.id).del()
   .then((data) => {
     console.log(data)
+    console.log('Mensagem deletada com sucesso!')
+    return res.status(201).json(data)
+  })
+  .catch((err) => {
+    console.log(err)
+    return res.status(401).json({message: "Erro! Não foi possível realizar delete do usuário!"})
+  })
+}
+const deletarAnuncioController = async(req, res) => {
+  console.log(req.params.id)
+  await knex('cadastro_veiculos').where('id', req.params.id).del()
+  .then((data) => {
+    console.log(data)
+    console.log('Anúncio excluído com sucesso!')
     return res.status(201).json(data)
   })
   .catch((err) => {
@@ -304,5 +318,6 @@ module.exports = {
   buscarMarcasController,
   buscarMensagensController,
   formularioContatoController,
-  deletarMensagensController
+  deletarMensagensController,
+  deletarAnuncioController
 };
