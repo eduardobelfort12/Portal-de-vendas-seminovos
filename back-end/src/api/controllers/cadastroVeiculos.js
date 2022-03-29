@@ -42,7 +42,6 @@ const buscarDadosController = async (req, res) => {
       .select("*")
       .from("cadastro_veiculos")
       .then((data) => {
-       
         return res.status(201).json(data);
       })
       .catch((err) => {
@@ -60,7 +59,6 @@ const exibirDadosController = async (req, res) => {
     .from("cadastro_veiculos")
     .distinctOn("marca")
     .then((data) => {
-    
       return res.status(201).json(data);
     })
     .catch((err) => {
@@ -84,7 +82,6 @@ const filtrarDadosController = async (req, res) => {
     .from("cadastro_veiculos")
     .where("marca", req.params.marca)
     .then((data) => {
-      
       return res.status(201).json(data);
     })
     .catch((err) => {
@@ -197,7 +194,6 @@ const buscarMarcasController = async (req, res) => {
     .select("*")
     .from("marcas")
     .then((data) => {
-     
       return res.status(201).json(data);
     })
     .catch((err) => {
@@ -240,9 +236,8 @@ const queryOracleDb = async (req, res) => {
 //Query database formulário de contato
 
 const formularioContatoController = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   if (req.body) {
-
     await knex("contato")
       .insert({
         nome: req.body.nome,
@@ -250,7 +245,6 @@ const formularioContatoController = async (req, res) => {
         telefone: req.body.telefone,
         assunto: req.body.assunto,
         mensagem: req.body.mensagem,
-     
       })
       .then((data) => {
         console.log(data);
@@ -258,51 +252,58 @@ const formularioContatoController = async (req, res) => {
       })
       .catch((err) => {
         console.log(err);
-        return res
-          .status(401)
-          .json({ message: "Erro ao enviar mensagem!" });
+        return res.status(401).json({ message: "Erro ao enviar mensagem!" });
       });
   }
-  
 };
-const buscarMensagensController = async(req, res) => {
-
-  await knex.select("*").from('contato')
-  .then((data) => {
- 
-    return res.status(201).json(data)
-  }).catch((err) =>{ 
-    console.log(err)
-    return res.status(401).json({message: "Erro! mensagens nao encontradas!"})
-  })
-
-}
+const buscarMensagensController = async (req, res) => {
+  await knex
+    .select("*")
+    .from("contato")
+    .then((data) => {
+      return res.status(201).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res
+        .status(401)
+        .json({ message: "Erro! mensagens nao encontradas!" });
+    });
+};
 //Deleta mensagens Lidas
-const deletarMensagensController = async(req, res) => {
-  await knex('contato').where('id', req.params.id).del()
-  .then((data) => {
-    console.log(data)
-    console.log('Mensagem deletada com sucesso!')
-    return res.status(201).json(data)
-  })
-  .catch((err) => {
-    console.log(err)
-    return res.status(401).json({message: "Erro! Não foi possível realizar delete do usuário!"})
-  })
-}
-const deletarAnuncioController = async(req, res) => {
-  console.log(req.params.id)
-  await knex('cadastro_veiculos').where('id', req.params.id).del()
-  .then((data) => {
-    console.log(data)
-    console.log('Anúncio excluído com sucesso!')
-    return res.status(201).json(data)
-  })
-  .catch((err) => {
-    console.log(err)
-    return res.status(401).json({message: "Erro! Não foi possível realizar delete do usuário!"})
-  })
-}
+const deletarMensagensController = async (req, res) => {
+  await knex("contato")
+    .where("id", req.params.id)
+    .del()
+    .then((data) => {
+      console.log(data);
+      console.log("Mensagem deletada com sucesso!");
+      return res.status(201).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(401).json({
+        message: "Erro! Não foi possível realizar delete do usuário!",
+      });
+    });
+};
+const deletarAnuncioController = async (req, res) => {
+  console.log(req.params.id);
+  await knex("cadastro_veiculos")
+    .where("id", req.params.id)
+    .del()
+    .then((data) => {
+      console.log(data);
+      console.log("Anúncio excluído com sucesso!");
+      return res.status(201).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(401).json({
+        message: "Erro! Não foi possível realizar delete do usuário!",
+      });
+    });
+};
 
 module.exports = {
   cadastroVeiculosController,
@@ -319,5 +320,5 @@ module.exports = {
   buscarMensagensController,
   formularioContatoController,
   deletarMensagensController,
-  deletarAnuncioController
+  deletarAnuncioController,
 };

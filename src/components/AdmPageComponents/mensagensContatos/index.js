@@ -36,12 +36,14 @@ export default function MensagensContatos() {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [push, setPush] = useState([]);
-  const [id, setId] = useState([]);
+  const [id, setId] = useState("");
 
   async function deleteMensagens(event) {
-    event.prenventDefault();
-    if (document.getElementById('id').checked === false) {
-      alert("Tem certeza que deseja excluir esta mensagem?");
+    event.preventDefault();
+    if (document.getElementById("id").checked === false) {
+      alert(
+        "Deseja realmente excluir esta mensagem? Marque a caixa de confirmar exclusão, ao lado esquerdo !"
+      );
     } else {
       await api
         .delete(`/deletarmsg/${id}`, {
@@ -49,8 +51,9 @@ export default function MensagensContatos() {
         })
         .then((response) => {
           console.log(response.data);
-          window.location.replace("/MensagensAnuncios");
-          alert("Mensagem apagada com sucesso!");
+          alert("Mensagem deletada com sucesso!");
+          window.location.replace("/VisualizarVeiculos");
+          setId(response.data);
         })
         .catch((err) => {
           console.log(err);
@@ -77,33 +80,34 @@ export default function MensagensContatos() {
   return (
     <div className={classes.root}>
       {push.map((items) => (
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
+        <form onSubmit={deleteMensagens}>
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
           >
-            <Typography className={classes.secondaryHeading}>
-              Nome: {items.nome}
-            </Typography>
-            <Typography className={classes.secondaryHeading}>
-              Email: {items.email}
-            </Typography>
-            <Typography className={classes.secondaryHeading}>
-              Assunto: {items.assunto}
-            </Typography>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Typography className={classes.secondaryHeading}>
+                Nome: {items.nome}
+              </Typography>
+              <Typography className={classes.secondaryHeading}>
+                Email: {items.email}
+              </Typography>
+              <Typography className={classes.secondaryHeading}>
+                Assunto: {items.assunto}
+              </Typography>
 
-            <Typography className={classes.secondaryHeading}>
-              Telefone : {items.telefone}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>Mensagem : {items.mensagem}</Typography>
-          </AccordionDetails>
-          <form id="form" onSubmit={deleteMensagens}>
+              <Typography className={classes.secondaryHeading}>
+                Telefone : {items.telefone}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>Mensagem : {items.mensagem}</Typography>
+            </AccordionDetails>
+
             <DeleteIcon />
             <Checkbox
               color="primary"
@@ -114,16 +118,15 @@ export default function MensagensContatos() {
               onChange={(e) => setId(e.target.value)}
             />
             <Button
-              type={"submit"}
+              type="submit"
               variant="contained"
               primary="primary"
-              id="btn"
               className={classes.buttonColor}
             >
               Apagar mensagem
             </Button>
-          </form>
-        </Accordion>
+          </Accordion>
+        </form>
       ))}
     </div>
   );
