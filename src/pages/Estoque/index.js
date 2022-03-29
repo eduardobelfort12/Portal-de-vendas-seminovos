@@ -23,7 +23,19 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
- 
+  footer: {
+    background: "#006640",
+    padding: theme.spacing(5),
+  },
+  fixedPaginate: {
+    width: "100%",
+    height: "5vh",
+    position: "fixed",
+    top: "auto",
+    fontSize: "12px",
+    justifyContent: "center",
+    display: "flex",
+  },
 }));
 
 export default function Estoque() {

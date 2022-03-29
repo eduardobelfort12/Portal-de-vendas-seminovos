@@ -55,10 +55,11 @@ const buscarDadosController = async (req, res) => {
 
 const exibirDadosController = async (req, res) => {
   await knex
-    .select("marca", "modelo", "opcionais")
+    .select('*')
     .from("cadastro_veiculos")
-    .distinctOn("marca")
+  .distinctOn('marca')
     .then((data) => {
+      console.log(data)
       return res.status(201).json(data);
     })
     .catch((err) => {
@@ -68,16 +69,19 @@ const exibirDadosController = async (req, res) => {
 };
 
 const filtrarDadosController = async (req, res) => {
-  console.log(req.params.marca);
+  console.log(req.params.marca , req.params.modelo);
   await knex
     .select(
       "marca",
-      "cor",
       "modelo",
       "image",
       "preco",
-      "informacoesadicionais",
-      "opcionais"
+      "opcionais",
+      "torque",
+      "entreeixo",
+      "tiposuspensao",
+      "potencia", 
+      "km"
     )
     .from("cadastro_veiculos")
     .where("marca", req.params.marca)

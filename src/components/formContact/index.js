@@ -64,9 +64,8 @@ export default function SignInSide() {
      })
       .then((response) => {
         console.log(response);
-        document.getElementById("formulario").reset()
         alert("Mensagem enviada com sucesso!")
-        
+        window.location.replace("/Contatos")
       })
       .catch((err) => {
         if (err.response) {

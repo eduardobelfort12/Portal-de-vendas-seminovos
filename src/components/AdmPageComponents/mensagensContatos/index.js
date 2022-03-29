@@ -9,16 +9,18 @@ import Button from "@material-ui/core/Button";
 import api from "../../../axios/api";
 import Checkbox from "@material-ui/core/Checkbox";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Box from "@material-ui/core/Box"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    maxWidth: "auto",
+    overflowX: "hidden"
   },
   buttonColor: {
     margin: "10px",
     background: "#D4A114",
     color: "white",
-    left: "80%",
+    right: "-80% -80%",
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -52,7 +54,7 @@ export default function MensagensContatos() {
         .then((response) => {
           console.log(response.data);
           alert("Mensagem deletada com sucesso!");
-          window.location.replace("/VisualizarVeiculos");
+          window.location.replace("/MensagensAnuncios");
           setId(response.data);
         })
         .catch((err) => {
@@ -80,7 +82,8 @@ export default function MensagensContatos() {
   return (
     <div className={classes.root}>
       {push.map((items) => (
-        <form onSubmit={deleteMensagens}>
+      
+        <form  onSubmit={deleteMensagens}>
           <Accordion
             expanded={expanded === "panel1"}
             onChange={handleChange("panel1")}
@@ -107,7 +110,7 @@ export default function MensagensContatos() {
             <AccordionDetails>
               <Typography>Mensagem : {items.mensagem}</Typography>
             </AccordionDetails>
-
+          <Box align="right">
             <DeleteIcon />
             <Checkbox
               color="primary"
@@ -125,8 +128,10 @@ export default function MensagensContatos() {
             >
               Apagar mensagem
             </Button>
+            </Box>
           </Accordion>
         </form>
+     
       ))}
     </div>
   );

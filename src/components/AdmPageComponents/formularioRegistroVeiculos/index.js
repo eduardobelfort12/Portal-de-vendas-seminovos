@@ -344,7 +344,7 @@ export default function CadastrarVeiculos() {
                 onChange={(e) => setImage(e.target.files[0])}
               />
               <br></br>
-              <div style={{margin: "80px"}}>
+              <div style={{margin: "80px" }}>
                 {image ? (
                   <img 
                     src={URL.createObjectURL(image)}

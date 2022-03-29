@@ -15,7 +15,7 @@ const {
   buscarMensagensController,
   deletarMensagensController,
   deletarAnuncioController,
-} = require("../controllers/cadastroVeiculos");
+} = require("../controllers/querys");
 const uploadUser = require("../middlewares/uploadimages");
 
 routes.get("/teste", async (req, res) => {

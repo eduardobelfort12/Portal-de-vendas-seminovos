@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,8 +16,13 @@ import { makeStyles, ThemeProvider } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
-// import api from "../../axios/api";
+import Table from "@material-ui/core/Table";
+import { TableContainer } from "@material-ui/core";
+import { TableBody } from "@material-ui/core";
+import { TableCell } from "@material-ui/core";
+import { TableHead } from "@material-ui/core";
+import { TableRow } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import VeiculosDestaqueComponent from "../../components/veiculosDestaque";
 
@@ -109,10 +113,7 @@ export default function Home() {
       });
   }
   //Buscar Informações para filtrar valores direto do banco de dados
-  const handleAnuncio = (event) => {
-    event.preventDefault()
-    window.location.replace("/Contatos")
-  }
+
   useEffect(() => {
     fetch("http://localhost:5500/exibir", {
       method: "GET",
@@ -143,9 +144,12 @@ export default function Home() {
                     <CardContent>
                       <Typography align="center">Filtro de busca</Typography>
 
-                      <form onSubmit={Filter} encType="multipart/form-data">
-                        <FormControl className={classes.formControl}>
-                          <InputLabel className={classes.inputlabel} id="marca">
+                      <form onSubmit={Filter} >
+                      <FormControl className={classes.formControl}>
+                          <InputLabel
+                            className={classes.inputlabel}
+                            id="marca"
+                          >
                             Marca
                           </InputLabel>
                           <Select
@@ -155,15 +159,13 @@ export default function Home() {
                             label="marca"
                             onChange={(event) => setMarca(event.target.value)}
                           >
-                            <MenuItem value={"Volvo"}>Volvo</MenuItem>
-                            <MenuItem value={"Scania"}>Scania</MenuItem>
-                            <MenuItem value={"Vokswagen"}>Volkswagen</MenuItem>
-                            <MenuItem value={"Mercedes-Benz"}>
-                              Mercedes-Benz
-                            </MenuItem>
+                            {push.map((pusher) => (
+                              <MenuItem value={pusher.marca}>
+                                {pusher.marca}
+                              </MenuItem>
+                            ))}
                           </Select>
                         </FormControl>
-
                         <FormControl className={classes.formControl}>
                           <InputLabel
                             className={classes.inputlabel}
@@ -208,51 +210,88 @@ export default function Home() {
             </div>
           </Container>
         </div>
+        
+          <Container className={classes.cardGrid} maxWidth="md">
+            {/* End hero unit */}
+           {filter.map((item)=> (
 
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={3}>
-            {filter.map((item) => (
-              <Grid item key={item} xs={12} sm={6} md={4}>
+        
+            <Grid container spacing={0}>
+                              
+              <Grid xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image={url + item.image}
-                    title="Image title"
+                    image={url + `${item.image}`}
                   />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h6" component="h2">
-                      {item.marca}
-                    </Typography>
-                    <Typography gutterBottom variant="h6" component="h3">
-                      {item.modelo}
-                    </Typography>
-                    <Typography gutterBottom variant="h6" component="h5">
-                      {item.preco} R$
-                    </Typography>
-                    <Typography gutterBottom variant="h6" component="h5">
-                      {item.informacoesadicionais}
-                    </Typography>
-                    <Typography gutterBottom variant="h6" component="h6">
-                      {item.opcionais}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary" onClick={handleAnuncio}>
-                      entrar em contato
-                    </Button>
-                    <Button size="small" color="primary" onClick={handleAnuncio}>
-                      Visualizar
-                    </Button>
-                  </CardActions>
                 </Card>
               </Grid>
-            ))}
-          </Grid>
-        </Container>
-        <Typography variant="h4" align="center">Anuncios em Destaque</Typography>
+              <Grid item xs={false} sm={4} md={7}>
+                <Container className={classes.container}>
+                  <TableContainer component={Paper}>
+                    <Table
+                      className={classes.table}
+                      size="small"
+                      aria-label="a dense table"
+                    >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell align="left">Marca</TableCell>
+                          <TableCell align="left">Modelo</TableCell>
+                          <TableCell align="left">Valor</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="left">{item.marca}</TableCell>
+                          <TableCell align="left">{item.modelo}</TableCell>
+                          <TableCell align="left">{item.preco}R$</TableCell>
+                        </TableRow>
+                      </TableBody>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell align="left">Opcionais</TableCell>
+                          <TableCell align="left">Potência</TableCell>
+                          <TableCell align="left">Torque</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="left">{item.opcionais}</TableCell>
+                          <TableCell align="left">{item.potencia} CV</TableCell>
+                          <TableCell align="left">{item.torque} Kg/T</TableCell>
+                        </TableRow>
+                      </TableBody>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell align="left">Entre Eixo</TableCell>
+                          <TableCell align="left">Suspensão</TableCell>
+                          <TableCell align="left">Quilometragem</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="left">{item.entreeixo}</TableCell>
+                          <TableCell align="left">
+                            {item.tiposuspensao}
+                          </TableCell>
+                          <TableCell align="left">{item.km} Km</TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Container>
+              </Grid>
+            </Grid>
+               ))} 
+          </Container>
+
+        <Typography variant="h4" align="center">
+          Anuncios em Destaque
+        </Typography>
         <VeiculosDestaqueComponent/>
-       
+     
+
         <section>
           <div className={classes.heroContent}>
             <FullWidthGrid />
@@ -274,3 +313,4 @@ export default function Home() {
     </React.Fragment>
   );
 }
+

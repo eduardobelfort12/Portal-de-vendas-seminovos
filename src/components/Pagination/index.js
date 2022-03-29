@@ -15,6 +15,7 @@ import { TableCell } from "@material-ui/core";
 import { TableHead } from "@material-ui/core";
 import { TableRow } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
+import Box from "@material-ui/core/Box"
 // import api from "../../../axios/api";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "5vh",
     position: "fixed",
-    top: "auto",
+    top: "20%",
     fontSize: "12px",
     justifyContent: "center",
     display: "flex",
@@ -113,7 +114,9 @@ export default function ListageVeiculos() {
         tiposuspensao,
         km,
       }) => (
-        <Container className={classes.cardGrid} maxWidth="md">
+        
+        <Box align="center">
+        <Container  className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={0}>
             <Grid xs={12} sm={6} md={4}>
@@ -156,8 +159,8 @@ export default function ListageVeiculos() {
                     <TableBody>
                       <TableRow>
                         <TableCell align="left">{opcionais}</TableCell>
-                        <TableCell align="left">{potencia}</TableCell>
-                        <TableCell align="left">{torque}R$</TableCell>
+                        <TableCell align="left">{potencia} CV</TableCell>
+                        <TableCell align="left">{torque} Kg/T</TableCell>
                       </TableRow>
                     </TableBody>
                     <TableHead>
@@ -171,7 +174,7 @@ export default function ListageVeiculos() {
                       <TableRow>
                         <TableCell align="left">{entreeixo}</TableCell>
                         <TableCell align="left">{tiposuspensao}</TableCell>
-                        <TableCell align="left">{km}R$</TableCell>
+                        <TableCell align="left">{km} Km</TableCell>
                       </TableRow>
                     </TableBody>
                   </Table>
@@ -180,6 +183,7 @@ export default function ListageVeiculos() {
             </Grid>
           </Grid>
         </Container>
+        </Box>
       )
     );
 
