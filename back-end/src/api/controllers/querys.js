@@ -112,12 +112,12 @@ const DeletarDadosController = async (req, res) => {
     });
 };
 const UpdateDadosController = async (req, res) => {
-  if (req.params) {
+  if (req.body) {
     await knex("cadastro_veiculos")
-      .select("modelo")
-      .where("id", req.params.id)
-      .update("modelo")
+      .where( 'id', req.body.id)
+      .update({marca : req.body.marca, modelo: req.body.modelo})
       .then((data) => {
+        console.log("Modelo do veículos editado com sucesso!")
         console.log(data);
         return res.status(201).json(data);
       })

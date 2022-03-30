@@ -144,12 +144,9 @@ export default function Home() {
                     <CardContent>
                       <Typography align="center">Filtro de busca</Typography>
 
-                      <form onSubmit={Filter} >
-                      <FormControl className={classes.formControl}>
-                          <InputLabel
-                            className={classes.inputlabel}
-                            id="marca"
-                          >
+                      <form onSubmit={Filter}>
+                        <FormControl className={classes.formControl}>
+                          <InputLabel className={classes.inputlabel} id="marca">
                             Marca
                           </InputLabel>
                           <Select
@@ -210,14 +207,11 @@ export default function Home() {
             </div>
           </Container>
         </div>
-        
-          <Container className={classes.cardGrid} maxWidth="md">
-            {/* End hero unit */}
-           {filter.map((item)=> (
 
-        
+        <Container className={classes.cardGrid} maxWidth="md">
+          {/* End hero unit */}
+          {filter.map((item) => (
             <Grid container spacing={0}>
-                              
               <Grid xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
@@ -228,7 +222,7 @@ export default function Home() {
               </Grid>
               <Grid item xs={false} sm={4} md={7}>
                 <Container className={classes.container}>
-                  <TableContainer component={Paper}>
+                  <TableContainer component={Paper} style={{ padding: "10px" }}>
                     <Table
                       className={classes.table}
                       size="small"
@@ -283,14 +277,13 @@ export default function Home() {
                 </Container>
               </Grid>
             </Grid>
-               ))} 
-          </Container>
+          ))}
+        </Container>
 
         <Typography variant="h4" align="center">
           Anuncios em Destaque
         </Typography>
-        <VeiculosDestaqueComponent/>
-     
+        <VeiculosDestaqueComponent />
 
         <section>
           <div className={classes.heroContent}>
@@ -313,4 +306,3 @@ export default function Home() {
     </React.Fragment>
   );
 }
-

@@ -23,9 +23,9 @@ import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Checkbox } from "@material-ui/core";
+
 // import api from "../../../axios/api";
 import api from "../../../axios/api";
-
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -73,6 +73,12 @@ const useStyles = makeStyles((theme) => ({
     background: "#D4A114",
     color: "white",
   },
+  editformModal: {
+    marginTop: "70px",
+  },
+  inputWidth: {
+    width: "25px",
+  },
 }));
 
 const PER_PAGE = 10;
@@ -104,6 +110,19 @@ export default function ListageVeiculos() {
         });
     }
   }
+  //Função para substituição de elemento
+  const handleClick = (event) => {
+    event.preventDefault();
+    if (document.getElementById("id").value) {
+      document.querySelector("#marca");
+      let create = document.createElement("input");
+      create.setAttribute("id", "test");
+      create.setAttribute("class", "inputWidth");
+      let insert = document.querySelector("#marca");
+      insert.appendChild(create);
+    }
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -159,18 +178,26 @@ export default function ListageVeiculos() {
                     >
                       <TableHead>
                         <TableRow>
-                          <TableCell align="right">Marca</TableCell>
-                          <TableCell align="right">Modelo</TableCell>
-                          <TableCell align="right">Valor</TableCell>
-                          <TableCell align="right">Excluir Anúncio</TableCell>
+                          <TableCell align="left">Marca</TableCell>
+                          <TableCell align="left">Modelo</TableCell>
+                          <TableCell align="left">Valor</TableCell>
+                          <TableCell align="left">Excluir Anúncio</TableCell>
+                          <TableCell align="left">Editar Anúncio</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
                         <TableRow>
-                          <TableCell align="right">{marca}</TableCell>
-                          <TableCell align="right">{modelo}</TableCell>
-                          <TableCell align="right">{preco}R$</TableCell>
-                          <TableCell align="right">
+                          <TableCell align="left" id="marca">
+                            {marca}
+                          </TableCell>
+                          <TableCell align="left" id="modelo">
+                            {modelo}
+                          </TableCell>
+                          <TableCell align="left" id="preco">
+                            {preco}R$
+                          </TableCell>
+
+                          <TableCell align="left">
                             <DeleteIcon />
 
                             <Checkbox
@@ -179,6 +206,14 @@ export default function ListageVeiculos() {
                               id="id"
                               onChange={(e) => setId(e.target.value)}
                               value={id}
+                            />
+                          </TableCell>
+                          <TableCell  align="left" id="preco">
+                            <Button
+                              onClick={handleClick}
+                              key = {id}
+                              id={id}
+                              startIcon={<EditIcon />}
                             />
                           </TableCell>
                         </TableRow>
@@ -224,7 +259,7 @@ export default function ListageVeiculos() {
   const pageCount = Math.ceil(data.length / PER_PAGE);
 
   return (
-    <div className="App">
+    <div>
       <ReactPaginate
         className={classes.fixedPaginate}
         previousLabel={"← Previous"}
@@ -238,7 +273,7 @@ export default function ListageVeiculos() {
         activeClassName={"pagination__link--active"}
       />
       {currentPageData}
-      <div>
+      <div className={classes.editformModal}>
         {" "}
         <Modal
           className={classes.modal}

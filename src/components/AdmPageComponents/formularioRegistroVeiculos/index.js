@@ -101,7 +101,7 @@ export default function CadastrarVeiculos() {
       .post("/registrar", formData)
       .then((response) => {
         alert("Veículo cadastrado com sucesso!");
-
+        window.location.replace("/registrarVeiculos")
         console.log(response);
       })
       .catch((err) => {
