@@ -55,11 +55,11 @@ const buscarDadosController = async (req, res) => {
 
 const exibirDadosController = async (req, res) => {
   await knex
-    .select('*')
+    .select("*")
     .from("cadastro_veiculos")
-  .distinctOn('marca')
+    .distinctOn("marca")
     .then((data) => {
-      console.log(data)
+      console.log(data);
       return res.status(201).json(data);
     })
     .catch((err) => {
@@ -69,7 +69,7 @@ const exibirDadosController = async (req, res) => {
 };
 
 const filtrarDadosController = async (req, res) => {
-  console.log(req.params.marca , req.params.modelo);
+  console.log(req.params.marca, req.params.modelo);
   await knex
     .select(
       "marca",
@@ -80,7 +80,7 @@ const filtrarDadosController = async (req, res) => {
       "torque",
       "entreeixo",
       "tiposuspensao",
-      "potencia", 
+      "potencia",
       "km"
     )
     .from("cadastro_veiculos")
@@ -112,12 +112,12 @@ const DeletarDadosController = async (req, res) => {
     });
 };
 const UpdateDadosController = async (req, res) => {
-  if (req.body) {
+
     await knex("cadastro_veiculos")
-      .where( 'id', req.body.id)
-      .update({marca : req.body.marca, modelo: req.body.modelo})
+      .where({id: req.params.id})
+      .update('marca' , req.body.marca)
       .then((data) => {
-        console.log("Modelo do veículos editado com sucesso!")
+        console.log("Modelo do veículos editado com sucesso!");
         console.log(data);
         return res.status(201).json(data);
       })
@@ -128,7 +128,7 @@ const UpdateDadosController = async (req, res) => {
           .json({ message: "Erro! Falha ao realizar atualização de dados!" });
       });
   }
-};
+
 const opcionaisDadosController = async (req, res) => {
   if (req.body) {
     await knex("opcionais")
@@ -277,7 +277,7 @@ const buscarMensagensController = async (req, res) => {
 //Deleta mensagens Lidas
 const deletarMensagensController = async (req, res) => {
   await knex("contato")
-    .where("id", req.params.id)
+    .where({ id: req.params.id })
     .del()
     .then((data) => {
       console.log(data);
@@ -294,8 +294,7 @@ const deletarMensagensController = async (req, res) => {
 const deletarAnuncioController = async (req, res) => {
   console.log(req.params.id);
   await knex("cadastro_veiculos")
-    .where("id", req.params.id)
-    .del()
+    .where('id', req.params.id).del()
     .then((data) => {
       console.log(data);
       console.log("Anúncio excluído com sucesso!");

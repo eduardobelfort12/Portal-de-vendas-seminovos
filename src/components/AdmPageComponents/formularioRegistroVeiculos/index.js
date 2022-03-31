@@ -61,7 +61,7 @@ export default function CadastrarVeiculos() {
   const classes = useStyles();
 
   const [image, setImage] = useState("");
-  const [marca, setMarca] = useState("");
+  const [marca, setMarca] = useState("")
   const [modelo, setModelo] = useState("");
   const [preco, setPreco] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -81,7 +81,7 @@ export default function CadastrarVeiculos() {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", image);
-    formData.append("marca", marca);
+    formData.append("marca", marca)
     formData.append("modelo", modelo);
     formData.append("telefone", telefone);
     formData.append("potencia", potencia);
@@ -101,7 +101,7 @@ export default function CadastrarVeiculos() {
       .post("/registrar", formData)
       .then((response) => {
         alert("Veículo cadastrado com sucesso!");
-        window.location.replace("/registrarVeiculos")
+        // window.location.replace("/registrarVeiculos")
         console.log(response);
       })
       .catch((err) => {

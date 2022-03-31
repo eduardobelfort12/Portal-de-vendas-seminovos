@@ -22,8 +22,7 @@ import { Paper } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Checkbox } from "@material-ui/core";
-
+import Checkbox from "@material-ui/core/Checkbox";
 // import api from "../../../axios/api";
 import api from "../../../axios/api";
 
@@ -87,44 +86,71 @@ export default function ListageVeiculos() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [id, setId] = useState("");
+  const [marca, setMarca] = useState("")
 
   async function deleteAnuncio(event) {
     event.preventDefault();
-    if (document.getElementById("id").checked === false) {
-      alert(
-        "Deseja realmente exluir este anúncio? Marque a caixa na tabela na linha excluir anúncios!"
-      );
-    } else {
-      await api
-        .delete(`/deletaranuncio/${id}`, {
-          id,
-        })
-        .then((response) => {
-          console.log(response.data);
-          alert("Anúncio deletado com sucesso!");
-          window.location.replace("/VisualizarVeiculos");
-          setId(response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+
+    await api
+      .delete(`/deletaranuncio/${id}`, {
+        id,marca
+      })
+      .then((response) => {
+        console.log(response.data);
+        alert("Anúncio deletado com sucesso!");
+        window.location.replace("/VisualizarVeiculos");
+        setId(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
+async function editForm(event){
+  event.preventDefault()
+    await api.patch(`/atualizar/${id}`,{
+      marca,id
+    })
+    .then((response) => {
+      console.log(response.data)
+      alert('Atualização realizada com  sucesso!')
+      setMarca(response.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
   //Função para substituição de elemento
-  const handleClick = (event) => {
-    event.preventDefault();
-    if (document.getElementById("id").value) {
-      document.querySelector("#marca");
-      let create = document.createElement("input");
-      create.setAttribute("id", "test");
-      create.setAttribute("class", "inputWidth");
-      let insert = document.querySelector("#marca");
-      insert.appendChild(create);
-    }
-  };
+  // const handleClick = (event) => {
+  // event.preventDefault();
+  // if (document.getElementById("id").value) {
+  //   document.querySelector("#marca");
+  //   let create = document.createElement("input");
+  //   create.setAttribute("id", "test");
+  //   create.setAttribute("class", "inputWidth");
+  //   let insert = document.querySelector("#marca");
+  //   insert.appendChild(create);
+  // }
+  // };
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleOpen = (event) => {
+    event.preventDefault();
+    if (document.getElementById("id")) {
+      document.querySelector("#marca");
+      let create = document.createElement("input");
+      create.setAttribute("id", "id");
+      create.setAttribute("name", "marca");
+      create.setAttribute("onChange", "(e) => setMarca(e.target.value)");
+      let change = document.querySelector("#formulario")
+      change.setAttribute('onSubmit', 'editForm')
+      let trade = document.querySelector('#formulario')
+      let insert = document.querySelector("#marca");
+      insert.appendChild(create);
+      trade.appendChild(change)
+
+    }
   };
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -158,7 +184,7 @@ export default function ListageVeiculos() {
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={0}>
-          <Grid xs={12} sm={6} md={4}>
+          <Grid item key={id} value={id} xs={12} sm={6} md={4}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
@@ -167,7 +193,7 @@ export default function ListageVeiculos() {
             </Card>
           </Grid>
           <Grid item xs={false} sm={4} md={7}>
-            <form onSubmit={deleteAnuncio}>
+            <form id={"formulario"} onSubmit={deleteAnuncio}>
               <Container className={classes.container}>
                 <div>
                   <TableContainer component={Paper}>
@@ -182,12 +208,11 @@ export default function ListageVeiculos() {
                           <TableCell align="left">Modelo</TableCell>
                           <TableCell align="left">Valor</TableCell>
                           <TableCell align="left">Excluir Anúncio</TableCell>
-                          <TableCell align="left">Editar Anúncio</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow>
-                          <TableCell align="left" id="marca">
+                        <TableRow >
+                          <TableCell align="left" id="marca" value={marca} >
                             {marca}
                           </TableCell>
                           <TableCell align="left" id="modelo">
@@ -197,24 +222,20 @@ export default function ListageVeiculos() {
                             {preco}R$
                           </TableCell>
 
-                          <TableCell align="left">
+                          <TableCell align="left" id="id">
                             <DeleteIcon />
-
                             <Checkbox
                               color="primary"
-                              type="checkbox"
-                              id="id"
-                              onChange={(e) => setId(e.target.value)}
+                              type={"checkbox"}
+                              id={"id"}
                               value={id}
+                              onChange={(e) => setId(e.target.value)}
                             />
                           </TableCell>
-                          <TableCell  align="left" id="preco">
-                            <Button
-                              onClick={handleClick}
-                              key = {id}
-                              id={id}
-                              startIcon={<EditIcon />}
-                            />
+                          <TableCell align="left">
+                            <Button onClick={handleOpen}>
+                              <EditIcon />
+                            </Button>
                           </TableCell>
                         </TableRow>
                       </TableBody>
@@ -242,6 +263,7 @@ export default function ListageVeiculos() {
                         size="small"
                         color="success"
                         startIcon={<EditIcon />}
+                        onClick={editForm}
                         className={classes.colorButtonEdit}
                       >
                         Editar Anuncio

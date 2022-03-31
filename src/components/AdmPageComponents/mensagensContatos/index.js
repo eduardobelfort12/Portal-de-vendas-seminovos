@@ -9,12 +9,12 @@ import Button from "@material-ui/core/Button";
 import api from "../../../axios/api";
 import Checkbox from "@material-ui/core/Checkbox";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Box from "@material-ui/core/Box"
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "auto",
-    overflowX: "hidden"
+    overflowX: "hidden",
   },
   buttonColor: {
     margin: "10px",
@@ -82,8 +82,7 @@ export default function MensagensContatos() {
   return (
     <div className={classes.root}>
       {push.map((items) => (
-      
-        <form  onSubmit={deleteMensagens}>
+        <form onSubmit={deleteMensagens}>
           <Accordion
             expanded={expanded === "panel1"}
             onChange={handleChange("panel1")}
@@ -110,28 +109,26 @@ export default function MensagensContatos() {
             <AccordionDetails>
               <Typography>Mensagem : {items.mensagem}</Typography>
             </AccordionDetails>
-          <Box align="right">
-            <DeleteIcon />
-            <Checkbox
-              color="primary"
-              type="checkbox"
-              name="id"
-              id="id"
-              value={items.id}
-              onChange={(e) => setId(e.target.value)}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              primary="primary"
-              className={classes.buttonColor}
-            >
-              Apagar mensagem
-            </Button>
+            <Box align="right" id="id">
+              <DeleteIcon />
+              <Checkbox
+                color="primary"
+                type={"checkbox"}
+                id={"id"}
+                value={items.id}
+                onChange={(e) => setId(e.target.value)}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                primary="primary"
+                className={classes.buttonColor}
+              >
+                Apagar mensagem
+              </Button>
             </Box>
           </Accordion>
         </form>
-     
       ))}
     </div>
   );

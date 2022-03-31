@@ -30,7 +30,7 @@ routes.post(
 );
 routes.get("/buscar", buscarDadosController);
 routes.delete("/deletar", DeletarDadosController);
-routes.put("/atualizar", UpdateDadosController);
+routes.patch("/atualizar/:id", UpdateDadosController);
 routes.get("/query", queryOracleDb);
 routes.get("/filtrar/:marca/:modelo", filtrarDadosController);
 routes.get("/exibir", exibirDadosController);
