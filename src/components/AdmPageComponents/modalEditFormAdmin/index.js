@@ -1,102 +1,71 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-// import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import EditIcon from "@material-ui/icons/Edit";
-// import EmailIcon from "@material-ui/icons/Email";
+import React from 'react';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import MenuOpenIcon from '@material-ui/icons/MenuOpen';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: "100vw",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  paper: {
-    margin: theme.spacing(9, 5),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  form: {
-    // Fix IE 11 issue.
 
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    background: "#006640",
-    color: "white",
-  },
-  icon: {
-    width: "30vw",
-    height: "30px",
-  },
-  inputs: {
-    marging: "5px",
-    padding: "5px",
-  },
-}));
 
-export default function EditFormAdmin() {
+const useStyles = makeStyles({
+  list: {
+    width: '100vw',
+  },
+  fullList: {
+    width: 'auto',
+  },
+});
+
+export default function TemporaryDrawer() {
   const classes = useStyles();
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+      })}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+      
+      </List>
+      <Divider />
+      <List>
+      
+      </List>
+    </div>
+  );
 
   return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid
-        alignContent="center"
-        item
-        xs={12}
-        md={6}
-        component={Paper}
-        elevation={20}
-        square
-      >
-        <div className={classes.paper}>
-          <div>
-            <EditIcon className={classes.icon} />
-          </div>
-          <Typography component="h6" variant="h5"></Typography>
-          <form className={classes.form} noValidate>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <TextField
-                  type={"text"}
-                  placeholder="Marca"
-                  className={classes.inputs}
-                />
-                <TextField
-                  type={"text"}
-                  placeholder="Modelo"
-                  className={classes.inputs}
-                />
-    
-              </Grid>
-              <Grid item xs={12}> <TextField
-                  type={"text"}
-                  placeholder="Modelo"
-                  className={classes.inputs}
-                /></Grid>
-            </Grid>
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              className={classes.submit}
-            >
-              Confirmar Edição
-            </Button>
-          </form>
-        </div>
-      </Grid>
-    </Grid>
+    <div>
+      {['left', 'right', 'top', 'bottom'].map((anchor) => (
+        <React.Fragment key={anchor}>
+           <MenuOpenIcon/> 
+          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)} > 
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
+    </div>
   );
 }
+

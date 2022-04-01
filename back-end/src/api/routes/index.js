@@ -15,6 +15,7 @@ const {
   buscarMensagensController,
   deletarMensagensController,
   deletarAnuncioController,
+  editarAnuncioListagem
 } = require("../controllers/querys");
 const uploadUser = require("../middlewares/uploadimages");
 
@@ -43,5 +44,5 @@ routes.post("/send", formularioContatoController);
 routes.get("/mensagens", buscarMensagensController);
 routes.delete("/deletarmsg/:id", deletarMensagensController);
 routes.delete("/deletaranuncio/:id", deletarAnuncioController);
-
+routes.get("/buscarparam/:id", editarAnuncioListagem)
 module.exports = routes;

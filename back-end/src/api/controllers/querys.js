@@ -52,6 +52,17 @@ const buscarDadosController = async (req, res) => {
       });
   }
 };
+const editarAnuncioListagem = async (req, res) => {
+
+    await knex.select("*").from('cadastro_veiculos').where('id', req.params.id)
+    .then((data) => {
+      console.log(data)
+        return res.status(201).json(data)
+    }).catch((err) => {
+      console.log(err)
+      return res.status(401).json({mensagem: "Erro! Não foi encontrado os dados especificados!"})
+    });
+};
 
 const exibirDadosController = async (req, res) => {
   await knex
@@ -112,22 +123,25 @@ const DeletarDadosController = async (req, res) => {
     });
 };
 const UpdateDadosController = async (req, res) => {
-
-    await knex("cadastro_veiculos")
-      .where({id: req.params.id})
-      .update('marca' , req.body.marca)
-      .then((data) => {
-        console.log("Modelo do veículos editado com sucesso!");
-        console.log(data);
-        return res.status(201).json(data);
-      })
-      .catch((err) => {
-        console.log(err);
-        return res
-          .status(401)
-          .json({ message: "Erro! Falha ao realizar atualização de dados!" });
-      });
-  }
+  await knex("cadastro_veiculos")
+    .where({ id: req.params.id })
+    .update({
+      marca: req.body.marca,
+      modelo: req.body.modelo,
+      preco: req.body.preco,
+    })
+    .then((data) => {
+      console.log("Anúncio editado com sucesso!");
+      console.log(data);
+      return res.status(201).json({ message: "Anúncio editado com sucesso!" });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res
+        .status(401)
+        .json({ message: "Erro! Falha ao realizar atualização de dados!" });
+    });
+};
 
 const opcionaisDadosController = async (req, res) => {
   if (req.body) {
@@ -294,7 +308,8 @@ const deletarMensagensController = async (req, res) => {
 const deletarAnuncioController = async (req, res) => {
   console.log(req.params.id);
   await knex("cadastro_veiculos")
-    .where('id', req.params.id).del()
+    .where("id", req.params.id)
+    .del()
     .then((data) => {
       console.log(data);
       console.log("Anúncio excluído com sucesso!");
@@ -324,4 +339,5 @@ module.exports = {
   formularioContatoController,
   deletarMensagensController,
   deletarAnuncioController,
+  editarAnuncioListagem
 };

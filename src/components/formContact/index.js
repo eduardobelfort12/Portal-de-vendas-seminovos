@@ -63,9 +63,11 @@ export default function SignInSide() {
        nome,email,assunto,telefone,mensagem
      })
       .then((response) => {
-        console.log(response);
+        
         alert("Mensagem enviada com sucesso!")
         window.location.replace("/Contatos")
+        console.log(response);
+        
       })
       .catch((err) => {
         if (err.response) {
