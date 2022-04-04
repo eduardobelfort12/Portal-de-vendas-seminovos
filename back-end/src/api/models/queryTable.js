@@ -6,8 +6,8 @@
 // 	preco VARCHAR (200) NOT NULL,
 // 	potencia VARCHAR(200) NOT NULL,
 // 	torque VARCHAR(200) NOT NULL,
-// 	km VARCHAR(200) NOT NULL, 
-// 	cor VARCHAR (200) NOT NULL, 
+// 	km VARCHAR(200) NOT NULL,
+// 	cor VARCHAR (200) NOT NULL,
 // 	cabine VARCHAR(200) NOT NULL,
 // 	tiposuspensao VARCHAR(200) NOT NULL,
 // 	relacaodiferencial VARCHAR(200) NOT NULL,
@@ -24,5 +24,5 @@
 // 	scania VARCHAR(30) NOT NULL,
 // 	volkswagen VARCHAR(30) NOT NULL,
 // 	mercedesbenz VARCHAR(30) NOT NULL
-	
+
 // );
