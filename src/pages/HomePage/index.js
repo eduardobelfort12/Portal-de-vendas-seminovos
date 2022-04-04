@@ -9,7 +9,7 @@ import NavHeader from "../../components/header";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Carousell from "../../components/carousel";
-import FullWidthGrid from "../../components/infoHome";
+// import FullWidthGrid from "../../components/infoHome";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles, ThemeProvider } from "@material-ui/core";
@@ -28,7 +28,15 @@ import VeiculosDestaqueComponent from "../../components/veiculosDestaque";
 
 const useStyles = makeStyles((theme) => ({
   filter: {
+    width: "60vw",
     padding: "30px",
+    
+  },
+  cardFilter: {
+    display: "flex",
+    position: "top",
+    flexDirection: "column",
+    overflowY: "scroll"
   },
   icon: {
     marginRight: theme.spacing(2),
@@ -45,8 +53,8 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: "100%",
     display: "flex",
+    
     flexDirection: "column",
   },
   cardMedia: {
@@ -83,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
   formSwitch: {
     fontSize: "12px",
   },
+
 }));
 
 export default function Home() {
@@ -135,16 +144,16 @@ export default function Home() {
             {" "}
             <Carousell />
           </div>
-
+          
           <Container className={classes.filter}>
             <div>
               <Paper elevation={10}>
                 <Box align="center">
-                  <Card className={classes.card}>
-                    <CardContent>
+                  <Card className={classes.cardFilter}>
+                    <CardContent container>
                       <Typography align="center">Filtro de busca</Typography>
-
-                      <form onSubmit={Filter}>
+                        
+                      <form  onSubmit={Filter}>
                         <FormControl className={classes.formControl}>
                           <InputLabel className={classes.inputlabel} id="marca">
                             Marca
@@ -287,7 +296,7 @@ export default function Home() {
 
         <section>
           <div className={classes.heroContent}>
-            <FullWidthGrid />
+            
           </div>
         </section>
       </main>

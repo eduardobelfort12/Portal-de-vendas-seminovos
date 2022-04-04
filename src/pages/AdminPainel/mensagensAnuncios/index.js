@@ -18,6 +18,8 @@ import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
 import MensagensContatos from "../../../components/AdmPageComponents/mensagensContatos";
 import MailIcon from '@material-ui/icons/Mail';
+import FindInPageIcon from "@material-ui/icons/FindInPage";
+import AssessmentIcon from '@material-ui/icons/Assessment';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -144,7 +146,7 @@ export default function MensagensAnuncios() {
         <Divider />
         <List>
           <ListItem button>
-            <LocalShippingIcon />
+            <AssessmentIcon />
             <Link className={classes.TextDecoration} to="/AdminPainel">Dashboard</Link>
             <ListItemText />
           </ListItem>
@@ -162,7 +164,7 @@ export default function MensagensAnuncios() {
         <Divider />
         <List>
           <ListItem button>
-            <LocalShippingIcon />
+            <FindInPageIcon/>
             <Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
             <ListItemText />
           </ListItem>

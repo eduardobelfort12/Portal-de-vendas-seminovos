@@ -17,6 +17,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
 import Carousell from "../../carousel";
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const drawerWidth = 240;
 
@@ -145,7 +146,7 @@ export default function Dashboard() {
         <Divider />
         <List>
         <ListItem button >
-            <LocalShippingIcon/><Link to="/AdminPainel">Dashboard</Link>
+            <AssessmentIcon/><Link to="/AdminPainel">Dashboard</Link>
             <ListItemText/>
           </ListItem>
         </List>

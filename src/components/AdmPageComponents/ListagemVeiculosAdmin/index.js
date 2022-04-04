@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import { Grid } from "@material-ui/core";
+
 import { Container } from "@material-ui/core";
-import CardMedia from "@material-ui/core/CardMedia";
+
 import Table from "@material-ui/core/Table";
 import { TableContainer } from "@material-ui/core";
 import { TableBody } from "@material-ui/core";
@@ -24,6 +23,7 @@ import api from "../../../axios/api";
 import { Box } from "@material-ui/core";
 import { Input } from "@material-ui/core";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import FiltroLateral from "../../filtroLateral";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -83,9 +83,16 @@ const useStyles = makeStyles((theme) => ({
   fullList: {
     width: "auto",
   },
+  tableContainer: {
+    width: "63vw"
+  },
+  imgStyle: {
+    borderRadius: "50px",
+
+  }
 }));
 
-const PER_PAGE = 10;
+const PER_PAGE = 2;
 
 export default function ListageVeiculos() {
   const classes = useStyles();
@@ -161,12 +168,18 @@ export default function ListageVeiculos() {
                   </TableCell>
                   <TableCell align="left" id="modelo">
                     <Input placeholder={items.modelo} />
-                  </TableCell>l
+                  </TableCell>
+                  
                   <TableCell align="left" id="preco">
                     <Input placeholder={items.preco + " R$"} />
                   </TableCell>
                   <TableCell align="left" id="preco">
-                    <Button className={classes.colorButtonEdit} startIcon={<EditIcon/>}>Salvar alteração</Button>
+                    <Button
+                      className={classes.colorButtonEdit}
+                      startIcon={<EditIcon />}
+                    >
+                      Salvar alteração
+                    </Button>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -252,102 +265,112 @@ export default function ListageVeiculos() {
   const currentPageData = data
 
     .slice(offset, offset + PER_PAGE)
-    .map(({ image, marca, modelo, preco, id }) => (
+    .map(({ image, marca, modelo, preco,placa,proprietario, id }) => (
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
-        <Grid container spacing={0}>
-          <Grid item key={id} value={id} xs={12} sm={6} md={4}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cardMedia}
-                image={url + `${image}`}
-              ></CardMedia>
-            </Card>
-          </Grid>
-          <Grid item xs={false} sm={4} md={7}>
-            <form id={"formulario"} onSubmit={deleteAnuncio}>
-              <Container className={classes.container}>
-                <div>
-                  <TableContainer component={Paper}>
-                    <Table
-                      className={classes.table}
-                      size="small"
-                      aria-label="a dense table"
-                    >
-                      <TableHead>
-                        <TableRow>
-                          <TableCell align="left">Marca</TableCell>
-                          <TableCell align="left">Modelo</TableCell>
-                          <TableCell align="left">Valor</TableCell>
-                          <TableCell align="left">Excluir Anúncio</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell align="left" id="marca" value={marca}>
-                            {marca}
-                          </TableCell>
-                          <TableCell align="left" id="modelo">
-                            {modelo}
-                          </TableCell>
-                          <TableCell align="left" id="preco">
-                            {preco}R$
-                          </TableCell>
 
-                          <TableCell align="left" id="id">
-                            <DeleteIcon />
-                            <Checkbox
-                              color="primary"
-                              type={"checkbox"}
-                              id={"id"}
-                              value={id}
-                              onChange={(e) => setId(e.target.value)}
-                            />
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </div>
-                <TableHead>
-                  <TableBody>
-                    <TableCell>
+        <form id={"formulario"} onSubmit={deleteAnuncio}>
+          <Container className={classes.container}>
+            <div>
+              <TableContainer  style={{overflowX: "hidden"}} className={classes.tableContainer} component={Paper}>
+                <Table 
+                 
+                  className={classes.table}
+                  size="small"
+                  aria-label="a dense table"
+                >
+                  <TableHead>
+                    <TableRow style={{fontSize: "12px"}}>
+                      <TableCell align="left">Imagem</TableCell>
+                      <TableCell>Placa</TableCell>
+                      <TableCell>Proprietario</TableCell>
+                      <TableCell align="left">Marca</TableCell>
+                      <TableCell align="left">Modelo</TableCell>
+                      <TableCell align="left">Valor</TableCell>
+                      <TableCell align="left">Excluir </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody >
+                    <TableRow>
+                      <TableCell align="left" id="marca" value={image}>
+                        <img
+                          className={classes.imgStyle}
+                          src={url + image}
+                          alt="imagem"
+                          width="150px"
+                          height={"150px"}
+                        />
+                      </TableCell>
+                      <TableCell  align="left" id="placa" value={placa}>
+                        {placa}
+                      </TableCell>
+                      <TableCell align="left" id="marca" value={proprietario}>
+                        {proprietario}
+                      </TableCell>
+                      <TableCell align="left" id="marca" value={marca}>
+                        {marca}
+                      </TableCell>
+                      <TableCell align="left" id="modelo">
+                        {modelo}
+                      </TableCell>
+                      <TableCell align="left" id="preco">
+                        {preco}R$
+                      </TableCell>
+
+                      <TableCell align="left" id="id">
+                       
+                        <Checkbox
+                          color="primary"
+                          type={"checkbox"}
+                          id={"id"}
+                          value={id}
+                          onChange={(e) => setId(e.target.value)}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+            <TableHead>
+              <TableBody>
+                <TableCell>
+                  <Button
+                    align="center"
+                    type="submit"
+                    variant="contained"
+                    size="small"
+                    color="success"
+                    startIcon={<DeleteIcon />}
+                    className={classes.colorButtonDelete}
+                  >
+                    Excluir Anúncio
+                  </Button>
+
+                  {["Editar Anúncio"].map((anchor) => (
+                    <React.Fragment key={anchor}>
                       <Button
-                        align="center"
-                        type="submit"
+                        className={classes.colorButtonEdit}
                         variant="contained"
                         size="small"
                         color="success"
-                        startIcon={<DeleteIcon />}
-                        className={classes.colorButtonDelete}
+                        startIcon={<EditIcon />}
+                        value={id}
+                        onClick={toggleDrawer(anchor, true)}
                       >
-                        Excluir Anúncio
+                        {anchor}
                       </Button>
+                      <Drawer
+                        anchor={anchor}
+                        open={state[anchor]}
+                        onClose={toggleDrawer(anchor, false)}
+                      >
+                        {list(anchor)}
+                      </Drawer>
+                    </React.Fragment>
+                  ))}
 
-                      {["Editar Anúncio"].map((anchor) => (
-                        <React.Fragment key={anchor}>
-                          <Button
-                            className={classes.colorButtonEdit}
-                            variant="contained"
-                            size="small"
-                            color="success"
-                            startIcon={<EditIcon />}
-                            value={id}
-                            onClick={toggleDrawer(anchor, true)}
-                          >
-                            {anchor}
-                          </Button>
-                          <Drawer
-                            anchor={anchor}
-                            open={state[anchor]}
-                            onClose={toggleDrawer(anchor, false)}
-                          >
-                            {list(anchor)}
-                          </Drawer>
-                        </React.Fragment>
-                      ))}
-
-                      {/* <Button
+                  {/* <Button
                         align="center"
                         variant="contained"
                         size="small"
@@ -358,13 +381,11 @@ export default function ListageVeiculos() {
                       >
                         Editar Anuncio
                       </Button> */}
-                    </TableCell>
-                  </TableBody>
-                </TableHead>
-              </Container>
-            </form>
-          </Grid>
-        </Grid>
+                </TableCell>
+              </TableBody>
+            </TableHead>
+          </Container>
+        </form>
       </Container>
     ));
 
@@ -385,6 +406,7 @@ export default function ListageVeiculos() {
         activeClassName={"pagination__link--active"}
       />
       {currentPageData}
+      <FiltroLateral />
 
       {/* <div className={classes.editformModal}>
         {" "}

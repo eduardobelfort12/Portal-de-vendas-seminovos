@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     width: "18vw",
     position: "fixed",
     top: "20%",
-    left: "80%",
+    left: "81%",
   },
   container: {
     height: "50vh",

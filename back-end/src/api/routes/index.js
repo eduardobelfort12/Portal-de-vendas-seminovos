@@ -1,48 +1,35 @@
 const routes = require("express").Router();
-const {
-  cadastroVeiculosController,
-  buscarDadosController,
-  DeletarDadosController,
-  UpdateDadosController,
-  queryOracleDb,
-  filtrarDadosController,
-  exibirDadosController,
-  opcionaisDadosController,
-  marcaDadosController,
-  buscarOpcionaisController,
-  buscarMarcasController,
-  formularioContatoController,
-  buscarMensagensController,
-  deletarMensagensController,
-  deletarAnuncioController,
-  editarAnuncioListagem
-} = require("../controllers/querys");
-const uploadUser = require("../middlewares/uploadimages");
 
-routes.get("/teste", async (req, res) => {
-  res.send("<h4>Funcionando!</h4>");
-  console.log("funcionando");
-});
+const {selectQueryOracleController} = require('../controllers/selectQueryOracleController/')
+const {cadastroVeiculosController} = require('../controllers/createAnuncioController/')
+const {buscarDadosController} = require('../controllers/listarTodosController/')
+const {editAnuncioController} = require('../controllers/editAnuncioController/')
+const {formularioContatoController} = require('../controllers/formContatoController/')
+const {buscarMensagensController} = require("../controllers/buscarMensagensController/")
+const {deleteMensagemController} = require("../controllers/deleteMensagensController/")
+const {deleteAnuncioController} = require('../controllers/deleteAnuncioController')
+const {filtroInputController} = require('../controllers/filtroInputController/')
+
+const uploadUser = require("../middlewares/uploadimages");
+const { filtrarDadosController } = require("../controllers/filtrarDadosController");
+
+
 
 routes.post(
   "/registrar",
   uploadUser.single("image"),
   cadastroVeiculosController
 );
+routes.get("/filtrar/:marca/:modelo", filtrarDadosController)
 routes.get("/buscar", buscarDadosController);
-routes.delete("/deletar", DeletarDadosController);
-routes.patch("/atualizar/:id", UpdateDadosController);
-routes.get("/query", queryOracleDb);
-routes.get("/filtrar/:marca/:modelo", filtrarDadosController);
-routes.get("/exibir", exibirDadosController);
-routes.post("/opcionais", opcionaisDadosController);
-routes.post("/marcas", marcaDadosController);
-routes.get("/options", buscarOpcionaisController);
-routes.get("/options", buscarOpcionaisController);
-routes.get("/getmarcas", buscarMarcasController);
+routes.patch("/atualizar/:id", editAnuncioController);
+routes.get("/query", selectQueryOracleController);
 routes.post("/send", formularioContatoController);
 routes.get("/mensagens", buscarMensagensController);
-routes.delete("/deletarmsg/:id", deletarMensagensController);
-routes.delete("/deletaranuncio/:id", deletarAnuncioController);
-routes.get("/buscarparam/:id", editarAnuncioListagem)
+routes.delete("/deletarmsg/:id", deleteMensagemController);
+routes.delete("/deletaranuncio/:id", deleteAnuncioController);
+routes.get("/exibir", filtroInputController);
+
+
+
 module.exports = routes;

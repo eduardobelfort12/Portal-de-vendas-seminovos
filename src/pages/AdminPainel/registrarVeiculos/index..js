@@ -17,6 +17,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
 import CadastrarVeiculos from "../../../components/AdmPageComponents/formularioRegistroVeiculos";
+import FindInPageIcon from "@material-ui/icons/FindInPage";
+import MailIcon from "@material-ui/icons/Mail"
+import AssessmentIcon from '@material-ui/icons/Assessment';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -140,7 +143,7 @@ export default function RegistrarVeiculos() {
         <Divider />
         <List>
           <ListItem button>
-            <LocalShippingIcon />
+            <AssessmentIcon/>
             <Link to="/AdminPainel">Dashboard</Link>
             <ListItemText />
           </ListItem>
@@ -158,7 +161,7 @@ export default function RegistrarVeiculos() {
         <Divider />
         <List>
           <ListItem button>
-            <LocalShippingIcon />
+          <FindInPageIcon />
             <Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
             <ListItemText />
           </ListItem>
@@ -167,7 +170,7 @@ export default function RegistrarVeiculos() {
         <Divider />
         <List>
           <ListItem button>
-            <LocalShippingIcon />
+            <MailIcon/>
             <Link to="/MensagensAnuncios">Mensagens recebidas</Link>
             <ListItemText />
           </ListItem>

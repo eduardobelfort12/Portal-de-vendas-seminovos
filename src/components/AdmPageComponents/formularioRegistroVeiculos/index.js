@@ -11,7 +11,6 @@ import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100vw",
@@ -61,7 +60,10 @@ export default function CadastrarVeiculos() {
   const classes = useStyles();
 
   const [image, setImage] = useState("");
-  const [marca, setMarca] = useState("")
+  const [proprietario, setProprietario] = useState("");
+  const [placa, setPlaca] = useState("");
+  const [ano_veiculo, setAnoVeiculo] = useState("");
+  const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
   const [preco, setPreco] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -81,7 +83,10 @@ export default function CadastrarVeiculos() {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", image);
-    formData.append("marca", marca)
+    formData.append("proprietario", proprietario);
+    formData.append("placa", placa);
+    formData.append("ano_veiculo", ano_veiculo);
+    formData.append("marca", marca);
     formData.append("modelo", modelo);
     formData.append("telefone", telefone);
     formData.append("potencia", potencia);
@@ -101,7 +106,7 @@ export default function CadastrarVeiculos() {
       .post("/registrar", formData)
       .then((response) => {
         alert("Veículo cadastrado com sucesso!");
-        // window.location.replace("/registrarVeiculos")
+        window.location.replace("/registrarVeiculos")
         console.log(response);
       })
       .catch((err) => {
@@ -147,22 +152,60 @@ export default function CadastrarVeiculos() {
               noValidate
               autoComplete="off"
             >
-                <TextField
+              <TextField
                 className={classes.inputs}
-                variant="outlined"
+                
+                margin="normal"
+                required
+                size="small"
+                id="placa"
+                onChange={(e) => setPlaca(e.target.value)}
+                label="Placa veículo"
+                name="placa"
+                autoFocus
+              />
+
+              <TextField
+                className={classes.inputs}
+             
+                margin="normal"
+                required
+                size="small"
+                id="proprietario"
+                onChange={(e) => setProprietario(e.target.value)}
+                label="Nome proprietário "
+                name="proprietario"
+                autoFocus
+              />
+              <TextField
+                className={classes.inputs}
+              
+                margin="normal"
+                required
+                size="small"
+                id="ano_veiculo"
+                onChange={(e) => setAnoVeiculo(e.target.value)}
+                label="Ano veículo"
+                name="ano_veiculo"
+                autoFocus
+              />
+
+              <TextField
+                className={classes.inputs}
+         
                 margin="normal"
                 required
                 size="small"
                 id="modelo"
                 onChange={(e) => setMarca(e.target.value)}
-                label="Modelo veículo"
+                label="Marca veículo"
                 name="modelo"
                 autoFocus
-              />  
-        
+              />
+
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+       
                 margin="normal"
                 required
                 size="small"
@@ -174,11 +217,12 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+                type="tel"
                 margin="normal"
                 required
                 size="small"
                 id="telefone"
+              
                 onChange={(e) => setTelefone(e.target.value)}
                 label="Telefone de Contato"
                 name="telefone"
@@ -186,7 +230,7 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+           
                 margin="normal"
                 size="small"
                 required
@@ -198,7 +242,7 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+       
                 margin="normal"
                 required
                 size="small"
@@ -211,7 +255,7 @@ export default function CadastrarVeiculos() {
 
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+            
                 margin="normal"
                 required
                 size="small"
@@ -223,7 +267,7 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+
                 margin="normal"
                 required
                 size="small"
@@ -235,7 +279,7 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+                
                 margin="normal"
                 required
                 size="small"
@@ -247,7 +291,7 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+        
                 margin="normal"
                 required
                 size="small"
@@ -259,7 +303,7 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+ 
                 margin="normal"
                 required
                 size="small"
@@ -271,7 +315,7 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+            
                 margin="normal"
                 required
                 size="small"
@@ -283,7 +327,7 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+               
                 margin="normal"
                 required
                 size="small"
@@ -295,20 +339,20 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+            
                 margin="normal"
                 required
                 size="small"
                 id="capacidadedecombustivel"
                 onChange={(e) => setCapacidadecombustivel(e.target.value)}
-                label="Capacidade de Combustivel"
+                label="Capacidade combustível"
                 name="capacidadecombustivel"
                 autoFocus
               />
 
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+  
                 margin="normal"
                 required
                 size="small"
@@ -322,7 +366,7 @@ export default function CadastrarVeiculos() {
 
               <TextField
                 className={classes.inputs}
-                variant="outlined"
+        
                 margin="normal"
                 required
                 size="small"
@@ -332,8 +376,7 @@ export default function CadastrarVeiculos() {
                 name="opcionais"
                 autoComplete=""
                 autoFocus
-              />  
-       
+              />
             </Box>
             <Box align="center">
               <input
@@ -344,9 +387,9 @@ export default function CadastrarVeiculos() {
                 onChange={(e) => setImage(e.target.files[0])}
               />
               <br></br>
-              <div style={{margin: "80px" }}>
+              <div style={{ margin: "80px" }}>
                 {image ? (
-                  <img 
+                  <img
                     src={URL.createObjectURL(image)}
                     width="200"
                     height="200"
