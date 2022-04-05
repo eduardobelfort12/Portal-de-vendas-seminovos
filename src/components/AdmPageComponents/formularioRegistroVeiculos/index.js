@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -6,10 +6,12 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import { Box, MenuItem } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
+import Select from "@material-ui/core/Select"
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CadastrarVeiculos() {
   const classes = useStyles();
 
+  const [auto, setAuto] = useState([]);
   const [image, setImage] = useState("");
   const [proprietario, setProprietario] = useState("");
   const [placa, setPlaca] = useState("");
@@ -106,7 +109,7 @@ export default function CadastrarVeiculos() {
       .post("/registrar", formData)
       .then((response) => {
         alert("Veículo cadastrado com sucesso!");
-        window.location.replace("/registrarVeiculos")
+        window.location.replace("/registrarVeiculos");
         console.log(response);
       })
       .catch((err) => {
@@ -118,6 +121,19 @@ export default function CadastrarVeiculos() {
       });
   };
 
+
+useEffect(() => {
+
+      api.get('/autocompletar')
+    .then((response) => {
+      console.log(response.data)
+      setAuto (response.data)
+
+    }).catch((err) => {
+      console.log(err)
+    })
+},[])
+  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -135,6 +151,7 @@ export default function CadastrarVeiculos() {
             <LocalShippingIcon className={classes.icon} />
           </div>
           <Typography component="h6" variant="h5"></Typography>
+
           <form
             className={classes.form}
             onSubmit={handleRegister}
@@ -152,34 +169,38 @@ export default function CadastrarVeiculos() {
               noValidate
               autoComplete="off"
             >
-              <TextField
+              <Select style={{width: '17%'}} onChange={(e) => setPlaca(e.target.value)}>
+                {auto.map((listar)=> (
+                  <MenuItem value={listar.PLACA}>{listar.PLACA}</MenuItem>  
+                ))}
+              </Select>  
+              {/* <TextField
                 className={classes.inputs}
-                
                 margin="normal"
                 required
                 size="small"
-                id="placa"
+                id="PLACA"
                 onChange={(e) => setPlaca(e.target.value)}
+                onKeyUp={autoComplete}
                 label="Placa veículo"
-                name="placa"
-                autoFocus
-              />
+                name="PLACA"
+                autoComplete={autoComplete}
+              /> */}
 
               <TextField
                 className={classes.inputs}
-             
                 margin="normal"
                 required
                 size="small"
                 id="proprietario"
                 onChange={(e) => setProprietario(e.target.value)}
-                label="Nome proprietário "
+                label="Proprietário"
                 name="proprietario"
                 autoFocus
               />
+
               <TextField
                 className={classes.inputs}
-              
                 margin="normal"
                 required
                 size="small"
@@ -192,7 +213,6 @@ export default function CadastrarVeiculos() {
 
               <TextField
                 className={classes.inputs}
-         
                 margin="normal"
                 required
                 size="small"
@@ -205,7 +225,6 @@ export default function CadastrarVeiculos() {
 
               <TextField
                 className={classes.inputs}
-       
                 margin="normal"
                 required
                 size="small"
@@ -222,7 +241,6 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="telefone"
-              
                 onChange={(e) => setTelefone(e.target.value)}
                 label="Telefone de Contato"
                 name="telefone"
@@ -230,7 +248,6 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-           
                 margin="normal"
                 size="small"
                 required
@@ -242,7 +259,6 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-       
                 margin="normal"
                 required
                 size="small"
@@ -255,7 +271,6 @@ export default function CadastrarVeiculos() {
 
               <TextField
                 className={classes.inputs}
-            
                 margin="normal"
                 required
                 size="small"
@@ -267,7 +282,6 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-
                 margin="normal"
                 required
                 size="small"
@@ -279,7 +293,6 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-                
                 margin="normal"
                 required
                 size="small"
@@ -291,7 +304,6 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-        
                 margin="normal"
                 required
                 size="small"
@@ -303,7 +315,6 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
- 
                 margin="normal"
                 required
                 size="small"
@@ -315,7 +326,6 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-            
                 margin="normal"
                 required
                 size="small"
@@ -327,7 +337,6 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-               
                 margin="normal"
                 required
                 size="small"
@@ -339,7 +348,6 @@ export default function CadastrarVeiculos() {
               />
               <TextField
                 className={classes.inputs}
-            
                 margin="normal"
                 required
                 size="small"
@@ -352,7 +360,6 @@ export default function CadastrarVeiculos() {
 
               <TextField
                 className={classes.inputs}
-  
                 margin="normal"
                 required
                 size="small"
@@ -366,7 +373,6 @@ export default function CadastrarVeiculos() {
 
               <TextField
                 className={classes.inputs}
-        
                 margin="normal"
                 required
                 size="small"
