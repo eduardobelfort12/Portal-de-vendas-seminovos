@@ -10,8 +10,7 @@ import { Box, MenuItem } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
-import Select from "@material-ui/core/Select"
-
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,7 +59,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CadastrarVeiculos() {
   const classes = useStyles();
-
+  const [PLACA, setPLACA] = useState([]);
+  const [PROPRIETARIO, setPROPRIETARIO] = useState("");
   const [auto, setAuto] = useState([]);
   const [image, setImage] = useState("");
   const [proprietario, setProprietario] = useState("");
@@ -121,19 +121,35 @@ export default function CadastrarVeiculos() {
       });
   };
 
+  useEffect(() => {
+    api
+      .get(`/query`)
+      .then((response) => {
+        console.log(response.data);
+        setPLACA(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-useEffect(() => {
+  function handleSet() {
 
-      api.get('/autocompletar')
-    .then((response) => {
-      console.log(response.data)
-      setAuto (response.data)
 
-    }).catch((err) => {
-      console.log(err)
-    })
-},[])
-  
+   fetch(`/autocompletar/${PLACA}`, {
+    method: 'get',
+    mode: 'cors'
+
+   })
+   .then((res) => res.json())
+   .then((data) => {
+     console.log(data)
+     setPLACA(data)
+     alert(data)
+   })
+    
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -169,23 +185,25 @@ useEffect(() => {
               noValidate
               autoComplete="off"
             >
-              <Select style={{width: '17%'}} onChange={(e) => setPlaca(e.target.value)}>
-                {auto.map((listar)=> (
-                  <MenuItem value={listar.PLACA}>{listar.PLACA}</MenuItem>  
-                ))}
-              </Select>  
-              {/* <TextField
-                className={classes.inputs}
-                margin="normal"
-                required
-                size="small"
-                id="PLACA"
-                onChange={(e) => setPlaca(e.target.value)}
-                onKeyUp={autoComplete}
-                label="Placa veículo"
-                name="PLACA"
-                autoComplete={autoComplete}
-              /> */}
+              <Autocomplete
+                id="combo-box-demo"
+                options={PLACA}
+                getOptionLabel={(option) => option.PLACA}
+                style={{ width: "17%" }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    id="PLACA"
+                    name="PLACA"
+                    label="Placa veículo"
+                    onBlur={(e) => {
+                      console.log(e.target.value);
+                      setPlaca(e.target.value);
+                      handleSet();
+                    }}
+                  />
+                )}
+              />
 
               <TextField
                 className={classes.inputs}
@@ -193,10 +211,10 @@ useEffect(() => {
                 required
                 size="small"
                 id="proprietario"
-                onChange={(e) => setProprietario(e.target.value)}
+                onChange={(e) => setPROPRIETARIO(e.target.value)}
                 label="Proprietário"
-                name="proprietario"
-                autoFocus
+                name={"proprietario"}
+                value=""
               />
 
               <TextField

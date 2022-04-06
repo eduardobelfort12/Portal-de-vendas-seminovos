@@ -19,7 +19,7 @@ const selectQueryOracleController = async (req, res) => {
     WHERE VEI.VEI_CATEGORIA = 'F' AND VEI.SV_COD = '160'
     ORDER BY VEI_DT_ATU DESC`)
     )
-    .select("PLACA", "ANO", "CHASSI")
+    .select("PLACA", "PROPRIETARIO")
     .from("ETL_VW_DADOS_VEIC_MOT")
     .then((data) => {
       console.log(data);
@@ -53,7 +53,7 @@ const whereQueryOracleController = async (req, res) => {
   WHERE VEI.VEI_CATEGORIA = 'F' AND VEI.SV_COD = '160'
   ORDER BY VEI_DT_ATU DESC`)
     )
-    .select("PLACA", "ANO", "PROPRIETARIO", "COR", "MODELO" ,"RENAVAM")
+    .where('PLACA' ,req.params.PLACA ).select('PROPRIETARIO')
     .from("ETL_VW_DADOS_VEIC_MOT")
     .then((data) => {
       console.log(data);

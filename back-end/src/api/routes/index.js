@@ -30,7 +30,7 @@ routes.get("/mensagens", buscarMensagensController);
 routes.delete("/deletarmsg/:id", deleteMensagemController);
 routes.delete("/deletaranuncio/:id", deleteAnuncioController);
 routes.get("/exibir", filtroInputController);
-routes.get('/autocompletar', whereQueryOracleController)
+routes.get('/autocompletar/:PLACA', whereQueryOracleController)
 
 
 
