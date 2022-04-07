@@ -6,11 +6,12 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, MenuItem } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,8 +60,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CadastrarVeiculos() {
   const classes = useStyles();
-  const [PLACA, setPLACA] = useState([]);
+  const {register,setValue} = useForm();
+  
   const [PROPRIETARIO, setPROPRIETARIO] = useState("");
+  const [PLACA, setPLACA] = useState([])
   const [auto, setAuto] = useState([]);
   const [image, setImage] = useState("");
   const [proprietario, setProprietario] = useState("");
@@ -133,22 +136,23 @@ export default function CadastrarVeiculos() {
       });
   }, []);
 
-  function handleSet() {
-
-
-   fetch(`/autocompletar/${PLACA}`, {
-    method: 'get',
-    mode: 'cors'
-
-   })
-   .then((res) => res.json())
-   .then((data) => {
-     console.log(data)
-     setPLACA(data)
-     alert(data)
-   })
+  const checkData = (e) => {
+    const PLACA = e.target.value;
+    console.log(PLACA);
+    fetch(`http://localhost:5500/queryteste/${PLACA}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        setValue(data.PLACA);
+        setValue('proprietario',data.PROPRIETARIO);
     
-  }
+      
+
+       document.getElementById('proprietario').innerHTML = JSON.stringify(data)
+     
+        
+      });
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -186,7 +190,7 @@ export default function CadastrarVeiculos() {
               autoComplete="off"
             >
               <Autocomplete
-                id="combo-box-demo"
+               
                 options={PLACA}
                 getOptionLabel={(option) => option.PLACA}
                 style={{ width: "17%" }}
@@ -195,27 +199,43 @@ export default function CadastrarVeiculos() {
                     {...params}
                     id="PLACA"
                     name="PLACA"
+                    type="text"
+          
                     label="Placa veículo"
-                    onBlur={(e) => {
-                      console.log(e.target.value);
-                      setPlaca(e.target.value);
-                      handleSet();
-                    }}
+                    onBlur={checkData}
+                    onChange={(e) => setPlaca (e.target.value)}
                   />
                 )}
               />
-
-              <TextField
+              {/* <TextField
                 className={classes.inputs}
                 margin="normal"
+                type="text"
                 required
                 size="small"
+                label="Placa"
+                id="placa"
+                {...register('placa')}
+                onBlur={checkData}
+                name={"placa"}
+              />   */}
+              
+
+              {/* <TextField
+                className={classes.inputs}
+                margin="normal"
+                type="text"
+                required
                 id="proprietario"
-                onChange={(e) => setPROPRIETARIO(e.target.value)}
-                label="Proprietário"
+                size="small"
+                label="proprietário"
+                {...register('proprietario')}
                 name={"proprietario"}
-                value=""
-              />
+              /> */}
+              <p id="proprietario"></p>
+             
+              
+               {/* <p id="proprietario"></p> */}
 
               <TextField
                 className={classes.inputs}

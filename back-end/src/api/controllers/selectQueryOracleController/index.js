@@ -34,7 +34,7 @@ const selectQueryOracleController = async (req, res) => {
 };
 
 const whereQueryOracleController = async (req, res) => {
-  console.log(req.body.PLACA)
+  console.log(req.params.PLACA)
   await oracle
     .with(
       "ETL_VW_DADOS_VEIC_MOT",
@@ -53,7 +53,7 @@ const whereQueryOracleController = async (req, res) => {
   WHERE VEI.VEI_CATEGORIA = 'F' AND VEI.SV_COD = '160'
   ORDER BY VEI_DT_ATU DESC`)
     )
-    .where('PLACA' ,req.params.PLACA ).select('PROPRIETARIO')
+    .select('PROPRIETARIO', 'PLACA').where('PLACA', req.params.PLACA)
     .from("ETL_VW_DADOS_VEIC_MOT")
     .then((data) => {
       console.log(data);

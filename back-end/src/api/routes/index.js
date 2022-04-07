@@ -13,6 +13,7 @@ const {filtroInputController} = require('../controllers/filtroInputController/')
 const uploadUser = require("../middlewares/uploadimages");
 const { filtrarDadosController } = require("../controllers/filtrarDadosController");
 const {whereQueryOracleController} = require('../controllers/selectQueryOracleController/')
+const {testeWhereController} =  require('../controllers/selectMyController/');
 
 
 
@@ -31,6 +32,7 @@ routes.delete("/deletarmsg/:id", deleteMensagemController);
 routes.delete("/deletaranuncio/:id", deleteAnuncioController);
 routes.get("/exibir", filtroInputController);
 routes.get('/autocompletar/:PLACA', whereQueryOracleController)
+routes.get('/queryteste/:placa' , testeWhereController)
 
 
 
