@@ -30,13 +30,12 @@ const useStyles = makeStyles((theme) => ({
   filter: {
     width: "60vw",
     padding: "30px",
-    
   },
   cardFilter: {
     display: "flex",
     position: "top",
     flexDirection: "column",
-    overflowY: "scroll"
+    overflowY: "scroll",
   },
   icon: {
     marginRight: theme.spacing(2),
@@ -54,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     display: "flex",
-    
+
     flexDirection: "column",
   },
   cardMedia: {
@@ -91,7 +90,6 @@ const useStyles = makeStyles((theme) => ({
   formSwitch: {
     fontSize: "12px",
   },
-
 }));
 
 export default function Home() {
@@ -134,6 +132,7 @@ export default function Home() {
       });
   }, []);
 
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -144,7 +143,7 @@ export default function Home() {
             {" "}
             <Carousell />
           </div>
-          
+          {/*Este trecho do código é o formulario do filtro de busca da página home */}
           <Container className={classes.filter}>
             <div>
               <Paper elevation={10}>
@@ -152,8 +151,8 @@ export default function Home() {
                   <Card className={classes.cardFilter}>
                     <CardContent container>
                       <Typography align="center">Filtro de busca</Typography>
-                        
-                      <form  onSubmit={Filter}>
+
+                      <form onSubmit={Filter}>
                         <FormControl className={classes.formControl}>
                           <InputLabel className={classes.inputlabel} id="marca">
                             Marca
@@ -216,6 +215,7 @@ export default function Home() {
             </div>
           </Container>
         </div>
+        {/*Este trecho de código exibe os resultados da busca realizada no filtro de buscas*/}
 
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
@@ -292,12 +292,11 @@ export default function Home() {
         <Typography variant="h4" align="center">
           Anuncios em Destaque
         </Typography>
+        {/*Este componente abaixo renderiza os veículos em destaque para vendas*/}
         <VeiculosDestaqueComponent />
 
         <section>
-          <div className={classes.heroContent}>
-            
-          </div>
+          <div className={classes.heroContent}></div>
         </section>
       </main>
 
