@@ -60,11 +60,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CadastrarVeiculos() {
   const classes = useStyles();
-  const {register,setValue} = useForm();
-  
-  const [PROPRIETARIO, setPROPRIETARIO] = useState("");
-  const [PLACA, setPLACA] = useState([])
-  const [auto, setAuto] = useState([]);
+  const [register, setRegister] = useState();
+  const [PROPRIETARIO, setPROPRIETARIO] = useState();
+  const [PLACA, setPLACA] = useState();
   const [image, setImage] = useState("");
   const [proprietario, setProprietario] = useState("");
   const [placa, setPlaca] = useState("");
@@ -136,21 +134,18 @@ export default function CadastrarVeiculos() {
       });
   }, []);
 
-  const checkData = (e) => {
-    const PLACA = e.target.value;
-    console.log(PLACA);
-    fetch(`http://localhost:5500/queryteste/${PLACA}`)
+  const checkData = (placa) => {
+    console.log(placa);
+    fetch(`http://localhost:5500/queryteste/${placa}`, {
+      method: "GET",
+      mode: "cors",
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        setValue(data.PLACA);
-        setValue('proprietario',data.PROPRIETARIO);
-    
-      
-
-       document.getElementById('proprietario').innerHTML = JSON.stringify(data)
-     
-        
+        console.log(data);
+        setMarca(data[0].modelo);
+        setProprietario(data[0].proprietario);
+        setModelo(data[0].ano_veiculo);
       });
   };
 
@@ -190,20 +185,18 @@ export default function CadastrarVeiculos() {
               autoComplete="off"
             >
               <Autocomplete
-               
-                options={PLACA}
-                getOptionLabel={(option) => option.PLACA}
+                options={placa}
+                getOptionLabel={(option) => option.placa}
                 style={{ width: "17%" }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    id="PLACA"
-                    name="PLACA"
+                    id="placa"
+                    name="placa"
                     type="text"
-          
                     label="Placa veículo"
-                    onBlur={checkData}
-                    onChange={(e) => setPlaca (e.target.value)}
+                    onBlur={(e) => checkData (e.target.value)}
+                    onChange={(e) => setRegister(e.target.value)}
                   />
                 )}
               />
@@ -219,7 +212,6 @@ export default function CadastrarVeiculos() {
                 onBlur={checkData}
                 name={"placa"}
               />   */}
-              
 
               {/* <TextField
                 className={classes.inputs}
@@ -233,9 +225,8 @@ export default function CadastrarVeiculos() {
                 name={"proprietario"}
               /> */}
               <p id="proprietario"></p>
-             
-              
-               {/* <p id="proprietario"></p> */}
+
+              {/* <p id="proprietario"></p> */}
 
               <TextField
                 className={classes.inputs}

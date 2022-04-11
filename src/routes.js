@@ -10,6 +10,7 @@ import AdminPainel from "./pages/AdminPainel"
 import RegistrarVeiculos from "./pages/AdminPainel/registrarVeiculos/index.";
 import VisualizarVeiculos from "./pages/AdminPainel/visualizarVeiculos";
 import MensagensAnuncios from "./pages/AdminPainel/mensagensAnuncios/index"
+import Detalhe from './pages/DetalheAnuncio'
 
 export default function MainRoutes() {
   return (
@@ -17,16 +18,19 @@ export default function MainRoutes() {
       <Route path="/" element={<Home />}>
         Home
       </Route>
-      <Route path="Tora-Seminovos" element={<Seminovos />}>
+      <Route path="/Tora-Seminovos" element={<Seminovos />}>
         Tora-Seminovos
       </Route>
-      <Route path="Estoque" element={<Estoque/>}>
+      <Route path="/Estoque" element={<Estoque/>}>
         Estoque
       </Route>
-      <Route path="Contatos" element={<Contato/>}>
+      <Route path="/Estoque/:id" element={<Detalhe/>}>
+        Estoque
+      </Route>
+      <Route path="/Contatos" element={<Contato/>}>
         Contato
       </Route>
-      <Route path="AdminPainel" element={<AdminPainel/>}>
+      <Route path="/AdminPainel" element={<AdminPainel/>}>
         AdminPainel
       </Route>
       <Route path="/RegistrarVeiculos" element={<RegistrarVeiculos/>}>
@@ -38,8 +42,6 @@ export default function MainRoutes() {
       <Route path="/MensagensAnuncios" element={<MensagensAnuncios/>}>
         Mensagens
       </Route>
-    
-
     </Routes>
   );
 }

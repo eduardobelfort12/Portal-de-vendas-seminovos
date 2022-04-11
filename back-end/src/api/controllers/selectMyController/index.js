@@ -1,8 +1,9 @@
 const knex = require("../../models/databaseConnect");
 
 const testeWhereController = async (req, res) => {
+  if(req.params)
   await knex
-    .select("proprietario", "marca", "preco")
+    .select("*")
     .from("cadastro_veiculos")
     .where("placa", req.params.placa)
     .then((data) => {

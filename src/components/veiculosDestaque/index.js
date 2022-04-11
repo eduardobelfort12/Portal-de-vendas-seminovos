@@ -15,6 +15,7 @@ import { TableCell } from "@material-ui/core";
 import { TableHead } from "@material-ui/core";
 import { TableRow } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
+import { Link } from "react-router-dom";
 // import api from "../../../axios/api";
 
 const useStyles = makeStyles((theme) => ({
@@ -102,6 +103,7 @@ export default function ListageVeiculos() {
     .slice(offset, offset + PER_PAGE)
     .map(
       ({
+        id,
         image,
         marca,
         modelo,
@@ -113,19 +115,21 @@ export default function ListageVeiculos() {
         tiposuspensao,
         km,
       }) => (
-        <Container className={classes.cardGrid} maxWidth="md">
+        <Container key={id} className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={0}>
             <Grid xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image={url + `${image}`}
-                ></CardMedia>
+                <Link to={`/Estoque/${id}`}>
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image={url + `${image}`}
+                  ></CardMedia>
+                </Link>
               </Card>
             </Grid>
             <Grid item xs={false} sm={4} md={7}>
-              <Container className={classes.container}>
+              <Container style={{maxWidth:'100vw', margin: "10px"}} className={classes.container}>
                 <TableContainer component={Paper}>
                   <Table
                     className={classes.table}
