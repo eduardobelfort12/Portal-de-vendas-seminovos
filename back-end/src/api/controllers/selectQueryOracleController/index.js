@@ -35,6 +35,7 @@ const selectQueryOracleController = async (req, res) => {
 
 const whereQueryOracleController = async (req, res) => {
   console.log(req.params)
+  if(req.params.PLACA){
   await oracle
     .with(
       "ETL_VW_DADOS_VEIC_MOT",
@@ -66,5 +67,7 @@ const whereQueryOracleController = async (req, res) => {
         .json({ message: "Erro! Não foi possível executar esta query!" });
     });
 };
+
+}
 
 module.exports = { selectQueryOracleController, whereQueryOracleController };

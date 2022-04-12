@@ -8,10 +8,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import { PhotoCamera } from "@material-ui/icons";
+// import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import { useForm } from "react-hook-form";
+import ImagesGallery from "./imagesGallery";
+import { set } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,15 +60,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CadastrarVeiculos() {
   const classes = useStyles();
+  //Image preview multiple upload image
+
+  //
+  const [images, setImages] = useState([]);
   const [register, setRegister] = useState();
-  const [PROPRIETARIO, setPROPRIETARIO] = useState();
-  const [PLACA, setPLACA] = useState();
   const [image, setImage] = useState("");
-  const [proprietario, setProprietario] = useState("");
-  const [placa, setPlaca] = useState("");
-  const [ano_veiculo, setAnoVeiculo] = useState("");
-  const [marca, setMarca] = useState("");
-  const [modelo, setModelo] = useState("");
+  const [proprietario, setProprietario] = useState();
+  const [placa, setPlaca] = useState();
+  const [ano_veiculo, setAnoVeiculo] = useState();
+  const [marca, setMarca] = useState();
+  const [modelo, setModelo] = useState();
   const [preco, setPreco] = useState("");
   const [telefone, setTelefone] = useState("");
   const [potencia, setPotencia] = useState("");
@@ -85,6 +87,7 @@ export default function CadastrarVeiculos() {
   // const [endImg, setEndImg] = useState('')
   const handleRegister = async (e) => {
     e.preventDefault();
+
     const formData = new FormData();
     formData.append("image", image);
     formData.append("proprietario", proprietario);
@@ -122,19 +125,7 @@ export default function CadastrarVeiculos() {
       });
   };
 
-  useEffect(() => {
-    api
-      .get(`/query`)
-      .then((response) => {
-        console.log(response.data);
-        setPLACA(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const checkData = (placa) => {
+  const checkUsers = (placa) => {
     console.log(placa);
     fetch(`http://localhost:5500/queryteste/${placa}`, {
       method: "GET",
@@ -143,10 +134,35 @@ export default function CadastrarVeiculos() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setMarca(data[0].modelo);
+        setMarca(data[0].marca);
+        setModelo(data[0].modelo);
+        setAnoVeiculo(data[0].ano_veiculo);
         setProprietario(data[0].proprietario);
-        setModelo(data[0].ano_veiculo);
+        setTelefone(data[0].telefone);
+        setPreco(data[0].preco);
+        setPotencia(data[0].potencia);
+        setTorque(data[0].torque);
+        setKm(data[0].km);
+        setCor(data[0].cor);
+        setCabine(data[0].cabine)
+        setRelacaodiferencial(data[0].relacaodiferencial)
+        setEntreeixo(data[0].entreeixo)
+        setTiposuspensao(data[0].tiposuspensao)
+        setCapacidadecombustivel(data[0].capacidadecombustivel)
+        setInformacoesadicionais(data[0].informacoesadicionais)
+        setOpcionais(data[0].opcionais)
       });
+  };
+
+  const handleMultipleImages = (event) => {
+    const selectFiles = [];
+    const targetFiles = event.target.files;
+    const targetFilesObject = [...targetFiles];
+
+    targetFilesObject.map((file) => {
+      return selectFiles.push(URL.createObjectURL(file));
+    });
+    setImages(selectFiles);
   };
 
   return (
@@ -184,58 +200,41 @@ export default function CadastrarVeiculos() {
               noValidate
               autoComplete="off"
             >
-              <Autocomplete
-                options={placa}
-                getOptionLabel={(option) => option.placa}
-                style={{ width: "17%" }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    id="placa"
-                    name="placa"
-                    type="text"
-                    label="Placa veículo"
-                    onBlur={(e) => checkData (e.target.value)}
-                    onChange={(e) => setRegister(e.target.value)}
-                  />
-                )}
-              />
-              {/* <TextField
+              <TextField
                 className={classes.inputs}
                 margin="normal"
                 type="text"
                 required
                 size="small"
-                label="Placa"
+                placeholder="Placa"
+                value={placa}
                 id="placa"
-                {...register('placa')}
-                onBlur={checkData}
+                onBlur={(e) => checkUsers(e.target.value)}
+                onChange={(e) => setPlaca(e.target.value)}
                 name={"placa"}
-              />   */}
-
-              {/* <TextField
-                className={classes.inputs}
-                margin="normal"
-                type="text"
-                required
-                id="proprietario"
-                size="small"
-                label="proprietário"
-                {...register('proprietario')}
-                name={"proprietario"}
-              /> */}
-              <p id="proprietario"></p>
-
-              {/* <p id="proprietario"></p> */}
+              />
 
               <TextField
                 className={classes.inputs}
                 margin="normal"
                 required
                 size="small"
+                value={proprietario}
+                id="proprietario"
+                onChange={(e) => setAnoVeiculo(e.target.value)}
+                placeholder="Proprietario"
+                name="proprietario"
+                autoFocus
+              />
+              <TextField
+                className={classes.inputs}
+                margin="normal"
+                required
+                size="small"
+                value={ano_veiculo}
                 id="ano_veiculo"
                 onChange={(e) => setAnoVeiculo(e.target.value)}
-                label="Ano veículo"
+                placeholder="Ano do veículo"
                 name="ano_veiculo"
                 autoFocus
               />
@@ -245,10 +244,11 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                id="modelo"
+                id="marca"
+                value={marca}
                 onChange={(e) => setMarca(e.target.value)}
-                label="Marca veículo"
-                name="modelo"
+                placeholder="Marca veículo"
+                name="marca"
                 autoFocus
               />
 
@@ -258,8 +258,9 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="modelo"
+                value={modelo}
                 onChange={(e) => setModelo(e.target.value)}
-                label="Modelo veículo"
+                placeholder="Modelo veículo"
                 name="modelo"
                 autoFocus
               />
@@ -270,8 +271,9 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="telefone"
+                value={telefone}
                 onChange={(e) => setTelefone(e.target.value)}
-                label="Telefone de Contato"
+                placeholder="Telefone de contato"
                 name="telefone"
                 autoFocus
               />
@@ -281,8 +283,9 @@ export default function CadastrarVeiculos() {
                 size="small"
                 required
                 id="preco"
+                value={preco}
                 onChange={(e) => setPreco(e.target.value)}
-                label="Valor do veiculo"
+                placeholder="Valor do veículo"
                 name="preco"
                 autoFocus
               />
@@ -292,8 +295,9 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="potencia"
+                value={potencia}
                 onChange={(e) => setPotencia(e.target.value)}
-                label="Potência"
+                placeholder="Potencia veículo"
                 name="potencia"
                 autoFocus
               />
@@ -304,8 +308,9 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="torque"
+                value={torque}
                 onChange={(e) => setTorque(e.target.value)}
-                label="Torque"
+                placeholder="Torque do veículo"
                 name="torque"
                 autoFocus
               />
@@ -313,10 +318,11 @@ export default function CadastrarVeiculos() {
                 className={classes.inputs}
                 margin="normal"
                 required
+                value={km}
                 size="small"
                 id="km"
                 onChange={(e) => setKm(e.target.value)}
-                label="Quilometragem"
+                placeholder="Quilometragem do veículo"
                 name="km"
                 autoFocus
               />
@@ -325,9 +331,10 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                value={cor}
                 id="cor"
                 onChange={(e) => setCor(e.target.value)}
-                label="Cor do veículo"
+                placeholder="Cor do veículo"
                 name="cor"
                 autoFocus
               />
@@ -336,9 +343,10 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                value={cabine}
                 id="cabine"
                 onChange={(e) => setCabine(e.target.value)}
-                label="Cabine"
+                placeholder="Cabine do veículo"
                 name="cabine"
                 autoFocus
               />
@@ -346,10 +354,11 @@ export default function CadastrarVeiculos() {
                 className={classes.inputs}
                 margin="normal"
                 required
+                value={relacaodiferencial}
                 size="small"
                 id="relacaodiferencial"
                 onChange={(e) => setRelacaodiferencial(e.target.value)}
-                label="Relação Diferencial"
+                placeholder="Relação do diferencial"
                 name="relacaodiferencial"
                 autoFocus
               />
@@ -358,9 +367,10 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                value={tiposuspensao}
                 id="tiposuspensao"
                 onChange={(e) => setTiposuspensao(e.target.value)}
-                label="Tipo de suspensão"
+                placeholder="Tipo da suspensão"
                 name="tiposuspensao"
                 autoFocus
               />
@@ -369,9 +379,10 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                value={entreeixo}
                 id="entreeixo"
                 onChange={(e) => setEntreeixo(e.target.value)}
-                label="Entre Eixo"
+                placeholder="Entre eixo "
                 name="entreeixo"
                 autoFocus
               />
@@ -379,10 +390,11 @@ export default function CadastrarVeiculos() {
                 className={classes.inputs}
                 margin="normal"
                 required
+                value={capacidadecombustivel}
                 size="small"
                 id="capacidadedecombustivel"
                 onChange={(e) => setCapacidadecombustivel(e.target.value)}
-                label="Capacidade combustível"
+                placeholder="Capacidade combustível"
                 name="capacidadecombustivel"
                 autoFocus
               />
@@ -392,9 +404,10 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                value={informacoesadicionais}
                 id="informacoesadicionais"
                 onChange={(e) => setInformacoesadicionais(e.target.value)}
-                label="Informações Adicionais"
+                placeholder="Informações adicionais"
                 name="informacoesadiconais"
                 autoComplete=""
                 autoFocus
@@ -405,23 +418,26 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
+                value={opcionais}
                 id="opcionais"
                 onChange={(e) => setOpcionais(e.target.value)}
-                label="opcionais"
+                placeholder="Opcionais"
                 name="opcionais"
                 autoComplete=""
                 autoFocus
               />
             </Box>
             <Box align="center">
-              <input
+              {/* <input
                 className={classes.inputNone}
                 type={"file"}
                 name="image"
+                multiple
                 id="image"
                 onChange={(e) => setImage(e.target.files[0])}
               />
               <br></br>
+
               <div style={{ margin: "80px" }}>
                 {image ? (
                   <img
@@ -436,7 +452,31 @@ export default function CadastrarVeiculos() {
                   </div>
                 )}
               </div>
+              <div style={{ margin: "80px" }}>
+                {image ? (
+                  <img
+                    src={URL.createObjectURL(image)}
+                    width="200"
+                    height="200"
+                    alt="imagem"
+                  />
+                ) : (
+                  <div>
+                    <PhotoCamera style={{ width: "85", height: "85" }} />
+                  </div>
+                )}
+              </div> */}
 
+              <input
+                type="file"
+                multiple
+                name="image"
+                id="image"
+                onChange={handleMultipleImages}
+              />
+              <div align="center" style={{display: "flex"}}>
+                <ImagesGallery images={images} />
+              </div>
               <Button
                 type="submit"
                 variant="contained"

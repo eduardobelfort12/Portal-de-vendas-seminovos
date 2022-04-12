@@ -84,12 +84,11 @@ const useStyles = makeStyles((theme) => ({
     width: "auto",
   },
   tableContainer: {
-    width: "63vw"
+    width: "63vw",
   },
   imgStyle: {
     borderRadius: "50px",
-
-  }
+  },
 }));
 
 const PER_PAGE = 2;
@@ -169,7 +168,7 @@ export default function ListageVeiculos() {
                   <TableCell align="left" id="modelo">
                     <Input placeholder={items.modelo} />
                   </TableCell>
-                  
+
                   <TableCell align="left" id="preco">
                     <Input placeholder={items.preco + " R$"} />
                   </TableCell>
@@ -204,25 +203,27 @@ export default function ListageVeiculos() {
         console.log(err);
         console.log("erro ao realizar busca de dados!");
       });
-  });
+  }, []);
 
   async function deleteAnuncio(event) {
     event.preventDefault();
 
     await api
-      .delete(`/deletaranuncio/${id}`, {
+
+      .patch(`/deletaranuncio/${id}`, {
         id,
       })
+
       .then((response) => {
         console.log(response.data);
-        alert("Anúncio deletado com sucesso!");
-        window.location.replace("/VisualizarVeiculos");
+        alert("Anúncio Inativado");
         setId(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }
+
   // async function editForm(event){
   //   event.preventDefault()
   //     await api.patch(`/atualizar/${id}`,{
@@ -265,22 +266,25 @@ export default function ListageVeiculos() {
   const currentPageData = data
 
     .slice(offset, offset + PER_PAGE)
-    .map(({ image, marca, modelo, preco,placa,proprietario, id }) => (
+    .map(({ image, marca, modelo, preco, placa, proprietario, id }) => (
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
 
         <form id={"formulario"} onSubmit={deleteAnuncio}>
           <Container className={classes.container}>
             <div>
-              <TableContainer  style={{overflowX: "hidden"}} className={classes.tableContainer} component={Paper}>
-                <Table 
-                 
+              <TableContainer
+                style={{ overflowX: "hidden" }}
+                className={classes.tableContainer}
+                component={Paper}
+              >
+                <Table
                   className={classes.table}
                   size="small"
                   aria-label="a dense table"
                 >
                   <TableHead>
-                    <TableRow style={{fontSize: "12px"}}>
+                    <TableRow style={{ fontSize: "12px" }}>
                       <TableCell align="left">Imagem</TableCell>
                       <TableCell>Placa</TableCell>
                       <TableCell>Proprietario</TableCell>
@@ -290,7 +294,7 @@ export default function ListageVeiculos() {
                       <TableCell align="left">Excluir </TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody >
+                  <TableBody>
                     <TableRow>
                       <TableCell align="left" id="marca" value={image}>
                         <img
@@ -301,7 +305,7 @@ export default function ListageVeiculos() {
                           height={"150px"}
                         />
                       </TableCell>
-                      <TableCell  align="left" id="placa" value={placa}>
+                      <TableCell align="left" id="placa" value={placa}>
                         {placa}
                       </TableCell>
                       <TableCell align="left" id="marca" value={proprietario}>
@@ -318,7 +322,6 @@ export default function ListageVeiculos() {
                       </TableCell>
 
                       <TableCell align="left" id="id">
-                       
                         <Checkbox
                           color="primary"
                           type={"checkbox"}
@@ -344,7 +347,7 @@ export default function ListageVeiculos() {
                     startIcon={<DeleteIcon />}
                     className={classes.colorButtonDelete}
                   >
-                    Excluir Anúncio
+                    Inativar Anúncio
                   </Button>
 
                   {["Editar Anúncio"].map((anchor) => (

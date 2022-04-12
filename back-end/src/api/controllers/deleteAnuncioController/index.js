@@ -4,7 +4,7 @@ const deleteAnuncioController = async (req, res) => {
     console.log(req.params.id);
     await knex("cadastro_veiculos")
       .where("id", req.params.id)
-      .del()
+      .update()
       .then((data) => {
         console.log(data);
         console.log("Anúncio excluído com sucesso!");
