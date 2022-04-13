@@ -1,13 +1,13 @@
 const knex = require('../../models/databaseConnect')
 
-const deleteAnuncioController = async (req, res) => {
+const InativarAnuncioController = async (req, res) => {
     console.log(req.params.id);
     await knex("cadastro_veiculos")
       .where("id", req.params.id)
-      .update()
+      .update('status' , req.body.status )
       .then((data) => {
         console.log(data);
-        console.log("Anúncio excluído com sucesso!");
+        console.log("Anuncio inativado");
         return res.status(201).json(data);
       })
       .catch((err) => {
@@ -18,4 +18,4 @@ const deleteAnuncioController = async (req, res) => {
       });
   };
 
-  module.exports = {deleteAnuncioController}
+  module.exports = {InativarAnuncioController}

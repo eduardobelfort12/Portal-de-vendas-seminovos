@@ -1,7 +1,7 @@
 const knex=require('../../models/databaseConnect')
 
 const buscarDadosController = async (req, res) => {
-    if (req.body) {
+
       await knex
         .select("*")
         .from("cadastro_veiculos")
@@ -15,5 +15,6 @@ const buscarDadosController = async (req, res) => {
             .json({ message: "Erro! Veiculo não encontrado!" });
         });
     }
-  };
+  
+  
   module.exports = {buscarDadosController}

@@ -21,9 +21,7 @@ const {
 const {
   deleteMensagemController,
 } = require("../controllers/deleteMensagensController/");
-const {
-  deleteAnuncioController,
-} = require("../controllers/deleteAnuncioController");
+
 const {
   filtroInputController,
 } = require("../controllers/filtroInputController/");
@@ -37,7 +35,12 @@ const { testeWhereController } = require("../controllers/selectMyController/");
 const {
   ExibirDetalhesAnuncioController,
 } = require("../controllers/exibirDetalhesAnuncioController/");
-const {BuscarPlacasController} = require('../controllers/buscarPlacasController/')
+const {
+  InativarAnuncioController,
+} = require("../controllers/deleteAnuncioController");
+const {
+  BuscarPlacasController,
+} = require("../controllers/buscarPlacasController/");
 const uploadUser = require("../middlewares/uploadimages");
 
 routes.post(
@@ -52,11 +55,11 @@ routes.get("/query", selectQueryOracleController);
 routes.post("/send", formularioContatoController);
 routes.get("/mensagens", buscarMensagensController);
 routes.delete("/deletarmsg/:id", deleteMensagemController);
-routes.patch("/inativar/:id", deleteAnuncioController);
 routes.get("/exibir", filtroInputController);
 routes.get("/autocompletar/:PLACA", whereQueryOracleController);
 routes.get("/queryteste/:placa", testeWhereController);
 routes.get("/detalhe/:id", ExibirDetalhesAnuncioController);
-routes.get('/buscarplaca/:placa', BuscarPlacasController)
+routes.get("/buscarplaca/:placa", BuscarPlacasController);
+routes.patch("/inativar/:id", InativarAnuncioController)
 
 module.exports = routes;

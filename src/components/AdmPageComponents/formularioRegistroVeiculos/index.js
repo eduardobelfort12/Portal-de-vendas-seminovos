@@ -8,10 +8,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-// import { PhotoCamera } from "@material-ui/icons";
+import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
 import ImagesGallery from "./imagesGallery";
-import { set } from "react-hook-form";
+// import { set } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -418,10 +418,10 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                value={opcionais}
                 id="opcionais"
                 onChange={(e) => setOpcionais(e.target.value)}
                 placeholder="Opcionais"
+                value={opcionais}
                 name="opcionais"
                 autoComplete=""
                 autoFocus
@@ -452,26 +452,13 @@ export default function CadastrarVeiculos() {
                   </div>
                 )}
               </div>
-              <div style={{ margin: "80px" }}>
-                {image ? (
-                  <img
-                    src={URL.createObjectURL(image)}
-                    width="200"
-                    height="200"
-                    alt="imagem"
-                  />
-                ) : (
-                  <div>
-                    <PhotoCamera style={{ width: "85", height: "85" }} />
-                  </div>
-                )}
-              </div> */}
+     */}
 
               <input
                 type="file"
                 multiple
-                name="image"
-                id="image"
+                name="images"
+                id="images"
                 onChange={handleMultipleImages}
               />
               <div align="center" style={{display: "flex"}}>

@@ -104,6 +104,8 @@ export default function ListageVeiculos() {
     .map(
       ({
         image,
+        proprietario,
+        placa,
         marca,
         modelo,
         preco,
@@ -175,6 +177,20 @@ export default function ListageVeiculos() {
                         <TableCell align="left">{entreeixo}</TableCell>
                         <TableCell align="left">{tiposuspensao}</TableCell>
                         <TableCell align="left">{km} Km</TableCell>
+                      </TableRow>
+                    </TableBody>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="left">Placa</TableCell>
+                        <TableCell align="left">Proprietario</TableCell>
+                      
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell align="left">{placa}</TableCell>
+                        <TableCell align="left">{proprietario}</TableCell>
+                    
                       </TableRow>
                     </TableBody>
                   </Table>
