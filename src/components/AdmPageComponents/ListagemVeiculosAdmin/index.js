@@ -23,7 +23,7 @@ import api from "../../../axios/api";
 import { Box } from "@material-ui/core";
 import { Input } from "@material-ui/core";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import FiltroLateral from "../../filtroLateral";
+// import FiltroLateral from "../../filtroLateral";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -84,19 +84,20 @@ const useStyles = makeStyles((theme) => ({
     width: "auto",
   },
   tableContainer: {
-    width: "63vw",
+    width: "100vw",
   },
   imgStyle: {
     borderRadius: "50px",
   },
 }));
 
-const PER_PAGE = 2;
+const PER_PAGE = 5;
 
 export default function ListageVeiculos() {
   const classes = useStyles();
   const [push, setPush] = useState([]);
   const [id, setId] = useState("");
+  const [status, setStatus] = useState("");
   const [state, setState] = useState({
     left: false,
   });
@@ -136,7 +137,7 @@ export default function ListageVeiculos() {
         <EditIcon />
       </div>
       {push.map((items) => (
-        <div>
+        <div key={items.id}>
           <TableContainer component={Paper}>
             <Table
               className={classes.table}
@@ -210,18 +211,32 @@ export default function ListageVeiculos() {
 
     await api
 
-      .patch(`/deletaranuncio/${id}`, {
+      .patch(`/inativar/${id}`, {
         id,
+        status,
       })
 
       .then((response) => {
         console.log(response.data);
         alert("Anúncio Inativado");
+        
         setId(response.data);
+        setStatus(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  function Change() {
+    let status = document.getElementById("status").checked;
+    if (status < 1 || status === 0) {
+      status.checked.value = 0;
+      alert("false");
+    } else {
+      status.checked.value = 1;
+      alert("true");
+    }
   }
 
   // async function editForm(event){
@@ -267,7 +282,7 @@ export default function ListageVeiculos() {
 
     .slice(offset, offset + PER_PAGE)
     .map(({ image, marca, modelo, preco, placa, proprietario, id }) => (
-      <Container className={classes.cardGrid} maxWidth="md">
+      <Container key={id} className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
 
         <form id={"formulario"} onSubmit={deleteAnuncio}>
@@ -292,6 +307,7 @@ export default function ListageVeiculos() {
                       <TableCell align="left">Modelo</TableCell>
                       <TableCell align="left">Valor</TableCell>
                       <TableCell align="left">Excluir </TableCell>
+                      <TableCell align="left">Status</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -326,8 +342,19 @@ export default function ListageVeiculos() {
                           color="primary"
                           type={"checkbox"}
                           id={"id"}
+                          name="id"
                           value={id}
                           onChange={(e) => setId(e.target.value)}
+                        />
+                      </TableCell>
+                      <TableCell align="left" id="status">
+                        <input
+                          color="primary"
+                          type={"text"}
+                          id={"status"}
+                          name="status"
+                          onClick={Change}
+                          onChange={(e) => setStatus(e.target.value)}
                         />
                       </TableCell>
                     </TableRow>
@@ -409,7 +436,7 @@ export default function ListageVeiculos() {
         activeClassName={"pagination__link--active"}
       />
       {currentPageData}
-      <FiltroLateral />
+      {/* <FiltroLateral /> */}
 
       {/* <div className={classes.editformModal}>
         {" "}
