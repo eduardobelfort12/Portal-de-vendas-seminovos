@@ -18,9 +18,9 @@ import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
 import CadastrarVeiculos from "../../../components/AdmPageComponents/formularioRegistroVeiculos";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
-import MailIcon from "@material-ui/icons/Mail"
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import FormTestComplete from "../../../components/AdmPageComponents/formTestAutocomplete";
+import MailIcon from "@material-ui/icons/Mail";
+import AssessmentIcon from "@material-ui/icons/Assessment";
+import Logout from '../../../components/logout'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -122,6 +122,7 @@ export default function RegistrarVeiculos() {
             Cadastro de Veículos
           </Typography>
         </Toolbar>
+        <Logout/>
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -144,7 +145,7 @@ export default function RegistrarVeiculos() {
         <Divider />
         <List>
           <ListItem button>
-            <AssessmentIcon/>
+            <AssessmentIcon />
             <Link to="/AdminPainel">Dashboard</Link>
             <ListItemText />
           </ListItem>
@@ -162,21 +163,21 @@ export default function RegistrarVeiculos() {
         <Divider />
         <List>
           <ListItem button>
-          <FindInPageIcon />
+            <FindInPageIcon />
             <Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
             <ListItemText />
           </ListItem>
         </List>
-        <Divider/>
+        <Divider />
         <Divider />
         <List>
           <ListItem button>
-            <MailIcon/>
+            <MailIcon />
             <Link to="/MensagensAnuncios">Mensagens recebidas</Link>
             <ListItemText />
           </ListItem>
         </List>
-        <Divider/>
+        <Divider />
         <Divider />
       </Drawer>
       <main

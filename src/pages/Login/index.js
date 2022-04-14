@@ -1,10 +1,16 @@
-import React from 'react'
-import Login from '../../components/loginComponent';
+import { runWithAdal } from "react-adal";
+import { authContext } from "../../config/adalConfig";
 
-export default function LoginAdm(){
+export default function Login() {
 
-    return(
-        <div><Login /></div>
 
-    );
+  const DO_NOT_LOGIN = false;
+
+  runWithAdal(
+    authContext,
+    () => {
+      require("../AdminPainel");
+    },
+    DO_NOT_LOGIN
+  );
 }

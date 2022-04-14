@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import { PhotoCamera } from "@material-ui/icons";
+// import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
 import ImagesGallery from "./imagesGallery";
 // import { set } from "react-hook-form";

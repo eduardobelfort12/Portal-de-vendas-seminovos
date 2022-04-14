@@ -4,7 +4,7 @@ const InativarAnuncioController = async (req, res) => {
     console.log(req.params.id);
     await knex("cadastro_veiculos")
       .where("id", req.params.id)
-      .update('status' , req.body.status )
+      .update('ativo' , req.body.ativo )
       .then((data) => {
         console.log(data);
         console.log("Anuncio inativado");
@@ -13,7 +13,7 @@ const InativarAnuncioController = async (req, res) => {
       .catch((err) => {
         console.log(err);
         return res.status(401).json({
-          message: "Erro! Não foi possível realizar delete do usuário!",
+          message: "Erro! Não foi possível inativar anúncio ",
         });
       });
   };

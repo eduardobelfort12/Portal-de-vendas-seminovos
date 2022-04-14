@@ -8,10 +8,14 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import EmailIcon from "@material-ui/icons/Email";
+import NavHeader from "../header/"
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100vw",
     display: "flex",
+    padding: "auto",
+    position: "absolute",
+    top: "20%",
     flexDirection: "column",
     alignItems: "center",
     
@@ -19,13 +23,14 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     margin: theme.spacing(9, 5),
     display: "flex",
+  
     flexDirection: "column",
     alignItems: "center",
     justifyContent:"center"
   },
   form: {
     // Fix IE 11 issue.
-   
+    
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -44,10 +49,12 @@ export default function Login() {
   
 
   return (
+    
     <Grid container component="main" className={classes.root}>
+      <div><NavHeader/></div>
       <CssBaseline />
-      <Grid alignContent="center" item xs={12} md={6} component={Paper} elevation={20} square>
-        <div className={classes.paper}>
+      <Grid alignContent="center" item xs={10} md={6} component={Paper} elevation={20} square>
+        <div  className={classes.paper}>
           <div>
             <ContactMail className={classes.icon} />
           </div>
