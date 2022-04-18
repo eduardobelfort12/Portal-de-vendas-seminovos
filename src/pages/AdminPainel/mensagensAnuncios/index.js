@@ -17,9 +17,10 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
 import MensagensContatos from "../../../components/AdmPageComponents/mensagensContatos";
-import MailIcon from '@material-ui/icons/Mail';
+import MailIcon from "@material-ui/icons/Mail";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
-import AssessmentIcon from '@material-ui/icons/Assessment';
+import AssessmentIcon from "@material-ui/icons/Assessment";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -83,9 +84,9 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-  TextDecoration : {
+  TextDecoration: {
     TextDecoration: "none",
-  }
+  },
 }));
 
 export default function MensagensAnuncios() {
@@ -147,7 +148,9 @@ export default function MensagensAnuncios() {
         <List>
           <ListItem button>
             <AssessmentIcon />
-            <Link className={classes.TextDecoration} to="/AdminPainel">Dashboard</Link>
+            <Link className={classes.TextDecoration} to="/AdminPainel">
+              Dashboard
+            </Link>
             <ListItemText />
           </ListItem>
         </List>
@@ -164,7 +167,7 @@ export default function MensagensAnuncios() {
         <Divider />
         <List>
           <ListItem button>
-            <FindInPageIcon/>
+            <FindInPageIcon />
             <Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
             <ListItemText />
           </ListItem>
@@ -173,21 +176,30 @@ export default function MensagensAnuncios() {
         <Divider />
         <List>
           <ListItem button>
-            <MailIcon/>
+            <MailIcon />
             <Link to="/MensagensAnuncios">Mensagens recebidas</Link>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
+        <Divider />
+        <List>
+          <ListItem button>
+            <VisibilityOff />
+            <Link to="/AnunciosInativos">Anuncios Inativos</Link>
             <ListItemText />
           </ListItem>
         </List>
         <Divider />
       </Drawer>
       <main
+        style={{ overflowX: "hidden" }}
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
         <div className={classes.drawerHeader} />
-        <MensagensContatos/>
-        
+        <MensagensContatos />
       </main>
     </div>
   );

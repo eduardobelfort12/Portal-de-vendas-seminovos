@@ -14,7 +14,8 @@ import Login from "./pages/Login/";
 import { withAdalLoginApi } from "./config/adalConfig";
 import Loading from "./pages/Loading/";
 import ErrorPage from "./pages/ErrorPage";
-
+import Testando from "./pages/Preview";
+import AnunciosInativos from "./pages/AdminPainel/anunciosInativos/index";
 const ProtectPage = withAdalLoginApi(
   AdminPainel,
   () => <Loading />,
@@ -25,6 +26,9 @@ export default function MainRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />}>
+        Home
+      </Route>
+      <Route path="/Testando" element={<Testando />}>
         Home
       </Route>
       <Route path="/Tora-Seminovos" element={<Seminovos />}>
@@ -39,10 +43,7 @@ export default function MainRoutes() {
       <Route path="/Contatos" element={<Contato />}>
         Contato
       </Route>
-      <Route
-        path="/AdminPainel"
-        element={<AdminPainel/>}
-      >
+      <Route path="/AdminPainel" element={<AdminPainel />}>
         AdminPainel
       </Route>
       <Route path="/RegistrarVeiculos" element={<RegistrarVeiculos />}>
@@ -53,6 +54,9 @@ export default function MainRoutes() {
       </Route>
       <Route path="/MensagensAnuncios" element={<MensagensAnuncios />}>
         Mensagens
+      </Route>
+      <Route path="/AnunciosInativos" element={<AnunciosInativos />}>
+        AnunciosInativos
       </Route>
 
       <Route path="/Login" element={<Login />} render={() => <ProtectPage />}>

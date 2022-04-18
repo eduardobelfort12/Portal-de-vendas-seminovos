@@ -23,10 +23,12 @@ import api from "../../../axios/api";
 import { Box } from "@material-ui/core";
 import { Input } from "@material-ui/core";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import "./style.css";
 // import FiltroLateral from "../../filtroLateral";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
+    width: "100%",
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
@@ -43,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   fixedPaginate: {
-    width: "100%",
     height: "5vh",
     position: "fixed",
     top: "auto",
@@ -51,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     display: "flex",
   },
+
   test: {
     display: "none",
   },
@@ -60,14 +62,16 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   colorButtonDelete: {
-    margin: "20px",
-    padding: "10px",
+    minWidth: "100%",
+    margin: 10,
+    padding: 5,
     background: "red",
     color: "white",
   },
   colorButtonEdit: {
-    margin: "40px",
-    padding: "10px",
+    minWidth: "100%",
+    margin: 10,
+    padding: 5,
     background: "#D4A114",
     color: "white",
   },
@@ -84,20 +88,20 @@ const useStyles = makeStyles((theme) => ({
     width: "auto",
   },
   tableContainer: {
-    width: "100vw",
+    width: "100%",
   },
   imgStyle: {
     borderRadius: "50px",
   },
 }));
 
-const PER_PAGE = 5;
+const PER_PAGE = 2;
 
 export default function ListageVeiculos() {
   const classes = useStyles();
   const [push, setPush] = useState([]);
   const [id, setId] = useState("");
-  const [status, setStatus] = useState("");
+  const [ativo, setAtivo] = useState("");
   const [state, setState] = useState({
     left: false,
   });
@@ -213,15 +217,15 @@ export default function ListageVeiculos() {
 
       .patch(`/inativar/${id}`, {
         id,
-        status,
+        ativo,
       })
 
       .then((response) => {
         console.log(response.data);
         alert("Anúncio Inativado");
-        
+
         setId(response.data);
-        setStatus(response.data);
+        setAtivo(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -289,7 +293,6 @@ export default function ListageVeiculos() {
           <Container className={classes.container}>
             <div>
               <TableContainer
-                style={{ overflowX: "hidden" }}
                 className={classes.tableContainer}
                 component={Paper}
               >
@@ -306,7 +309,7 @@ export default function ListageVeiculos() {
                       <TableCell align="left">Marca</TableCell>
                       <TableCell align="left">Modelo</TableCell>
                       <TableCell align="left">Valor</TableCell>
-                      <TableCell align="left">Excluir </TableCell>
+                      <TableCell align="left">Inativar</TableCell>
                       <TableCell align="left">Status</TableCell>
                     </TableRow>
                   </TableHead>
@@ -347,14 +350,14 @@ export default function ListageVeiculos() {
                           onChange={(e) => setId(e.target.value)}
                         />
                       </TableCell>
-                      <TableCell align="left" id="status">
+                      <TableCell align="left" id="ativo">
                         <input
                           color="primary"
                           type={"text"}
-                          id={"status"}
-                          name="status"
+                          id={"ativo"}
+                          name="ativo"
                           onClick={Change}
-                          onChange={(e) => setStatus(e.target.value)}
+                          onChange={(e) => setAtivo(e.target.value)}
                         />
                       </TableCell>
                     </TableRow>
@@ -382,6 +385,7 @@ export default function ListageVeiculos() {
                       <Button
                         className={classes.colorButtonEdit}
                         variant="contained"
+                        align={"center"}
                         size="small"
                         color="success"
                         startIcon={<EditIcon />}
@@ -424,16 +428,23 @@ export default function ListageVeiculos() {
   return (
     <div>
       <ReactPaginate
-        className={classes.fixedPaginate}
-        previousLabel={"← Previous"}
-        nextLabel={"Next →"}
+        previousLabel={"previous"}
+        nextLabel={"next"}
+        breakLabel={"..."}
         pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
         onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        previousLinkClassName={"pagination__link"}
-        nextLinkClassName={"pagination__link"}
-        disabledClassName={"pagination__link--disabled"}
-        activeClassName={"pagination__link--active"}
+        containerClassName={"pagination justify-content-center"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"active"}
       />
       {currentPageData}
       {/* <FiltroLateral /> */}

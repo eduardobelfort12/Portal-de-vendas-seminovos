@@ -9,26 +9,21 @@ import NavHeader from "../../components/header";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Carousell from "../../components/carousel";
-// import FullWidthGrid from "../../components/infoHome";
+import { CardActions } from "@material-ui/core";
+import FullWidthGrid from "../../components/infoHome";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles, ThemeProvider } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Box from "@material-ui/core/Box";
-import Table from "@material-ui/core/Table";
-import { TableContainer } from "@material-ui/core";
-import { TableBody } from "@material-ui/core";
-import { TableCell } from "@material-ui/core";
-import { TableHead } from "@material-ui/core";
-import { TableRow } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import VeiculosDestaqueComponent from "../../components/veiculosDestaque";
 
 const useStyles = makeStyles((theme) => ({
   filter: {
-    width: "60vw",
+    width: "100vw",
     padding: "30px",
   },
   cardFilter: {
@@ -132,7 +127,6 @@ export default function Home() {
       });
   }, []);
 
-
   return (
     <React.Fragment>
       <CssBaseline />
@@ -219,74 +213,38 @@ export default function Home() {
 
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
-          {filter.map((item) => (
-            <Grid container spacing={0}>
-              <Grid xs={12} sm={6} md={4}>
+          <Grid container spacing={4}>
+            {filter.map((items) => (
+              <Grid item key={items} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image={url + `${item.image}`}
+                    image={url + items.image}
                   />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {items.marca}
+                    </Typography>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {items.modelo}
+                    </Typography>
+                    <Typography>
+                      This is a media card. You can use this section to describe
+                      the content.
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      View
+                    </Button>
+                    <Button size="small" color="primary">
+                      Edit
+                    </Button>
+                  </CardActions>
                 </Card>
               </Grid>
-              <Grid item xs={false} sm={4} md={7}>
-                <Container className={classes.container}>
-                  <TableContainer component={Paper} style={{ padding: "10px" }}>
-                    <Table
-                      className={classes.table}
-                      size="small"
-                      aria-label="a dense table"
-                    >
-                      <TableHead>
-                        <TableRow>
-                          <TableCell align="left">Marca</TableCell>
-                          <TableCell align="left">Modelo</TableCell>
-                          <TableCell align="left">Valor</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell align="left">{item.marca}</TableCell>
-                          <TableCell align="left">{item.modelo}</TableCell>
-                          <TableCell align="left">{item.preco}R$</TableCell>
-                        </TableRow>
-                      </TableBody>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell align="left">Opcionais</TableCell>
-                          <TableCell align="left">Potência</TableCell>
-                          <TableCell align="left">Torque</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell align="left">{item.opcionais}</TableCell>
-                          <TableCell align="left">{item.potencia} CV</TableCell>
-                          <TableCell align="left">{item.torque} Kg/T</TableCell>
-                        </TableRow>
-                      </TableBody>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell align="left">Entre Eixo</TableCell>
-                          <TableCell align="left">Suspensão</TableCell>
-                          <TableCell align="left">Quilometragem</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell align="left">{item.entreeixo}</TableCell>
-                          <TableCell align="left">
-                            {item.tiposuspensao}
-                          </TableCell>
-                          <TableCell align="left">{item.km} Km</TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </Container>
-              </Grid>
-            </Grid>
-          ))}
+            ))}
+          </Grid>
         </Container>
 
         <Typography variant="h4" align="center">
@@ -297,6 +255,7 @@ export default function Home() {
 
         <section>
           <div className={classes.heroContent}></div>
+          <FullWidthGrid />
         </section>
       </main>
 

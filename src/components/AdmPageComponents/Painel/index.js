@@ -17,7 +17,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
 import Carousell from "../../carousel";
-import AssessmentIcon from '@material-ui/icons/Assessment';
+import MailIcon from "@material-ui/icons/Mail";
+import AssessmentIcon from "@material-ui/icons/Assessment";
 
 const drawerWidth = 240;
 
@@ -89,10 +90,6 @@ export default function Dashboard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-
-
- 
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -121,7 +118,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-           Dashboard
+            Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -145,35 +142,49 @@ export default function Dashboard() {
         </div>
         <Divider />
         <List>
-        <ListItem button >
-            <AssessmentIcon/><Link to="/AdminPainel">Dashboard</Link>
-            <ListItemText/>
+          <ListItem button>
+            <AssessmentIcon />
+            <Link to="/AdminPainel">Dashboard</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
         <Divider />
         <List>
-        <ListItem button >
-            <LocalShippingIcon/><Link to="/registrarVeiculos">Cadastrar Veículos</Link>
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/registrarVeiculos">Cadastrar Veículos</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
         <Divider />
         <List>
-          <ListItem button >
-            <LocalShippingIcon/><Link to="/VisualizarVeiculos" >Visualizar Veículos</Link>
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
+            <ListItemText />
           </ListItem>
         </List>
         <Divider />
         <Divider />
         <List>
-        <ListItem button >
-            <LocalShippingIcon/><Link to="/MensagensAnuncios">Mensagens recebidas</Link>
-            <ListItemText/>
+          <ListItem button>
+            <LocalShippingIcon />
+            <Link to="/MensagensAnuncios">Mensagens recebidas</Link>
+            <ListItemText />
           </ListItem>
         </List>
+        <Divider />
+        <Divider />
+        <List>
+          <ListItem button>
+            <MailIcon />
+            <Link to="/AnunciosInativos">Anuncios Inativos</Link>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -181,8 +192,8 @@ export default function Dashboard() {
         })}
       >
         <div className={classes.drawerHeader} />
-        
-        <Carousell/>
+
+        <Carousell />
       </main>
     </div>
   );

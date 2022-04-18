@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -8,9 +8,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
 // import { PhotoCamera } from "@material-ui/icons";
 import api from "../../../axios/api";
-import ImagesGallery from "./imagesGallery";
+// import ImagesGallery from "./imagesGallery";
 // import { set } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +64,7 @@ export default function CadastrarVeiculos() {
   //Image preview multiple upload image
 
   //
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
   const [register, setRegister] = useState();
   const [image, setImage] = useState("");
   const [proprietario, setProprietario] = useState();
@@ -144,26 +145,26 @@ export default function CadastrarVeiculos() {
         setTorque(data[0].torque);
         setKm(data[0].km);
         setCor(data[0].cor);
-        setCabine(data[0].cabine)
-        setRelacaodiferencial(data[0].relacaodiferencial)
-        setEntreeixo(data[0].entreeixo)
-        setTiposuspensao(data[0].tiposuspensao)
-        setCapacidadecombustivel(data[0].capacidadecombustivel)
-        setInformacoesadicionais(data[0].informacoesadicionais)
-        setOpcionais(data[0].opcionais)
+        setCabine(data[0].cabine);
+        setRelacaodiferencial(data[0].relacaodiferencial);
+        setEntreeixo(data[0].entreeixo);
+        setTiposuspensao(data[0].tiposuspensao);
+        setCapacidadecombustivel(data[0].capacidadecombustivel);
+        setInformacoesadicionais(data[0].informacoesadicionais);
+        setOpcionais(data[0].opcionais);
       });
   };
 
-  const handleMultipleImages = (event) => {
-    const selectFiles = [];
-    const targetFiles = event.target.files;
-    const targetFilesObject = [...targetFiles];
+  // const handleMultipleImages = (event) => {
+  //   const selectFiles = [];
+  //   const targetFiles = event.target.files;
+  //   const targetFilesObject = [...targetFiles];
 
-    targetFilesObject.map((file) => {
-      return selectFiles.push(URL.createObjectURL(file));
-    });
-    setImages(selectFiles);
-  };
+  //   targetFilesObject.map((file) => {
+  //     return selectFiles.push(URL.createObjectURL(file));
+  //   });
+  //   setImages(selectFiles);
+  // };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -428,7 +429,7 @@ export default function CadastrarVeiculos() {
               />
             </Box>
             <Box align="center">
-              {/* <input
+              <input
                 className={classes.inputNone}
                 type={"file"}
                 name="image"
@@ -452,8 +453,8 @@ export default function CadastrarVeiculos() {
                   </div>
                 )}
               </div>
-     */}
 
+              {/* 
               <input
                 type="file"
                 multiple
@@ -461,9 +462,9 @@ export default function CadastrarVeiculos() {
                 id="images"
                 onChange={handleMultipleImages}
               />
-              <div align="center" style={{display: "flex"}}>
+              <div align="center" style={{ display: "flex" }}>
                 <ImagesGallery images={images} />
-              </div>
+              </div> */}
               <Button
                 type="submit"
                 variant="contained"

@@ -13,9 +13,9 @@ module.exports = multer({
     const extensaoImg = ["image/png", "image/jpg", "image/jpeg"].find(
       (formatoAceito) => formatoAceito === file.mimetype
     );
-    if(extensaoImg) {
-        return cb(null, true)
+    if (extensaoImg) {
+      return cb(null, true);
     }
-        return(null, false)
+    return null, false;
   },
 });

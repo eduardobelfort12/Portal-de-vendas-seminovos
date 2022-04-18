@@ -17,9 +17,10 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
 import ListagemVeiculosAdmin from "../../../components/AdmPageComponents/ListagemVeiculosAdmin";
-import MailIcon from '@material-ui/icons/Mail';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
-import AssessmentIcon from '@material-ui/icons/Assessment';
+import MailIcon from "@material-ui/icons/Mail";
+import FindInPageIcon from "@material-ui/icons/FindInPage";
+import AssessmentIcon from "@material-ui/icons/Assessment";
+import { VisibilityOff } from "@material-ui/icons";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -118,7 +119,7 @@ export default function VisualizarVeiculos() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-           Listagem de Veículos
+            Listagem de Veículos
           </Typography>
         </Toolbar>
       </AppBar>
@@ -143,7 +144,7 @@ export default function VisualizarVeiculos() {
         <Divider />
         <List>
           <ListItem button>
-            <AssessmentIcon/>
+            <AssessmentIcon />
             <Link to="/AdminPainel">Dashboard</Link>
             <ListItemText />
           </ListItem>
@@ -161,7 +162,8 @@ export default function VisualizarVeiculos() {
         <Divider />
         <List>
           <ListItem button>
-            <FindInPageIcon /><Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
+            <FindInPageIcon />
+            <Link to="/VisualizarVeiculos">Visualizar Veículos</Link>
             <ListItemText />
           </ListItem>
         </List>
@@ -169,22 +171,31 @@ export default function VisualizarVeiculos() {
         <Divider />
         <List>
           <ListItem button>
-            <MailIcon/>
+            <MailIcon />
             <Link to="/MensagensAnuncios">Mensagens recebidas</Link>
             <ListItemText />
           </ListItem>
         </List>
         <Divider />
+        <List>
+          <ListItem button>
+            <VisibilityOff />
+            <Link to="/AnunciosInativos">Anuncios Inativos</Link>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
+        <Divider />
       </Drawer>
       <main
+        style={{ overflowX: "hidden" }}
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
         <div className={classes.drawerHeader} />
 
-            <ListagemVeiculosAdmin/>
-       
+        <ListagemVeiculosAdmin />
       </main>
     </div>
   );

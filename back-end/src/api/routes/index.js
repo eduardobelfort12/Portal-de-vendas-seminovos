@@ -37,17 +37,25 @@ const {
 } = require("../controllers/exibirDetalhesAnuncioController/");
 const {
   InativarAnuncioController,
-} = require("../controllers/deleteAnuncioController");
+} = require("../controllers/inativarAnuncioController");
 const {
   BuscarPlacasController,
 } = require("../controllers/buscarPlacasController/");
+const {
+  ListarAnunciosInativosController,
+} = require("../controllers/buscarAnunciosInativosController");
 const uploadUser = require("../middlewares/uploadimages");
+const { ImgController } = require("../controllers/imageTableControoler");
+const { ImageInsertController } = require("../controllers/imageController");
 
 routes.post(
   "/registrar",
   uploadUser.single("image"),
   cadastroVeiculosController
 );
+
+routes.post("/upload", uploadUser.array("foto", 3), ImageInsertController);
+routes.get("/listagem", ImgController);
 routes.get("/filtrar/:marca/:modelo", filtrarDadosController);
 routes.get("/buscar", buscarDadosController);
 routes.patch("/atualizar/:id", editAnuncioController);
@@ -60,6 +68,7 @@ routes.get("/autocompletar/:PLACA", whereQueryOracleController);
 routes.get("/queryteste/:placa", testeWhereController);
 routes.get("/detalhe/:id", ExibirDetalhesAnuncioController);
 routes.get("/buscarplaca/:placa", BuscarPlacasController);
-routes.patch("/inativar/:id", InativarAnuncioController)
+routes.patch("/inativar/:id", InativarAnuncioController);
+routes.get("/inativos", ListarAnunciosInativosController);
 
 module.exports = routes;

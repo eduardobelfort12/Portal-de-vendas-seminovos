@@ -1,5 +1,8 @@
 // CREATE TABLE cadastro_veiculos(
 // 	id serial PRIMARY KEY,
+//  placa VARCHAR(10) NOT NULL,
+//  proprietario VARCHAR(50) NOT NULL,
+//  ano_veiculo VARCHAR(4) NOT NULL,
 //  marca VARCHAR(30) NOT NULL,
 //  modelo VARCHAR(30) NOT NULL,
 // 	telefone VARCHAR(18) NOT NULL,
@@ -15,7 +18,8 @@
 // 	capacidadecombustivel VARCHAR(200) NOT NULL,
 // 	opcionais VARCHAR (200) NOT NULL,
 // 	informacoesadicionais VARCHAR(200) NOT NULL,
-// 	image VARCHAR(1000) NOT NULL
+// 	image VARCHAR(1000) NOT NULL,
+//  ativo Boolean is null
 // );
 
 // CREATE TABLE marca(

@@ -7,15 +7,10 @@ import { Container } from "@material-ui/core";
 // import CardActions from "@material-ui/core/CardActions";
 // import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-
-import Table from "@material-ui/core/Table";
-import { TableContainer } from "@material-ui/core";
-import { TableBody } from "@material-ui/core";
-import { TableCell } from "@material-ui/core";
-import { TableHead } from "@material-ui/core";
-import { TableRow } from "@material-ui/core";
-import { Paper } from "@material-ui/core";
-import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import { CardActions } from "@material-ui/core";
 // import api from "../../../axios/api";
 
 const useStyles = makeStyles((theme) => ({
@@ -103,6 +98,7 @@ export default function ListageVeiculos() {
     .slice(offset, offset + PER_PAGE)
     .map(
       ({
+        id,
         image,
         proprietario,
         placa,
@@ -116,90 +112,36 @@ export default function ListageVeiculos() {
         tiposuspensao,
         km,
       }) => (
-        
-        <Box align="center">
-        <Container  className={classes.cardGrid} maxWidth="md">
+        <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
-          <Grid container spacing={0}>
-            <Grid xs={12} sm={6} md={4}>
+          <Grid container spacing={4}>
+            <Grid item key={id} xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image={url + `${image}`}
-                ></CardMedia>
+                <CardMedia className={classes.cardMedia} image={url + image} />
+                <CardContent className={classes.cardContent}>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {marca}
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {modelo}
+                  </Typography>
+                  <Typography>
+                    This is a media card. You can use this section to describe
+                    the content.
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    View
+                  </Button>
+                  <Button size="small" color="primary">
+                    Edit
+                  </Button>
+                </CardActions>
               </Card>
-            </Grid>
-            <Grid item xs={false} sm={4} md={7}>
-              <Container className={classes.container}>
-                <TableContainer component={Paper}>
-                  <Table
-                    className={classes.table}
-                    size="small"
-                    aria-label="a dense table"
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="left">Marca</TableCell>
-                        <TableCell align="left">Modelo</TableCell>
-                        <TableCell align="left">Valor</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      <TableRow>
-                        <TableCell align="left">{marca}</TableCell>
-                        <TableCell align="left">{modelo}</TableCell>
-                        <TableCell align="left">{preco}R$</TableCell>
-                      </TableRow>
-                    </TableBody>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="left">Opcionais</TableCell>
-                        <TableCell align="left">Potencia</TableCell>
-                        <TableCell align="left">Torque</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      <TableRow>
-                        <TableCell align="left">{opcionais}</TableCell>
-                        <TableCell align="left">{potencia} CV</TableCell>
-                        <TableCell align="left">{torque} Kg/T</TableCell>
-                      </TableRow>
-                    </TableBody>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="left">Entre eixo</TableCell>
-                        <TableCell align="left">Suspensão</TableCell>
-                        <TableCell align="left">Quilometragem</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      <TableRow>
-                        <TableCell align="left">{entreeixo}</TableCell>
-                        <TableCell align="left">{tiposuspensao}</TableCell>
-                        <TableCell align="left">{km} Km</TableCell>
-                      </TableRow>
-                    </TableBody>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="left">Placa</TableCell>
-                        <TableCell align="left">Proprietario</TableCell>
-                      
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      <TableRow>
-                        <TableCell align="left">{placa}</TableCell>
-                        <TableCell align="left">{proprietario}</TableCell>
-                    
-                      </TableRow>
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Container>
             </Grid>
           </Grid>
         </Container>
-        </Box>
       )
     );
 
@@ -208,16 +150,23 @@ export default function ListageVeiculos() {
   return (
     <div className="App">
       <ReactPaginate
-        className={classes.fixedPaginate}
-        previousLabel={"← Previous"}
-        nextLabel={"Next →"}
+        previousLabel={"previous"}
+        nextLabel={"next"}
+        breakLabel={"..."}
         pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
         onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        previousLinkClassName={"pagination__link"}
-        nextLinkClassName={"pagination__link"}
-        disabledClassName={"pagination__link--disabled"}
-        activeClassName={"pagination__link--active"}
+        containerClassName={"pagination justify-content-center"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"active"}
       />
       {currentPageData}
     </div>

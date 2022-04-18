@@ -20,7 +20,8 @@ import CadastrarVeiculos from "../../../components/AdmPageComponents/formularioR
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 import MailIcon from "@material-ui/icons/Mail";
 import AssessmentIcon from "@material-ui/icons/Assessment";
-import Logout from '../../../components/logout'
+import { VisibilityOff } from "@material-ui/icons";
+// import Logout from '../../../components/logout'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -122,7 +123,7 @@ export default function RegistrarVeiculos() {
             Cadastro de Veículos
           </Typography>
         </Toolbar>
-        <Logout/>
+        {/* <Logout/> */}
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -179,8 +180,18 @@ export default function RegistrarVeiculos() {
         </List>
         <Divider />
         <Divider />
+        <List>
+          <ListItem button>
+            <VisibilityOff />
+            <Link to="/AnunciosInativos">Anuncios Inativos</Link>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
+        <Divider />
       </Drawer>
       <main
+        style={{ overflowX: "hidden" }}
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
