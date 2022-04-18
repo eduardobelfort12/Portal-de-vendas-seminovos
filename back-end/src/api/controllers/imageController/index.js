@@ -1,10 +1,16 @@
 const knex = require("../../models/databaseConnect");
+const Buffer = require('buffer')
 
+const fs = require("fs");
 const ImageInsertController = async (req, res) => {
+let buf = new Buffer()
+
   await knex("images")
-    .insert("foto", req.files.toString("base64"))
+    .insert({ image: req.file.buf.toString('base64') })
     .then((data) => {
+      fs.writeFileSync()  
       console.log(data);
+
       return res.status(201).json(data);
     })
     .catch((err) => {

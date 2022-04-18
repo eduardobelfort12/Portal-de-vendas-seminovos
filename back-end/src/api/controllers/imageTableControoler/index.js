@@ -1,8 +1,10 @@
 const knex = require("../../models/databaseConnect");
+const fs = require('fs')
+
 
 const ImgController = async (req, res) => {
-  knex
-    .select("*")
+ await knex
+    .select("image")
     .from("images")
     .then((data) => {
       console.log(data);
@@ -12,6 +14,7 @@ const ImgController = async (req, res) => {
       console.log(err);
       return res.json(err);
     });
-};
+  }
+
 
 module.exports = { ImgController };

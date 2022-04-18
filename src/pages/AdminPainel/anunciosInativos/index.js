@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
   TextDecoration: {
-    TextDecoration: "none",
+    TextDecoration: "none"
   },
 }));
 

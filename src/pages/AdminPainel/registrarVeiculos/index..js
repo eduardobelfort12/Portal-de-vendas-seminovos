@@ -85,6 +85,9 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  textNoDecoration : {
+      textDecoration: "none"
+  }
 }));
 
 export default function RegistrarVeiculos() {
@@ -147,7 +150,7 @@ export default function RegistrarVeiculos() {
         <List>
           <ListItem button>
             <AssessmentIcon />
-            <Link to="/AdminPainel">Dashboard</Link>
+            <Link className={classes.TextNoDecoration} to="/AdminPainel">Dashboard</Link>
             <ListItemText />
           </ListItem>
         </List>

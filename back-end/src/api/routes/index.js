@@ -1,4 +1,7 @@
 const routes = require("express").Router();
+const knex = require("../models/databaseConnect")
+const fs  = require('fs')
+
 
 const {
   selectQueryOracleController,
@@ -48,13 +51,14 @@ const uploadUser = require("../middlewares/uploadimages");
 const { ImgController } = require("../controllers/imageTableControoler");
 const { ImageInsertController } = require("../controllers/imageController");
 
+
 routes.post(
   "/registrar",
   uploadUser.single("image"),
   cadastroVeiculosController
 );
 
-routes.post("/upload", uploadUser.array("foto", 3), ImageInsertController);
+routes.post("/upload", uploadUser.single('image') ,ImageInsertController)
 routes.get("/listagem", ImgController);
 routes.get("/filtrar/:marca/:modelo", filtrarDadosController);
 routes.get("/buscar", buscarDadosController);
@@ -70,5 +74,25 @@ routes.get("/detalhe/:id", ExibirDetalhesAnuncioController);
 routes.get("/buscarplaca/:placa", BuscarPlacasController);
 routes.patch("/inativar/:id", InativarAnuncioController);
 routes.get("/inativos", ListarAnunciosInativosController);
+routes.post("/base64", uploadUser.single('image'),async (req, res) => {
+  const image = req.file.filename
+  await knex('images').insert({image : new Buffer.from(image, 'base64')})
+  .then((data) => {
+    console.log(data)
+    return res.json(data)
+
+  }).catch((err) => {
+
+    console.log(err)
+    return res.json({message: "Erro! "})
+  })
+
+  // let base64Val = Buffer.from(image).toString('base64')
+  // let decodedVal = Buffer.from(base64Val, 'base64').toString('base64');
+
+  // console.log(decodedVal)
+  // return res.json(decodedVal)
+
+})
 
 module.exports = routes;

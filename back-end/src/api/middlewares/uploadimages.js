@@ -10,12 +10,13 @@ module.exports = multer({
     },
   }),
   fileFilter: (req, file, cb) => {
+    console.log(file)
     const extensaoImg = ["image/png", "image/jpg", "image/jpeg"].find(
       (formatoAceito) => formatoAceito === file.mimetype
     );
     if (extensaoImg) {
       return cb(null, true);
     }
-    return null, false;
+    return null , false;
   },
 });
