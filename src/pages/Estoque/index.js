@@ -2,7 +2,6 @@ import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import NavHeader from "../../components/header";
 import { makeStyles } from "@material-ui/core/styles";
-import Carousell from "../../components/carousel";
 import FullWidthGrid from "../../components/infoHome";
 import PaginationComponent from "../../components/Pagination";
 const useStyles = makeStyles((theme) => ({

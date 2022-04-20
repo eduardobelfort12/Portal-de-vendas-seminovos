@@ -23,6 +23,7 @@ import api from "../../../axios/api";
 import { Box } from "@material-ui/core";
 import { Input } from "@material-ui/core";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import { useParams } from "react-router-dom";
 import "./style.css";
 // import FiltroLateral from "../../filtroLateral";
 
@@ -98,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 const PER_PAGE = 2;
 
 export default function ListageVeiculos() {
-  const classes = useStyles();
+  const classes = useStyles()
   const [push, setPush] = useState([]);
   const [id, setId] = useState("");
   const [ativo, setAtivo] = useState("");
@@ -193,22 +194,10 @@ export default function ListageVeiculos() {
       ))}
     </div>
   );
+
   // const [marca, setMarca] = useState("")
 
   //Função para listar itens no formulário de edição
-
-  useEffect(() => {
-    api
-      .get("/buscar")
-      .then((response) => {
-        console.log(response.data);
-        setPush(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("erro ao realizar busca de dados!");
-      });
-  }, []);
 
   async function deleteAnuncio(event) {
     event.preventDefault();
@@ -230,17 +219,6 @@ export default function ListageVeiculos() {
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  function Change() {
-    let status = document.getElementById("status").checked;
-    if (status < 1 || status === 0) {
-      status.checked.value = 0;
-      alert("false");
-    } else {
-      status.checked.value = 1;
-      alert("true");
-    }
   }
 
   // async function editForm(event){
@@ -356,7 +334,6 @@ export default function ListageVeiculos() {
                           type={"text"}
                           id={"ativo"}
                           name="ativo"
-                          onClick={Change}
                           onChange={(e) => setAtivo(e.target.value)}
                         />
                       </TableCell>
@@ -389,7 +366,10 @@ export default function ListageVeiculos() {
                         size="small"
                         color="success"
                         startIcon={<EditIcon />}
+                        name={"id"}
+                        id="id"
                         value={id}
+                        onChange={(e) => setId(e.target.value)}
                         onClick={toggleDrawer(anchor, true)}
                       >
                         {anchor}

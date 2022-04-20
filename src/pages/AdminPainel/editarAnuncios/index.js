@@ -16,13 +16,12 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
-import CadastrarVeiculos from "../../../components/AdmPageComponents/formularioRegistroVeiculos";
-import FindInPageIcon from "@material-ui/icons/FindInPage";
 import MailIcon from "@material-ui/icons/Mail";
+import FindInPageIcon from "@material-ui/icons/FindInPage";
 import AssessmentIcon from "@material-ui/icons/Assessment";
-import { VisibilityOff } from "@material-ui/icons";
-import EditIcon from "@material-ui/icons/Edit"
-// import Logout from '../../../components/logout'
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import EditAnuncioComponent from "../../../components/AdmPageComponents/editAnuncios";
+import EditIcon from '@material-ui/icons/Edit'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -86,12 +85,12 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-  textNoDecoration : {
-      textDecoration: "none"
-  }
+  TextDecoration: {
+    TextDecoration: "none",
+  },
 }));
 
-export default function RegistrarVeiculos() {
+export default function EditarAnuncios() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -124,10 +123,9 @@ export default function RegistrarVeiculos() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Cadastro de Veículos
+            Edição de anúncios
           </Typography>
         </Toolbar>
-        {/* <Logout/> */}
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -151,7 +149,9 @@ export default function RegistrarVeiculos() {
         <List>
           <ListItem button>
             <AssessmentIcon />
-            <Link className={classes.TextNoDecoration} to="/AdminPainel">Dashboard</Link>
+            <Link className={classes.TextDecoration} to="/AdminPainel">
+              Dashboard
+            </Link>
             <ListItemText />
           </ListItem>
         </List>
@@ -195,12 +195,11 @@ export default function RegistrarVeiculos() {
         <Divider />
         <List>
           <ListItem button>
-            <EditIcon/>
-            <Link to="/EditarAnuncios">Editar Anúncios</Link>
+          <EditIcon/>
+            <Link to="/EditarAnuncios">Editar Anuncios</Link>
             <ListItemText />
           </ListItem>
         </List>
-        <Divider />
         <Divider />
       </Drawer>
       <main
@@ -210,8 +209,7 @@ export default function RegistrarVeiculos() {
         })}
       >
         <div className={classes.drawerHeader} />
-
-        <CadastrarVeiculos />
+       <EditAnuncioComponent/>
       </main>
     </div>
   );

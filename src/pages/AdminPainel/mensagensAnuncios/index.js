@@ -21,6 +21,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import EditIcon from "@material-ui/icons/Edit";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -187,6 +188,15 @@ export default function MensagensAnuncios() {
           <ListItem button>
             <VisibilityOff />
             <Link to="/AnunciosInativos">Anuncios Inativos</Link>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
+        <Divider />
+        <List>
+          <ListItem button>
+              <EditIcon />
+            <Link to="/EditarAnuncios">Editar Anúncios</Link>
             <ListItemText />
           </ListItem>
         </List>

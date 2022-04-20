@@ -65,7 +65,7 @@ export default function CadastrarVeiculos() {
 
   //
   // const [images, setImages] = useState([]);
-  const [register, setRegister] = useState();
+  // const [register, setRegister] = useState();
   const [image, setImage] = useState("");
   const [proprietario, setProprietario] = useState();
   const [placa, setPlaca] = useState();
@@ -222,7 +222,7 @@ export default function CadastrarVeiculos() {
                 size="small"
                 value={proprietario}
                 id="proprietario"
-                onChange={(e) => setAnoVeiculo(e.target.value)}
+                onChange={(e) => setProprietario(e.target.value)}
                 placeholder="Proprietario"
                 name="proprietario"
                 autoFocus

@@ -1,7 +1,4 @@
 const routes = require("express").Router();
-const knex = require("../models/databaseConnect")
-const fs  = require('fs')
-
 
 const {
   selectQueryOracleController,
@@ -44,6 +41,11 @@ const {
 const {
   BuscarPlacasController,
 } = require("../controllers/buscarPlacasController/");
+
+const {
+  ListEditController 
+
+} = require('../controllers/listarEditAnuncioController/')
 const {
   ListarAnunciosInativosController,
 } = require("../controllers/buscarAnunciosInativosController");
@@ -51,15 +53,14 @@ const uploadUser = require("../middlewares/uploadimages");
 const { ImgController } = require("../controllers/imageTableControoler");
 const { ImageInsertController } = require("../controllers/imageController");
 
-
 routes.post(
   "/registrar",
   uploadUser.single("image"),
   cadastroVeiculosController
 );
 
-routes.post("/upload", uploadUser.single('image') ,ImageInsertController)
-routes.get("/listagem", ImgController);
+routes.post("/upload", uploadUser.array("img", 2), ImageInsertController);
+routes.get("/listagem/:id", ImgController);
 routes.get("/filtrar/:marca/:modelo", filtrarDadosController);
 routes.get("/buscar", buscarDadosController);
 routes.patch("/atualizar/:id", editAnuncioController);
@@ -74,25 +75,14 @@ routes.get("/detalhe/:id", ExibirDetalhesAnuncioController);
 routes.get("/buscarplaca/:placa", BuscarPlacasController);
 routes.patch("/inativar/:id", InativarAnuncioController);
 routes.get("/inativos", ListarAnunciosInativosController);
-routes.post("/base64", uploadUser.single('image'),async (req, res) => {
-  const image = req.file.filename
-  await knex('images').insert({image : new Buffer.from(image, 'base64')})
-  .then((data) => {
-    console.log(data)
-    return res.json(data)
+routes.patch("/listedit/:id", ListEditController)
 
-  }).catch((err) => {
+// try {
 
-    console.log(err)
-    return res.json({message: "Erro! "})
-  })
-
-  // let base64Val = Buffer.from(image).toString('base64')
-  // let decodedVal = Buffer.from(base64Val, 'base64').toString('base64');
-
-  // console.log(decodedVal)
-  // return res.json(decodedVal)
-
-})
+//  const  image =  fs.readFileSync("./src/public/upload/" , {encoding: 'base64'} )
+//   console.log(image)
+// } catch (error) {
+//   console.log(error)
+// }
 
 module.exports = routes;

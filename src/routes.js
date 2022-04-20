@@ -16,6 +16,8 @@ import Loading from "./pages/Loading/";
 import ErrorPage from "./pages/ErrorPage";
 import Testando from "./pages/Preview";
 import AnunciosInativos from "./pages/AdminPainel/anunciosInativos/index";
+import EditarAnuncios from "./pages/AdminPainel/editarAnuncios";
+
 const ProtectPage = withAdalLoginApi(
   AdminPainel,
   () => <Loading />,
@@ -29,7 +31,7 @@ export default function MainRoutes() {
         Home
       </Route>
       <Route path="/Testando" element={<Testando />}>
-        Home
+       Preview
       </Route>
       <Route path="/Tora-Seminovos" element={<Seminovos />}>
         Tora-Seminovos
@@ -56,6 +58,9 @@ export default function MainRoutes() {
         Mensagens
       </Route>
       <Route path="/AnunciosInativos" element={<AnunciosInativos />}>
+        AnunciosInativos
+      </Route>
+      <Route path="/EditarAnuncios" element={<EditarAnuncios />}>
         AnunciosInativos
       </Route>
 

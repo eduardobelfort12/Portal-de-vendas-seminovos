@@ -11,19 +11,12 @@ import { TableCell } from "@material-ui/core";
 import { TableHead } from "@material-ui/core";
 import { TableRow } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import clsx from "clsx";
+import TextField from "@material-ui/core/TextField";
+
 import api from "../../../axios/api";
-import { Box } from "@material-ui/core";
-import { Input } from "@material-ui/core";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import "./style.css";
 // import FiltroLateral from "../../filtroLateral";
 
 const useStyles = makeStyles((theme) => ({
@@ -97,142 +90,40 @@ const useStyles = makeStyles((theme) => ({
 
 const PER_PAGE = 2;
 
-export default function ListagemAnunciosInativos() {
+export default function EditAnuncioComponent() {
   const classes = useStyles();
-  const [push, setPush] = useState([]);
+
   const [id, setId] = useState("");
-  const [ativo, setAtivo] = useState("");
-  const [state, setState] = useState({
-    left: false,
-  });
+  const [placa, setPlaca] = useState("")
+  const [proprietario, setProprietario] = useState("")
+  const [marca,setMarca] = useState("")
+  const [modelo, setModelo] = useState("")
+  const [preco, setPreco] = useState("")
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
-
-  const list = (anchor) => (
-    <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
-      role="presentation"
-    >
-      <Box>
-        <List align="right">
-          <Button
-            onClick={toggleDrawer(anchor, false)}
-            startIcon={
-              <KeyboardArrowUpIcon style={{ width: "50px", height: "50px" }} />
-            }
-          />
-        </List>
-      </Box>
-      <Divider />
-      <List></List>
-      <Divider />
-      <div align="center">
-        <EditIcon />
-      </div>
-      {push.map((items) => (
-        <div key={items.id}>
-          <TableContainer component={Paper}>
-            <Table
-              className={classes.table}
-              size="small"
-              aria-label="a dense table"
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell align="left">Imagem</TableCell>
-                  <TableCell align="left">Marca</TableCell>
-                  <TableCell align="left">Modelo</TableCell>
-                  <TableCell align="left">Valor</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell align="left">
-                    <img
-                      style={{ borderRadius: "30px 30px" }}
-                      src={url + items.image}
-                      alt="imagem"
-                      width="200px"
-                      height="200px"
-                    />
-                  </TableCell>
-                  <TableCell align="left" id="marca">
-                    <Input placeholder={items.marca} />
-                  </TableCell>
-                  <TableCell align="left" id="modelo">
-                    <Input placeholder={items.modelo} />
-                  </TableCell>
-
-                  <TableCell align="left" id="preco">
-                    <Input placeholder={items.preco + " R$"} />
-                  </TableCell>
-                  <TableCell align="left" id="preco">
-                    <Button
-                      className={classes.colorButtonEdit}
-                      startIcon={<EditIcon />}
-                    >
-                      Salvar alteração
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      ))}
-    </div>
-  );
   // const [marca, setMarca] = useState("")
 
   //Função para listar itens no formulário de edição
 
-  useEffect(() => {
-    api
-      .get("/buscar")
-      .then((response) => {
-        console.log(response.data);
-        setPush(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("erro ao realizar busca de dados!");
-      });
-  }, []);
-
-  async function deleteAnuncio(event) {
+  async function EditInfos(event) {
     event.preventDefault();
 
     await api
 
-      .patch(`/inativar/${id}`, {
-        id,
-        ativo,
+      .patch(`/listedit/${id}`,{
+        id,marca,modelo,preco ,proprietario,placa
+
       })
 
       .then((response) => {
         console.log(response.data);
-        alert("Anúncio Ativado");
-
+        alert("Edição realizada com sucesso!");
         setId(response.data);
-        setAtivo(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
   const [url] = useState("http://localhost:5500/upload/");
@@ -242,7 +133,7 @@ export default function ListagemAnunciosInativos() {
   }, []);
 
   function fetchData() {
-    fetch("http://localhost:5500/inativos", {
+    fetch("http://localhost:5500/buscar", {
       method: "GET",
       mode: "cors",
     })
@@ -264,7 +155,7 @@ export default function ListagemAnunciosInativos() {
       <Container key={id} className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
 
-        <form id={"formulario"} onSubmit={deleteAnuncio}>
+        <form id={"formulario"} onSubmit={EditInfos}>
           <Container className={classes.container}>
             <div>
               <TableContainer
@@ -284,8 +175,7 @@ export default function ListagemAnunciosInativos() {
                       <TableCell align="left">Marca</TableCell>
                       <TableCell align="left">Modelo</TableCell>
                       <TableCell align="left">Valor</TableCell>
-                      <TableCell align="left">Inativar</TableCell>
-                      <TableCell align="left">Status</TableCell>
+                      <TableCell align="left">Editar</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -299,20 +189,25 @@ export default function ListagemAnunciosInativos() {
                           height={"150px"}
                         />
                       </TableCell>
-                      <TableCell align="left" id="placa" value={placa}>
-                        {placa}
+                      <TableCell align="left" >
+                        <TextField type="text" onChange={(e) => setPlaca (e.target.value)} name="placa" id="placa" />
                       </TableCell>
-                      <TableCell align="left" id="marca" value={proprietario}>
-                        {proprietario}
+                      <TableCell align="left">
+                        <TextField
+                          type="text"
+                          name="proprietario"
+                          onChange={(e) => setProprietario (e.target.value)}
+                          id="proprietario"
+                        />
                       </TableCell>
-                      <TableCell align="left" id="marca" value={marca}>
-                        {marca}
+                      <TableCell align="left" >
+                        <TextField type="text" onChange={(e) => setMarca (e.target.value)} name="marca" id="marca" />
                       </TableCell>
-                      <TableCell align="left" id="modelo">
-                        {modelo}
+                      <TableCell align="left" >
+                        <TextField type="text" onChange={(e) => setModelo (e.target.value)} name="modelo" id="modelo" />
                       </TableCell>
-                      <TableCell align="left" id="preco">
-                        {preco}R$
+                      <TableCell align="left" >
+                        <TextField type="text" onChange={(e) => setPreco(e.target.value)} name="preco" id="preco" />
                       </TableCell>
 
                       <TableCell align="left" id="id">
@@ -323,15 +218,6 @@ export default function ListagemAnunciosInativos() {
                           name="id"
                           value={id}
                           onChange={(e) => setId(e.target.value)}
-                        />
-                      </TableCell>
-                      <TableCell align="left" id="ativo">
-                        <input
-                          color="primary"
-                          type={"text"}
-                          id={"ativo"}
-                          name="ativo"
-                          onChange={(e) => setAtivo(e.target.value)}
                         />
                       </TableCell>
                     </TableRow>
@@ -349,47 +235,10 @@ export default function ListagemAnunciosInativos() {
                     size="small"
                     color="success"
                     startIcon={<DeleteIcon />}
-                    className={classes.colorButtonDelete}
+                    className={classes.colorButtonEdit}
                   >
-                    Ativar Anúncio
+                    Editar Anúncio
                   </Button>
-
-                  {["Editar Anúncio"].map((anchor) => (
-                    <React.Fragment key={anchor}>
-                      <Button
-                        className={classes.colorButtonEdit}
-                        variant="contained"
-                        align={"center"}
-                        size="small"
-                        color="success"
-                        startIcon={<EditIcon />}
-                        value={id}
-                      
-                        onClick={toggleDrawer(anchor, true)}
-                      >
-                        {anchor}
-                      </Button>
-                      <Drawer
-                        anchor={anchor}
-                        open={state[anchor]}
-                        onClose={toggleDrawer(anchor, false)}
-                      >
-                        {list(anchor)}
-                      </Drawer>
-                    </React.Fragment>
-                  ))}
-
-                  {/* <Button
-                        align="center"
-                        variant="contained"
-                        size="small"
-                        color="success"
-                        startIcon={<EditIcon />}
-                        onClick={toggleDrawer}
-                        className={classes.colorButtonEdit}
-                      >
-                        Editar Anuncio
-                      </Button> */}
                 </TableCell>
               </TableBody>
             </TableHead>

@@ -1,11 +1,11 @@
 const knex = require("../../models/databaseConnect");
-const fs = require('fs')
 
 
 const ImgController = async (req, res) => {
  await knex
-    .select("image")
+    .select("*")
     .from("images")
+    .where({id: req.params.id})
     .then((data) => {
       console.log(data);
       return res.json(data);

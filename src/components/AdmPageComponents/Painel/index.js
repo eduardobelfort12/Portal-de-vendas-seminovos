@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import Carousell from "../../carousel";
 import MailIcon from "@material-ui/icons/Mail";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import EditIcon from "@material-ui/icons/Edit";
 
 const drawerWidth = 240;
 
@@ -181,6 +182,15 @@ export default function Dashboard() {
           <ListItem button>
             <MailIcon />
             <Link to="/AnunciosInativos">Anuncios Inativos</Link>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
+        <Divider />
+        <List>
+          <ListItem button>
+            <EditIcon/>
+            <Link to="/EditarAnuncios">Editar Anúncios</Link>
             <ListItemText />
           </ListItem>
         </List>

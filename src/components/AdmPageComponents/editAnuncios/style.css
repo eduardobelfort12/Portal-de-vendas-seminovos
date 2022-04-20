@@ -1,0 +1,11 @@
+.page-item{
+  width: "50px";
+}
+.pagination{
+    position: "fixed";
+    top: "auto";
+    font-size: "12px";
+    justify-content: "center";
+    display: "flex";
+
+}

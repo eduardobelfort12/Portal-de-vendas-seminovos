@@ -191,6 +191,15 @@ export default function AnunciosInativos() {
           </ListItem>
         </List>
         <Divider />
+        <Divider />
+        <List>
+          <ListItem button>
+            <VisibilityOffIcon />
+            <Link to="/EditarAnuncios">Editar Anúncios</Link>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
       </Drawer>
       <main
         style={{ overflowX: "hidden" }}
