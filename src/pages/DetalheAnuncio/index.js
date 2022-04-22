@@ -80,7 +80,7 @@ export default function Detalhe() {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   function fetchData() {
     fetch(`http://localhost:5500/detalhe/${id}`, {

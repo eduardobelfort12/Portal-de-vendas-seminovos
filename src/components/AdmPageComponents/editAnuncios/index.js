@@ -94,11 +94,7 @@ export default function EditAnuncioComponent() {
   const classes = useStyles();
 
   const [id, setId] = useState("");
-  const [placa, setPlaca] = useState("")
-  const [proprietario, setProprietario] = useState("")
-  const [marca,setMarca] = useState("")
-  const [modelo, setModelo] = useState("")
-  const [preco, setPreco] = useState("")
+  const [placa, setPlaca] = useState("");
 
   // const [marca, setMarca] = useState("")
 
@@ -109,9 +105,9 @@ export default function EditAnuncioComponent() {
 
     await api
 
-      .patch(`/listedit/${id}`,{
-        id,marca,modelo,preco ,proprietario,placa
-
+      .patch(`/editar/${id}`, {
+        id,
+        placa,
       })
 
       .then((response) => {
@@ -189,25 +185,30 @@ export default function EditAnuncioComponent() {
                           height={"150px"}
                         />
                       </TableCell>
-                      <TableCell align="left" >
-                        <TextField type="text" onChange={(e) => setPlaca (e.target.value)} name="placa" id="placa" />
+                      <TableCell align="left">
+                        <TextField
+                          type="text"
+                          onChange={(e) => setPlaca(e.target.value)}
+                          name="placa"
+                          id="placa"
+                          placeholder={placa}
+                        />
                       </TableCell>
                       <TableCell align="left">
                         <TextField
                           type="text"
                           name="proprietario"
-                          onChange={(e) => setProprietario (e.target.value)}
                           id="proprietario"
                         />
                       </TableCell>
-                      <TableCell align="left" >
-                        <TextField type="text" onChange={(e) => setMarca (e.target.value)} name="marca" id="marca" />
+                      <TableCell align="left">
+                        <TextField type="text" name="marca" id="marca" />
                       </TableCell>
-                      <TableCell align="left" >
-                        <TextField type="text" onChange={(e) => setModelo (e.target.value)} name="modelo" id="modelo" />
+                      <TableCell align="left">
+                        <TextField type="text" name="modelo" id="modelo" />
                       </TableCell>
-                      <TableCell align="left" >
-                        <TextField type="text" onChange={(e) => setPreco(e.target.value)} name="preco" id="preco" />
+                      <TableCell align="left">
+                        <TextField type="text" name="preco" id="preco" />
                       </TableCell>
 
                       <TableCell align="left" id="id">

@@ -10,9 +10,6 @@ const {
   buscarDadosController,
 } = require("../controllers/listarTodosController/");
 const {
-  editAnuncioController,
-} = require("../controllers/editAnuncioController/");
-const {
   formularioContatoController,
 } = require("../controllers/formContatoController/");
 const {
@@ -43,16 +40,17 @@ const {
 } = require("../controllers/buscarPlacasController/");
 
 const {
-  ListEditController 
-
-} = require('../controllers/listarEditAnuncioController/')
+  EditAnuncioController,
+} = require("../controllers/editAnuncioController/");
 const {
   ListarAnunciosInativosController,
 } = require("../controllers/buscarAnunciosInativosController");
 const uploadUser = require("../middlewares/uploadimages");
 const { ImgController } = require("../controllers/imageTableControoler");
 const { ImageInsertController } = require("../controllers/imageController");
-
+const {
+  ListEditController,
+} = require("../controllers/listarEditAnuncioController/");
 routes.post(
   "/registrar",
   uploadUser.single("image"),
@@ -63,7 +61,6 @@ routes.post("/upload", uploadUser.array("img", 2), ImageInsertController);
 routes.get("/listagem/:id", ImgController);
 routes.get("/filtrar/:marca/:modelo", filtrarDadosController);
 routes.get("/buscar", buscarDadosController);
-routes.patch("/atualizar/:id", editAnuncioController);
 routes.get("/query", selectQueryOracleController);
 routes.post("/send", formularioContatoController);
 routes.get("/mensagens", buscarMensagensController);
@@ -75,7 +72,8 @@ routes.get("/detalhe/:id", ExibirDetalhesAnuncioController);
 routes.get("/buscarplaca/:placa", BuscarPlacasController);
 routes.patch("/inativar/:id", InativarAnuncioController);
 routes.get("/inativos", ListarAnunciosInativosController);
-routes.patch("/listedit/:id", ListEditController)
+routes.patch("/editar/:id", EditAnuncioController);
+routes.get("/listedit", ListEditController);
 
 // try {
 
