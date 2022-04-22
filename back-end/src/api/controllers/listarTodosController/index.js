@@ -4,7 +4,7 @@ const buscarDadosController = async (req, res) => {
   await knex
     .select("*")
     .from("cadastro_veiculos")
-    .whereIn("ativo", [1])
+    .whereIn("ativo", [1] )
     .then((data) => {
       return res.status(201).json(data);
     })

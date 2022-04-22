@@ -6,24 +6,28 @@ const cadastroVeiculosController = async (req, res) => {
       await knex("cadastro_veiculos")
         .insert({
           image: req.file.filename.toString("base64"),
-          proprietario: req.body.proprietario,
+          
+          PROPRIETARIO: req.body.PROPRIETARIO,
           placa: req.body.placa,
-          ano_veiculo: req.body.ano_veiculo,
+          ANO: req.body.ANO,
           marca: req.body.marca,
-          modelo: req.body.modelo,
+          MODELO: req.body.MODELO,
           telefone: req.body.telefone,
           preco: req.body.preco,
           potencia: req.body.potencia,
           torque: req.body.torque,
           km: req.body.km,
-          cor: req.body.cor,
+          COR: req.body.COR,
           cabine: req.body.cabine,
           tiposuspensao: req.body.tiposuspensao,
           relacaodiferencial: req.body.relacaodiferencial,
           entreeixo: req.body.entreeixo,
           capacidadecombustivel: req.body.capacidadecombustivel,
-          opcionais: req.body.opcionais,
-          informacoesadicionais: req.body.informacoesadicionais,
+          multimidia: req.body.multimidia,
+          ar_condicionado: req.body.ar_condicionado,
+          direcao_hidraulica: req.body.direcao_hidraulica,
+          controle_tracao: req.body.controle_tracao,
+          informacoes: req.body.informacoes,
         })
         .then((data) => {
           console.log(data);

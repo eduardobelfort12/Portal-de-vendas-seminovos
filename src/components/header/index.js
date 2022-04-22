@@ -150,8 +150,8 @@ export default function NavHeader() {
             <Link className={classes.root} to="/Estoque">
               <Nav.Link href="#Estoque">Estoque</Nav.Link>
             </Link>
-            <Link className={classes.root} to="/Contato">
-              <Nav.Link href="#Contato">Contatos</Nav.Link>
+            <Link className={classes.root} to="/Contatos">
+              <Nav.Link href="#Contatos">Contato</Nav.Link>
             </Link>
             <Link className={classes.root} to="/Login">
               <Nav.Link href="#Login">Login</Nav.Link>

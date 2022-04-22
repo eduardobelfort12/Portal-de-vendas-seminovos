@@ -14,17 +14,24 @@ import { CardActions } from "@material-ui/core";
 // import api from "../../../axios/api";
 
 const useStyles = makeStyles((theme) => ({
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(8, 0, 6),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
+  },
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: "100%",
     display: "flex",
+    width: "100%",
     flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: "70.25%", // 16:9
+    paddingTop: "85.25%", // 16:9
   },
 
   cardContent: {
@@ -34,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "5vh",
     position: "fixed",
-    top: "20%",
+    top: "auto",
     fontSize: "12px",
     justifyContent: "center",
     display: "flex",
@@ -59,9 +66,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#D4A114",
     color: "white",
   },
-  table: {
-    width: "29.4vw",
-  },
+
 }));
 
 const PER_PAGE = 10;
@@ -103,7 +108,7 @@ export default function ListageVeiculos() {
         proprietario,
         placa,
         marca,
-        modelo,
+        MODELO,
         preco,
         potencia,
         torque,
@@ -115,7 +120,7 @@ export default function ListageVeiculos() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            <Grid item key={id} xs={12} sm={6} md={4}>
+            <Grid item key={id} xs={12} sm={8} md={4}>
               <Card className={classes.card}>
                 <CardMedia className={classes.cardMedia} image={url + image} />
                 <CardContent className={classes.cardContent}>
@@ -123,7 +128,7 @@ export default function ListageVeiculos() {
                     {marca}
                   </Typography>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {modelo}
+                    {MODELO}
                   </Typography>
                   <Typography>
                     This is a media card. You can use this section to describe

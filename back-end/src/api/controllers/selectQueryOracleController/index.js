@@ -19,7 +19,7 @@ const selectQueryOracleController = async (req, res) => {
     WHERE VEI.VEI_CATEGORIA = 'F' AND VEI.SV_COD = '160'
     ORDER BY VEI_DT_ATU DESC`)
     )
-    .select("PLACA", "PROPRIETARIO")
+    .select("*")
     .from("ETL_VW_DADOS_VEIC_MOT")
     .then((data) => {
       console.log(data);
@@ -34,12 +34,10 @@ const selectQueryOracleController = async (req, res) => {
 };
 
 const whereQueryOracleController = async (req, res) => {
-  console.log(req.params)
-  if(req.params.PLACA){
   await oracle
-    .with(
-      "ETL_VW_DADOS_VEIC_MOT",
-      oracle.raw(`SELECT 
+  .with(
+    "ETL_VW_DADOS_VEIC_MOT",
+    oracle.raw(`SELECT 
   CG.CG_NOME AS PROPRIETARIO,
   VEI.VEI_PLACA AS PLACA,
   VEI.VEI_ANO AS ANO,
@@ -53,21 +51,19 @@ const whereQueryOracleController = async (req, res) => {
   INNER JOIN CADASTRO_GERAL CG ON CG.CG_COD = VEI.CG_PROP AND CG.LOC_COD = VEI.LOC_PROP
   WHERE VEI.VEI_CATEGORIA = 'F' AND VEI.SV_COD = '160'
   ORDER BY VEI_DT_ATU DESC`)
-    )
-    .select('PROPRIETARIO', 'PLACA', 'ANO' , 'MODELO').where('PLACA', req.params.PLACA)
-    .from("ETL_VW_DADOS_VEIC_MOT")
-    .then((data) => {
-      console.log(data);
-      return res.status(201).json(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      return res
-        .status(401)
-        .json({ message: "Erro! Não foi possível executar esta query!" });
-    });
-};
-
+  )
+  .select("*")
+  .from("ETL_VW_DADOS_VEIC_MOT").where('PLACA', req.params.PLACA)
+  .then((data) => {
+    console.log(data);
+    return res.status(201).json(data);
+  })
+  .catch((err) => {
+    console.log(err);
+    return res
+      .status(401)
+      .json({ message: "Erro! Não foi possível executar esta query!" });
+  });
 }
 
 module.exports = { selectQueryOracleController, whereQueryOracleController };

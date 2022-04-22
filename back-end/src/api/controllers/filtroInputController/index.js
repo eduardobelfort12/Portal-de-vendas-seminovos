@@ -4,7 +4,7 @@ const filtroInputController = async (req, res) => {
   await knex
     .select("*")
     .from("cadastro_veiculos")
-    .distinctOn("marca", "modelo")
+    .distinctOn("marca", "MODELO")
     .then((data) => {
       console.log(data);
       return res.status(201).json(data);

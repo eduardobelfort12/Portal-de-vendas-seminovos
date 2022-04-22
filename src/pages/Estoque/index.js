@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: "100%",
+    width :"100%",
     display: "flex",
     flexDirection: "column",
   },

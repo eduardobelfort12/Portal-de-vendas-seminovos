@@ -122,32 +122,26 @@ export default function Detalhe() {
                         <TableRow>
                           <TableCell align="left">Marca</TableCell>
                           <TableCell align="left">Modelo</TableCell>
-                          <TableCell align="left">Marca</TableCell>
-                          <TableCell align="left">Modelo</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
                         <TableRow>
-                          <TableCell align="left">{anuncio.marca}</TableCell>
-                          <TableCell align="left">{anuncio.modelo}</TableCell>
                           <TableCell align="left">{anuncio.marca}</TableCell>
                           <TableCell align="left">{anuncio.modelo}</TableCell>
                         </TableRow>
                       </TableBody>
                       <TableHead>
                         <TableRow>
-                          <TableCell align="left">Marca</TableCell>
-                          <TableCell align="left">Modelo</TableCell>
-                          <TableCell align="left">Marca</TableCell>
-                          <TableCell align="left">Modelo</TableCell>
+                          <TableCell align="left">Opcionais</TableCell>
+                         
                         </TableRow>
                       </TableHead>
                       <TableBody>
                         <TableRow>
-                          <TableCell align="left">{anuncio.marca}</TableCell>
-                          <TableCell align="left">{anuncio.modelo}</TableCell>
-                          <TableCell align="left">{anuncio.marca}</TableCell>
-                          <TableCell align="left">{anuncio.modelo}</TableCell>
+                          <TableCell align="left">{anuncio.direcao_hidraulica}</TableCell>
+                          <TableCell align="left">{anuncio.ar_condicionado}</TableCell>
+                          <TableCell align="left">{anuncio.controle_tracao}</TableCell>
+                          <TableCell align="left">{anuncio.multimida}</TableCell>
                         </TableRow>
                       </TableBody>
                     </Table>

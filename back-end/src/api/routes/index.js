@@ -28,7 +28,6 @@ const {
 const {
   whereQueryOracleController,
 } = require("../controllers/selectQueryOracleController/");
-const { testeWhereController } = require("../controllers/selectMyController/");
 const {
   ExibirDetalhesAnuncioController,
 } = require("../controllers/exibirDetalhesAnuncioController/");
@@ -67,7 +66,6 @@ routes.get("/mensagens", buscarMensagensController);
 routes.delete("/deletarmsg/:id", deleteMensagemController);
 routes.get("/exibir", filtroInputController);
 routes.get("/autocompletar/:PLACA", whereQueryOracleController);
-routes.get("/queryteste/:placa", testeWhereController);
 routes.get("/detalhe/:id", ExibirDetalhesAnuncioController);
 routes.get("/buscarplaca/:placa", BuscarPlacasController);
 routes.patch("/inativar/:id", InativarAnuncioController);

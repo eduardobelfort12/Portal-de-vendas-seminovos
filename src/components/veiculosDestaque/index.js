@@ -110,9 +110,9 @@ export default function ListageVeiculos() {
                     {items.marca}
                   </Typography>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {items.modelo}
+                    {items.MODELO}
                   </Typography>
-                  <Typography>{items.informacoesadicionais}</Typography>
+                  <Typography>{items.informacoes}</Typography>
                   <Typography>{items.km} KM</Typography>
 
                   <Typography>{items.preco} R$</Typography>
