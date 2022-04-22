@@ -1,7 +1,7 @@
 const knex = require("../../models/databaseConnect");
 
 const filtrarDadosController = async (req, res) => {
-  console.log(req.params.marca, req.params.modelo);
+  console.log(req.params.marca, req.params.MODELO);
   await knex
     .select(
       "marca",

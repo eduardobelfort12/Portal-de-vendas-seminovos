@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+import React from "react";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
+
 import NavHeader from "../../components/header";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
+
 import Carousell from "../../components/carousel";
-import { CardActions } from "@material-ui/core";
+
 import FullWidthGrid from "../../components/infoHome";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import { makeStyles, ThemeProvider } from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import Box from "@material-ui/core/Box";
-import { Paper } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
+
+import { makeStyles } from "@material-ui/core";
+
 import VeiculosDestaqueComponent from "../../components/veiculosDestaque";
 
 const useStyles = makeStyles((theme) => ({
@@ -90,43 +82,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const classes = useStyles();
 
-  //Função para filtrar buscas
-  const [filter, setFilter] = useState([]);
-  const [push, setPush] = useState([]);
-  // const [set, setOpcoes] = useState([]);
-  const [marca, setMarca] = useState([]);
-  const [modelo, setModelo] = useState([]);
-  // const [setDirecao] = useState([]);
-  // const [setAr] = useState([])
-  // const [ setCheckcontrol] = useState([])
-  const [url] = useState("http://localhost:5500/upload/");
-  // const [modelo, setModelo] = useState('')
-  //Esta função filtra as minhas informações setadas nos campos do meu formulario de filtro
-  async function Filter(event) {
-    event.preventDefault();
-
-    await fetch(`http://localhost:5500/filtrar/${marca}/${modelo}`, {
-      method: "GET",
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setFilter(data);
-      });
-  }
-  //Buscar Informações para filtrar valores direto do banco de dados
-
-  useEffect(() => {
-    fetch("http://localhost:5500/exibir", {
-      method: "GET",
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPush(data);
-      });
-  }, []);
-
   return (
     <React.Fragment>
       <CssBaseline />
@@ -137,115 +92,7 @@ export default function Home() {
             {" "}
             <Carousell />
           </div>
-          {/*Este trecho do código é o formulario do filtro de busca da página home */}
-          <Container className={classes.filter}>
-            <div>
-              <Paper elevation={10}>
-                <Box align="center">
-                  <Card className={classes.cardFilter}>
-                    <CardContent container>
-                      <Typography align="center">Filtro de busca</Typography>
-
-                      <form onSubmit={Filter}>
-                        <FormControl className={classes.formControl}>
-                          <InputLabel className={classes.inputlabel} id="marca">
-                            Marca
-                          </InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="marca"
-                            name="marca"
-                            label="marca"
-                            onChange={(event) => setMarca(event.target.value)}
-                          >
-                            {push.map((pusher) => (
-                              <MenuItem value={pusher.marca}>
-                                {pusher.marca}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        <FormControl className={classes.formControl}>
-                          <InputLabel
-                            className={classes.inputlabel}
-                            id="modelo"
-                          >
-                            Modelo
-                          </InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="modelo"
-                            name="modelo"
-                            label="modelo"
-                            onChange={(event) => setModelo(event.target.value)}
-                          >
-                            {push.map((pusher) => (
-                              <MenuItem value={pusher.modelo}>
-                                {pusher.modelo}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-
-                        <div>
-                          <ThemeProvider>
-                            <Box align="center">
-                              <Button
-                                type="submit"
-                                variant="success"
-                                className={classes.colorButton}
-                                startIcon={<SearchIcon />}
-                              >
-                                Buscar
-                              </Button>
-                            </Box>
-                          </ThemeProvider>
-                        </div>
-                      </form>
-                    </CardContent>
-                  </Card>
-                </Box>
-              </Paper>
-            </div>
-          </Container>
         </div>
-        {/*Este trecho de código exibe os resultados da busca realizada no filtro de buscas*/}
-
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {filter.map((items) => (
-              <Grid item key={items} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={url + items.image}
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {items.marca}
-                    </Typography>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {items.modelo}
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe
-                      the content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
 
         <Typography variant="h4" align="center">
           Anuncios em Destaque
