@@ -5,11 +5,14 @@ const filtrarDadosController = async (req, res) => {
   await knex
     .select(
       "marca",
-      "modelo",
-      "ano_veiculo",
+      "MODELO",
+      "ANO",
       "image",
       "preco",
-      "opcionais",
+      "ar_condicionado",
+      "direcao_hidraulica",
+      "controle_tracao",
+      "multimidia",
       "torque",
       "entreeixo",
       "tiposuspensao",

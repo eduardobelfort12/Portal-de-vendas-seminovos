@@ -66,10 +66,9 @@ const useStyles = makeStyles((theme) => ({
     background: "#D4A114",
     color: "white",
   },
-
 }));
 
-const PER_PAGE = 10;
+const PER_PAGE = 2;
 
 export default function ListageVeiculos() {
   const classes = useStyles();

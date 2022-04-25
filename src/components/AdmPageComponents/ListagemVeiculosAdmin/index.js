@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 const PER_PAGE = 2;
 
 export default function ListageVeiculos() {
-  const classes = useStyles()
+  const classes = useStyles();
   const [push, setPush] = useState([]);
   const [id, setId] = useState("");
   const [ativo, setAtivo] = useState("");
@@ -357,7 +357,7 @@ export default function ListageVeiculos() {
                     Inativar Anúncio
                   </Button>
 
-                  {["Editar Anúncio"].map((anchor) => (
+                  {/* {["Editar Anúncio"].map((anchor) => (
                     <React.Fragment key={anchor}>
                       <Button
                         className={classes.colorButtonEdit}
@@ -382,7 +382,7 @@ export default function ListageVeiculos() {
                         {list(anchor)}
                       </Drawer>
                     </React.Fragment>
-                  ))}
+                  ))} */}
 
                   {/* <Button
                         align="center"

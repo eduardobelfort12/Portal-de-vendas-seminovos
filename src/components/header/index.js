@@ -87,40 +87,64 @@ export default function NavHeader() {
   };
 
   const [filter, setFilter] = useState([]);
-  const [push, setPush] = useState([]);
+  const [marcas, setMarcas] = useState([]);
+  const [modelos, setModelos] = useState([]);
   // const [set, setOpcoes] = useState([]);
   const [marca, setMarca] = useState([]);
-  const [modelo, setModelo] = useState([]);
+  const [MODELO, setModelo] = useState([]);
+
+  const [direcao_hidraulica, setDirecao] = useState([]);
+  const [ar_condicionado, setAr] = useState([]);
+  const [controle_tracao, setControle] = useState([]);
+  const [multimidia, setMultimidia] = useState([]);
+
+  // const [ANO, setAnoVeiculo] = useState([]);
+  // const [km, setKm] = useState([]);
+
   // const [setDirecao] = useState([]);
   // const [setAr] = useState([])
   // const [ setCheckcontrol] = useState([])
-  const [url] = useState("http://localhost:5500/upload/");
+  // const [url] = useState("http://localhost:5500/upload/");
   // const [modelo, setModelo] = useState('')
   //Esta função filtra as minhas informações setadas nos campos do meu formulario de filtro
-  async function Filter(event) {
-    event.preventDefault();
+  // async function Filter(event) {
+  //   event.preventDefault();
 
-    await fetch(`http://localhost:5500/filtrar/${marca}/${modelo}`, {
-      method: "GET",
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setFilter(data);
-      });
-  }
-  //Buscar Informações para filtrar valores direto do banco de dados
+  //   fetch(`http://localhost:5500/filtrar/${marca}/${MODELO}`, {
+  //     method: "GET",
+  //     mode: "cors",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setFilter(data);
+  //     });
+  // }
 
   useEffect(() => {
-    fetch("http://localhost:5500/exibir", {
+    fetch("http://localhost:5500/exibirmarca", {
       method: "GET",
       mode: "cors",
     })
       .then((res) => res.json())
       .then((data) => {
-        setPush(data);
+        setMarcas(data);
       });
   }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5500/exibirmodelo", {
+      method: "GET",
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setModelos(data);
+      });
+  }, []);
+  function refresh(e) {
+    e.preventDefault();
+    window.location.replace(`/Filtrado/${marca}/${MODELO}`);
+  }
   return (
     <Navbar
       fixed="top"
@@ -181,7 +205,7 @@ export default function NavHeader() {
                 <CardContent container>
                   <Typography align="center">Filtro de busca</Typography>
 
-                  <form onSubmit={Filter}>
+                  <form onSubmit={refresh}>
                     <Box>
                       <FormControl className={classes.formControl}>
                         <InputLabel className={classes.inputlabel} id="marca">
@@ -194,7 +218,7 @@ export default function NavHeader() {
                           label="marca"
                           onChange={(event) => setMarca(event.target.value)}
                         >
-                          {push.map((pusher) => (
+                          {marcas.map((pusher) => (
                             <MenuItem value={pusher.marca}>
                               {pusher.marca}
                             </MenuItem>
@@ -202,92 +226,80 @@ export default function NavHeader() {
                         </Select>
                       </FormControl>
                       <FormControl className={classes.formControl}>
-                        <InputLabel className={classes.inputlabel} id="modelo">
+                        <InputLabel className={classes.inputlabel} id="MODELO">
                           Modelo
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
-                          id="modelo"
-                          name="modelo"
+                          id="MODELO"
+                          name="MODELO"
                           label="modelo"
                           onChange={(event) => setModelo(event.target.value)}
                         >
-                          {push.map((pusher) => (
-                            <MenuItem value={pusher.modelo}>
-                              {pusher.modelo}
+                          {modelos.map((pusher) => (
+                            <MenuItem value={pusher.MODELO}>
+                              {pusher.MODELO}
                             </MenuItem>
                           ))}
                         </Select>
                       </FormControl>
+                      {/* 
                       <FormControl className={classes.formControl}>
-                        <InputLabel className={classes.inputlabel} id="modelo">
+                        <InputLabel className={classes.inputlabel} id="ANO">
                           Ano
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
-                          id="modelo"
-                          name="modelo"
-                          label="modelo"
-                          onChange={(event) => setModelo(event.target.value)}
+                          id="ANO"
+                          name="ANO"
+                          label="ANO"
+                          // onChange={(event) =>
+                          //   setAnoVeiculo(event.target.value)
+                          // }
                         >
                           {push.map((pusher) => (
-                            <MenuItem value={pusher.ano_veiculo}>
-                              {pusher.ano_veiculo}
-                            </MenuItem>
+                            <MenuItem value={pusher.ANO}>{pusher.ANO}</MenuItem>
                           ))}
                         </Select>
-                      </FormControl>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel className={classes.inputlabel} id="modelo">
+                      </FormControl> */}
+                      {/* <FormControl className={classes.formControl}>
+                        <InputLabel className={classes.inputlabel} id="km">
                           km
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
-                          id="modelo"
-                          name="modelo"
-                          label="modelo"
-                          onChange={(event) => setModelo(event.target.value)}
+                          id="km"
+                          name="km"
+                          label="km"
+                          onChange={(event) => setKm(event.target.value)}
                         >
                           {push.map((pusher) => (
                             <MenuItem value={pusher.km}>{pusher.km}</MenuItem>
                           ))}
                         </Select>
-                      </FormControl>
+                      </FormControl> */}
                     </Box>
-                    <Typography>Opcionais</Typography>
-                    <InputLabel>
-                      <Checkbox />
-                      Direção hidraúlica
-                    </InputLabel>
-                    <InputLabel>
-                      <Checkbox />
-                      Ar condicionado
-                    </InputLabel>
-                    <InputLabel>
-                      <Checkbox />
-                      Computador de bordo
-                    </InputLabel>
-                    <InputLabel>
-                      <Checkbox />
-                      Multimidia
-                    </InputLabel>
                     <Box align="center">
                       <FormControl>
                         <ThemeProvider>
-                          <Button
-                            type="submit"
-                            variant="success"
-                            className={classes.colorButton}
-                            startIcon={<SearchIcon />}
+                          <Link
+                            style={{ textDecoration: "none" }}
+                            to={`/Filtrado/${marca}/${MODELO}`}
+                            onClick={refresh}
                           >
-                            Buscar
-                          </Button>
+                            <Button
+                              variant="success"
+                              className={classes.colorButton}
+                              startIcon={<SearchIcon />}
+                            >
+                              Buscar
+                            </Button>
+                          </Link>
                         </ThemeProvider>
                       </FormControl>
 
                       <FormControl>
                         <Button
-                          type="submit"
                           variant="success"
                           className={classes.colorButtonClose}
                           startIcon={<CancelIcon />}

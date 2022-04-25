@@ -20,7 +20,10 @@ const {
 } = require("../controllers/deleteMensagensController/");
 
 const {
-  filtroInputController,
+  FiltroInputModeloController,
+} = require("../controllers/filtroInputController/");
+const {
+  FiltroInputMarcaController,
 } = require("../controllers/filtroInputController/");
 const {
   filtrarDadosController,
@@ -50,21 +53,25 @@ const { ImageInsertController } = require("../controllers/imageController");
 const {
   ListEditController,
 } = require("../controllers/listarEditAnuncioController/");
+const {
+  FiltragemController,
+} = require("../controllers/resultadoFiltragemControlller");
 routes.post(
   "/registrar",
   uploadUser.single("image"),
   cadastroVeiculosController
 );
 
-routes.post("/upload", uploadUser.array("img", 2), ImageInsertController);
-routes.get("/listagem/:id", ImgController);
-routes.get("/filtrar/:marca/:modelo", filtrarDadosController);
+routes.post("/upload", uploadUser.array(`foto`, 3), ImageInsertController);
+routes.get("/listagem/:img_id", ImgController);
+routes.get("/filtrar/:marca", filtrarDadosController);
 routes.get("/buscar", buscarDadosController);
 routes.get("/query", selectQueryOracleController);
 routes.post("/send", formularioContatoController);
 routes.get("/mensagens", buscarMensagensController);
 routes.delete("/deletarmsg/:id", deleteMensagemController);
-routes.get("/exibir", filtroInputController);
+routes.get("/exibirmodelo", FiltroInputModeloController);
+routes.get("/exibirmarca", FiltroInputMarcaController);
 routes.get("/autocompletar/:PLACA", whereQueryOracleController);
 routes.get("/detalhe/:id", ExibirDetalhesAnuncioController);
 routes.get("/buscarplaca/:placa", BuscarPlacasController);
@@ -72,6 +79,7 @@ routes.patch("/inativar/:id", InativarAnuncioController);
 routes.get("/inativos", ListarAnunciosInativosController);
 routes.patch("/editar/:id", EditAnuncioController);
 routes.get("/listedit", ListEditController);
+routes.get("/filtrados/:marca/:MODELO", FiltragemController);
 
 // try {
 

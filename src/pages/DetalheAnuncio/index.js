@@ -14,6 +14,9 @@ import { TableHead } from "@material-ui/core";
 import { TableBody } from "@material-ui/core";
 import { TableRow } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import { Typography } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -69,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     maxWidth: "100vw",
+    minWidth: 410,
   },
 }));
 
@@ -114,42 +118,67 @@ export default function Detalhe() {
                   ></CardMedia>
                 </Card>
               </Grid>
-              <Grid item xs={false} sm={4} md={7}>
-                <Container className={classes.cardGridContainer}>
-                  <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="a dense table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell align="left">Marca</TableCell>
-                          <TableCell align="left">Modelo</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell align="left">{anuncio.marca}</TableCell>
-                          <TableCell align="left">{anuncio.modelo}</TableCell>
-                        </TableRow>
-                      </TableBody>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell align="left">Opcionais</TableCell>
-                         
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell align="left">{anuncio.direcao_hidraulica}</TableCell>
-                          <TableCell align="left">{anuncio.ar_condicionado}</TableCell>
-                          <TableCell align="left">{anuncio.controle_tracao}</TableCell>
-                          <TableCell align="left">{anuncio.multimida}</TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
+              <Grid style={{ margin: "auto" }} item xs={false} sm={4} md={6}>
+                <Container>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="left">Marca</TableCell>
+                        <TableCell align="left">Modelo</TableCell>
+                        <TableCell align="left">KM</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell align="left">{anuncio.marca}</TableCell>
+                        <TableCell align="left">{anuncio.MODELO}</TableCell>
+                        <TableCell align="left">{anuncio.km}</TableCell>
+                      </TableRow>
+                    </TableBody>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell align="left">
+                          {anuncio.direcao_hidraulica}
+                        </TableCell>
+                        <TableCell align="left">
+                          {anuncio.ar_condicionado}
+                        </TableCell>
+                        <TableCell align="left">
+                          {anuncio.controle_tracao}
+                        </TableCell>
+                        <TableCell align="left">{anuncio.multimida}</TableCell>
+                      </TableRow>
+                    </TableBody>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="left">
+                          Informações Adicionais
+                        </TableCell>
+                        <TableCell align="left">Tipo Suspensão</TableCell>
+                        <TableCell align="left">Entre eixo</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell align="left">
+                          {anuncio.informacoes}
+                        </TableCell>
+                        <TableCell align="left">
+                          {anuncio.tiposuspensao}
+                        </TableCell>
+                        <TableCell align="left">{anuncio.entreeixo}</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 </Container>
               </Grid>
             </Grid>
           </Container>
+          <Link style={{ textDecoration: "none" }} to="/Contatos">
+            <Button className={classes.colorButtonEdit}>
+              Clique aqui para entrar em contato
+            </Button>
+          </Link>
         </Box>
       ))}
     </div>
