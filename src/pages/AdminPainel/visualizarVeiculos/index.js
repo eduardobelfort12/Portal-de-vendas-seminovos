@@ -19,7 +19,6 @@ import { Link } from "react-router-dom";
 import ListagemVeiculosAdmin from "../../../components/AdmPageComponents/ListagemVeiculosAdmin";
 import MailIcon from "@material-ui/icons/Mail";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
-import AssessmentIcon from "@material-ui/icons/Assessment";
 import { VisibilityOff } from "@material-ui/icons";
 import EditIcon from "@material-ui/icons/Edit"
 const drawerWidth = 240;
@@ -142,15 +141,7 @@ export default function VisualizarVeiculos() {
             )}
           </IconButton>
         </div>
-        <Divider />
-        <List>
-          <ListItem button>
-            <AssessmentIcon />
-            <Link to="/AdminPainel">Dashboard</Link>
-            <ListItemText />
-          </ListItem>
-        </List>
-        <Divider />
+       
         <Divider />
         <List>
           <ListItem button>

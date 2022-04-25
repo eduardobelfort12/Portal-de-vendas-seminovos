@@ -19,8 +19,8 @@ import { Link } from "react-router-dom";
 import ListagemAnunciosInativos from "../../../components/AdmPageComponents/anunciosInativosComponent";
 import MailIcon from "@material-ui/icons/Mail";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
-import AssessmentIcon from "@material-ui/icons/Assessment";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import EditIcon from "@material-ui/icons/Edit"
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
   TextDecoration: {
-    TextDecoration: "none"
+    TextDecoration: "none",
   },
 }));
 
@@ -144,17 +144,7 @@ export default function AnunciosInativos() {
             )}
           </IconButton>
         </div>
-        <Divider />
-        <List>
-          <ListItem button>
-            <AssessmentIcon />
-            <Link className={classes.TextDecoration} to="/AdminPainel">
-              Dashboard
-            </Link>
-            <ListItemText />
-          </ListItem>
-        </List>
-        <Divider />
+
         <Divider />
         <List>
           <ListItem button>
@@ -194,7 +184,7 @@ export default function AnunciosInativos() {
         <Divider />
         <List>
           <ListItem button>
-            <VisibilityOffIcon />
+            <EditIcon />
             <Link to="/EditarAnuncios">Editar Anúncios</Link>
             <ListItemText />
           </ListItem>

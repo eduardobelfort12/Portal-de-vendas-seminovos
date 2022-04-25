@@ -13,9 +13,8 @@ import { TableRow } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
-import Drawer from "@material-ui/core/Drawer";
+
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import clsx from "clsx";
@@ -23,7 +22,7 @@ import api from "../../../axios/api";
 import { Box } from "@material-ui/core";
 import { Input } from "@material-ui/core";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import { useParams } from "react-router-dom";
+import BlockIcon from "@material-ui/icons/Block";
 import "./style.css";
 // import FiltroLateral from "../../filtroLateral";
 
@@ -172,7 +171,7 @@ export default function ListageVeiculos() {
                     <Input placeholder={items.marca} />
                   </TableCell>
                   <TableCell align="left" id="modelo">
-                    <Input placeholder={items.modelo} />
+                    <Input placeholder={items.MODELO} />
                   </TableCell>
 
                   <TableCell align="left" id="preco">
@@ -212,7 +211,7 @@ export default function ListageVeiculos() {
       .then((response) => {
         console.log(response.data);
         alert("Anúncio Inativado");
-
+        window.location.replace("/VisualizarVeiculos");
         setId(response.data);
         setAtivo(response.data);
       })
@@ -263,7 +262,7 @@ export default function ListageVeiculos() {
   const currentPageData = data
 
     .slice(offset, offset + PER_PAGE)
-    .map(({ image, marca, modelo, preco, placa, proprietario, id }) => (
+    .map(({ image, marca, MODELO, preco, placa, PROPRIETARIO, id }) => (
       <Container key={id} className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
 
@@ -305,14 +304,18 @@ export default function ListageVeiculos() {
                       <TableCell align="left" id="placa" value={placa}>
                         {placa}
                       </TableCell>
-                      <TableCell align="left" id="marca" value={proprietario}>
-                        {proprietario}
+                      <TableCell
+                        align="left"
+                        id="PROPRIETARIO"
+                        value={PROPRIETARIO}
+                      >
+                        {PROPRIETARIO}
                       </TableCell>
                       <TableCell align="left" id="marca" value={marca}>
                         {marca}
                       </TableCell>
-                      <TableCell align="left" id="modelo">
-                        {modelo}
+                      <TableCell align="left" id="MODELO">
+                        {MODELO}
                       </TableCell>
                       <TableCell align="left" id="preco">
                         {preco}R$
@@ -351,7 +354,7 @@ export default function ListageVeiculos() {
                     variant="contained"
                     size="small"
                     color="success"
-                    startIcon={<DeleteIcon />}
+                    startIcon={<BlockIcon />}
                     className={classes.colorButtonDelete}
                   >
                     Inativar Anúncio

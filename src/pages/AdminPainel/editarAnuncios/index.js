@@ -18,10 +18,9 @@ import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { Link } from "react-router-dom";
 import MailIcon from "@material-ui/icons/Mail";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
-import AssessmentIcon from "@material-ui/icons/Assessment";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import EditAnuncioComponent from "../../../components/AdmPageComponents/editAnuncios";
-import EditIcon from '@material-ui/icons/Edit'
+import EditIcon from "@material-ui/icons/Edit";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -145,17 +144,7 @@ export default function EditarAnuncios() {
             )}
           </IconButton>
         </div>
-        <Divider />
-        <List>
-          <ListItem button>
-            <AssessmentIcon />
-            <Link className={classes.TextDecoration} to="/AdminPainel">
-              Dashboard
-            </Link>
-            <ListItemText />
-          </ListItem>
-        </List>
-        <Divider />
+
         <Divider />
         <List>
           <ListItem button>
@@ -195,7 +184,7 @@ export default function EditarAnuncios() {
         <Divider />
         <List>
           <ListItem button>
-          <EditIcon/>
+            <EditIcon />
             <Link to="/EditarAnuncios">Editar Anuncios</Link>
             <ListItemText />
           </ListItem>
@@ -209,7 +198,7 @@ export default function EditarAnuncios() {
         })}
       >
         <div className={classes.drawerHeader} />
-       <EditAnuncioComponent/>
+        <EditAnuncioComponent />
       </main>
     </div>
   );

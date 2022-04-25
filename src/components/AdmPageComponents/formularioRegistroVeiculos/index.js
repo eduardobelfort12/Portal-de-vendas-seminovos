@@ -65,24 +65,24 @@ export default function CadastrarVeiculos() {
   const classes = useStyles();
   //Image preview multiple upload image
 
-  const [PROPRIETARIO, setProprietario] = useState("");
-  const [ANO, setAnoVeiculo] = useState("");
-  const [MODELO, setModelo] = useState("");
-  const [COR, setCor] = useState("");
+  const [PROPRIETARIO, setPROPRIETARIO] = useState([]);
+  const [ANO, setANO] = useState([]);
+  const [MODELO, setMODELO] = useState([]);
+  const [COR, setCOR] = useState([]);
   // const [images, setImages] = useState([]);
   // const [register, setRegister] = useState();
   const [image, setImage] = useState("");
-  // const [proprietario, setProprietario] = useState("");
+  const [proprietario, setProprietario] = useState("");
   const [placa, setPlaca] = useState();
-  // const [ano, setAnoVeiculo] = useState();
+  const [ano, setAnoVeiculo] = useState();
   const [marca, setMarca] = useState();
-  // const [modelo, setModelo] = useState();
+  const [modelo, setModelo] = useState();
   const [preco, setPreco] = useState("");
   const [telefone, setTelefone] = useState("");
   const [potencia, setPotencia] = useState("");
   const [torque, setTorque] = useState("");
   const [km, setKm] = useState("");
-  // const [cor, setCor] = useState("");
+  const [cor, setCor] = useState("");
   const [cabine, setCabine] = useState("");
   const [tiposuspensao, setTiposuspensao] = useState("");
   const [relacaodiferencial, setRelacaodiferencial] = useState("");
@@ -126,7 +126,7 @@ export default function CadastrarVeiculos() {
       .post("/registrar", formData)
       .then((response) => {
         alert("Veículo cadastrado com sucesso!");
-        // window.location.replace("/registrarVeiculos");
+        window.location.replace("/registrarVeiculos");
         console.log(response);
       })
       .catch((err) => {
@@ -138,22 +138,22 @@ export default function CadastrarVeiculos() {
       });
   };
 
-  // const checkUsers = (PLACA) => {
-  //   console.log(PLACA);
-  //   fetch(`http://localhost:5500/autocompletar/${PLACA}`, {
-  //     method: "GET",
-  //     mode: "cors",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       // setMarca(data[0].marca);
-  //       setMODELO(data[0].MODELO);
-  //       setANO(data[0].ANO);
-  //       setPROPRIETARIO(data[0].PROPRIETARIO);
-  //       setCOR(data[0].COR);
-  //     });
-  // };
+  const checkUsers = (PLACA) => {
+    console.log(PLACA);
+    fetch(`http://localhost:5500/autocompletar/${PLACA}`, {
+      method: "GET",
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // setMarca(data[0].marca);
+        setMODELO(data[0].MODELO);
+        setANO(data[0].ANO);
+        setPROPRIETARIO(data[0].PROPRIETARIO);
+        setCOR(data[0].COR);
+      });
+  };
 
   // const handleMultipleImages = (event) => {
   //   const selectFiles = [];
@@ -209,7 +209,7 @@ export default function CadastrarVeiculos() {
                 size="small"
                 placeholder="Placa"
                 id="placa"
-                // onBlur={(e) => checkUsers(e.target.value)}
+                onBlur={(e) => checkUsers(e.target.value)}
                 onChange={(e) => setPlaca(e.target.value)}
                 name={"placa"}
               />
@@ -219,7 +219,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                // value={PROPRIETARIO}
+                value={PROPRIETARIO}
                 id="PROPRIETARIO"
                 onChange={(e) => setProprietario(e.target.value)}
                 placeholder="Proprietario"
@@ -231,7 +231,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                // value={ANO}
+                value={ANO}
                 id="ANO"
                 onChange={(e) => setAnoVeiculo(e.target.value)}
                 placeholder="Ano do veículo"
@@ -257,7 +257,7 @@ export default function CadastrarVeiculos() {
                 required
                 size="small"
                 id="MODELO"
-                // value={MODELO}
+                value={MODELO}
                 onChange={(e) => setModelo(e.target.value)}
                 placeholder="Modelo veículo"
                 name="MODELO"
@@ -325,7 +325,7 @@ export default function CadastrarVeiculos() {
                 margin="normal"
                 required
                 size="small"
-                // value={COR}
+                value={COR}
                 id="COR"
                 onChange={(e) => setCor(e.target.value)}
                 placeholder="Cor do veículo"

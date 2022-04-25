@@ -95,7 +95,7 @@ export default function Home() {
         </div>
 
         <Typography variant="h4" align="center">
-          Anuncios em Destaque
+         
         </Typography>
         {/*Este componente abaixo renderiza os veículos em destaque para vendas*/}
         <VeiculosDestaqueComponent />

@@ -93,10 +93,6 @@ export default function NavHeader() {
   const [marca, setMarca] = useState([]);
   const [MODELO, setModelo] = useState([]);
 
-  const [direcao_hidraulica, setDirecao] = useState([]);
-  const [ar_condicionado, setAr] = useState([]);
-  const [controle_tracao, setControle] = useState([]);
-  const [multimidia, setMultimidia] = useState([]);
 
   // const [ANO, setAnoVeiculo] = useState([]);
   // const [km, setKm] = useState([]);
@@ -171,9 +167,9 @@ export default function NavHeader() {
             <Link className={classes.root} to="/Tora-Seminovos">
               <Nav.Link href="#Tora-seminovos">Tora-Seminovos</Nav.Link>
             </Link>
-            <Link className={classes.root} to="/Estoque">
+            {/* <Link className={classes.root} to="/Estoque">
               <Nav.Link href="#Estoque">Estoque</Nav.Link>
-            </Link>
+            </Link> */}
             <Link className={classes.root} to="/Contatos">
               <Nav.Link href="#Contatos">Contato</Nav.Link>
             </Link>

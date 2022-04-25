@@ -13,9 +13,9 @@ import { TableRow } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
+import DoneIcon from "@material-ui/icons/Done";
 import Checkbox from "@material-ui/core/Checkbox";
-import Drawer from "@material-ui/core/Drawer";
+
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import clsx from "clsx";
@@ -223,6 +223,7 @@ export default function ListagemAnunciosInativos() {
       .then((response) => {
         console.log(response.data);
         alert("Anúncio Ativado");
+        window.location.replace("AnunciosInativos")  
 
         setId(response.data);
         setAtivo(response.data);
@@ -232,7 +233,6 @@ export default function ListagemAnunciosInativos() {
       });
   }
 
-  
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
   const [url] = useState("http://localhost:5500/upload/");
@@ -348,36 +348,11 @@ export default function ListagemAnunciosInativos() {
                     variant="contained"
                     size="small"
                     color="success"
-                    startIcon={<DeleteIcon />}
+                    startIcon={<DoneIcon />}
                     className={classes.colorButtonDelete}
                   >
                     Ativar Anúncio
                   </Button>
-
-                  {["Editar Anúncio"].map((anchor) => (
-                    <React.Fragment key={anchor}>
-                      <Button
-                        className={classes.colorButtonEdit}
-                        variant="contained"
-                        align={"center"}
-                        size="small"
-                        color="success"
-                        startIcon={<EditIcon />}
-                        value={id}
-                      
-                        onClick={toggleDrawer(anchor, true)}
-                      >
-                        {anchor}
-                      </Button>
-                      <Drawer
-                        anchor={anchor}
-                        open={state[anchor]}
-                        onClose={toggleDrawer(anchor, false)}
-                      >
-                        {list(anchor)}
-                      </Drawer>
-                    </React.Fragment>
-                  ))}
 
                   {/* <Button
                         align="center"

@@ -112,8 +112,7 @@ export default function ListageVeiculos() {
                   <Typography gutterBottom variant="h5" component="h2">
                     {items.MODELO}
                   </Typography>
-                  <Typography>{items.informacoes}</Typography>
-                  <Typography>{items.km} KM</Typography>
+                 
 
                   <Typography>{items.preco} R$</Typography>
                 </CardContent>

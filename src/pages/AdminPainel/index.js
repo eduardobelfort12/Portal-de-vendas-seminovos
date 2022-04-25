@@ -1,10 +1,10 @@
 import React from "react";
-import Dashboard from "../../components/AdmPageComponents/Painel";
+import CadastrarVeiculos from "../AdminPainel/registrarVeiculos/index."
 
 export default function AdminPainel() {
   return (
     <div>
-      <Dashboard />
+      <CadastrarVeiculos />
     </div>
   );
 }

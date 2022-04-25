@@ -17,6 +17,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 
 import api from "../../../axios/api";
+
 // import FiltroLateral from "../../filtroLateral";
 
 const useStyles = makeStyles((theme) => ({
@@ -95,6 +96,10 @@ export default function EditAnuncioComponent() {
 
   const [id, setId] = useState("");
   const [placa, setPlaca] = useState("");
+  const [marca, setMarca] = useState("");
+  const [MODELO, setModelo] = useState("");
+  const [PROPRIETARIO, setProprietario] = useState("");
+  const [preco, setPreco] = useState("")
 
   // const [marca, setMarca] = useState("")
 
@@ -108,6 +113,10 @@ export default function EditAnuncioComponent() {
       .patch(`/editar/${id}`, {
         id,
         placa,
+        preco,
+        PROPRIETARIO,
+        marca,
+        MODELO
       })
 
       .then((response) => {
@@ -147,7 +156,7 @@ export default function EditAnuncioComponent() {
   const currentPageData = data
 
     .slice(offset, offset + PER_PAGE)
-    .map(({ image, marca, modelo, preco, placa, proprietario, id }) => (
+    .map(({ image, marca, MODELO, preco, placa, PROPRIETARIO, id }) => (
       <Container key={id} className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
 
@@ -197,20 +206,39 @@ export default function EditAnuncioComponent() {
                       <TableCell align="left">
                         <TextField
                           type="text"
-                          name="proprietario"
-                          id="proprietario"
+                          name="PROPRIETARIO"
+                          id="PROPRIETARIO"
+                          placeholder={PROPRIETARIO}
+                          onChange={(e) => setProprietario (e.target.value)}
                         />
                       </TableCell>
                       <TableCell align="left">
-                        <TextField type="text" name="marca" id="marca" />
+                        <TextField
+                          type="text"
+                          name="marca"
+                          id="marca"
+                          placeholder={marca}
+                          onChange={(e) => setMarca (e.target.value)}
+                        />
                       </TableCell>
                       <TableCell align="left">
-                        <TextField type="text" name="modelo" id="modelo" />
+                        <TextField
+                          type="text"
+                          name="MODELO"
+                          id="MODELO"
+                          placeholder={MODELO}
+                          onChange={(e) => setModelo (e.target.value)}
+                        />
                       </TableCell>
                       <TableCell align="left">
-                        <TextField type="text" name="preco" id="preco" />
+                        <TextField
+                          type="text"
+                          name="preco"
+                          id="preco"
+                          placeholder={preco}
+                          onChange={(e) => setPreco (e.target.value)}
+                        />
                       </TableCell>
-
                       <TableCell align="left" id="id">
                         <Checkbox
                           color="primary"

@@ -19,7 +19,6 @@ import { Link } from "react-router-dom";
 import CadastrarVeiculos from "../../../components/AdmPageComponents/formularioRegistroVeiculos";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 import MailIcon from "@material-ui/icons/Mail";
-import AssessmentIcon from "@material-ui/icons/Assessment";
 import { VisibilityOff } from "@material-ui/icons";
 import EditIcon from "@material-ui/icons/Edit"
 // import Logout from '../../../components/logout'
@@ -147,15 +146,6 @@ export default function RegistrarVeiculos() {
             )}
           </IconButton>
         </div>
-        <Divider />
-        <List>
-          <ListItem button>
-            <AssessmentIcon />
-            <Link className={classes.TextNoDecoration} to="/AdminPainel">Dashboard</Link>
-            <ListItemText />
-          </ListItem>
-        </List>
-        <Divider />
         <Divider />
         <List>
           <ListItem button>

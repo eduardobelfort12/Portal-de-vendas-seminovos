@@ -7,16 +7,15 @@ import CardMedia from "@material-ui/core/CardMedia";
 import NavHeader from "../../components/header/";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
-import { TableContainer } from "@material-ui/core";
+
 import { TableCell } from "@material-ui/core";
 import { Table } from "@material-ui/core";
 import { TableHead } from "@material-ui/core";
 import { TableBody } from "@material-ui/core";
 import { TableRow } from "@material-ui/core";
-import { Paper } from "@material-ui/core";
+
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { Typography } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -99,7 +98,7 @@ export default function Detalhe() {
   }
 
   return (
-    <div>
+    <div style={{ overflowX: "hidden" }}>
       <div style={{ padding: "50px", margin: "10px" }}>
         <header>
           <NavHeader />

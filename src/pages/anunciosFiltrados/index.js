@@ -7,7 +7,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 import NavHeader from "../../components/header/";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
-import { TableContainer } from "@material-ui/core";
 import { TableCell } from "@material-ui/core";
 import { Table } from "@material-ui/core";
 import { TableHead } from "@material-ui/core";
@@ -96,9 +95,12 @@ export default function Filtragem() {
         setPush(data);
       });
   }
-
+function Contato(e){
+  e.preventDefault()
+  window.location.replace('/Contatos')
+}
   return (
-    <div>
+    <div style={{overflow: "hidden"}}>
       <div style={{ padding: "50px", margin: "10px" }}>
         <header>
           <NavHeader />
@@ -174,7 +176,7 @@ export default function Filtragem() {
             </Grid>
           </Container>
           <Link style={{ textDecoration: "none" }} to="/Contatos">
-            <Button className={classes.colorButtonEdit}>
+            <Button type="button " onClick={Contato} className={classes.colorButtonEdit}>
               Clique aqui para entrar em contato
             </Button>
           </Link>
