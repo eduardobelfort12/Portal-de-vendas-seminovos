@@ -3,7 +3,19 @@ const knex = require("../../models/databaseConnect");
 const EditAnuncioController = async (req, res) => {
   await knex("cadastro_veiculos")
     .where("id", req.params.id)
-    .update("placa", req.body.placa)
+    .update(
+      "placa",
+      req.body.placa,
+      
+      "PROPRIETARIO",
+      req.body.PROPRIETARIO,
+      "marca",
+      req.body.marca,
+      "MODELO",
+      req.body.MODELO,
+      "preco", req.body.preco
+
+    )
     .then((data) => {
       console.log("Anúncio editado com sucesso!");
       console.log(data);
