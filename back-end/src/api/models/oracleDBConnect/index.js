@@ -1,9 +1,9 @@
 const oracle = require('knex')({
-    client: 'oracledb',
+    client: '',
     connection: {
-        user: "USU_LEITURA",
-        password: "US369LEI",
-        connectString :"scantoradb.tora.local/sitprd"
+        user: "",
+        password: "",
+        connectString :""
     }
   });
 
